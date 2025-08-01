@@ -54,7 +54,7 @@ export default function LeaderboardPage() {
         className="text-center mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl font-headline text-primary">
-          Members Leaderboard
+          Leaderboard
         </h1>
         <p className="mx-auto max-w-[700px] text-foreground/80 md:text-xl mt-4">
           Check out the rankings based on CAP points earned by participants.
@@ -109,3 +109,4 @@ export default function LeaderboardPage() {
     </div>
   );
 }
+
