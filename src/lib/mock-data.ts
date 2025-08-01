@@ -190,3 +190,30 @@ export const faqs = [
     answer: 'Not at all! We welcome students from all academic disciplines. Our goal is to foster a diverse community of driven individuals. A passion for learning and professional growth is all you need.',
   },
 ];
+
+export type ContactSubmission = {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  date: string;
+};
+
+// We will use this as a temporary in-memory "database" for contact submissions.
+// In a real app, this would be a database.
+export let contactSubmissions: ContactSubmission[] = [
+    {
+        id: 'sub1',
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        message: 'I\'m very interested in your upcoming workshop on resume building. Can you provide more details about the topics that will be covered? Thanks!',
+        date: '2024-08-20'
+    },
+    {
+        id: 'sub2',
+        name: 'Jane Smith',
+        email: 'jane.smith@example.com',
+        message: 'Hello, I represent a local tech company and we would be interested in partnering with your club for a networking event. Who would be the best person to speak to about this?',
+        date: '2024-08-18'
+    }
+];

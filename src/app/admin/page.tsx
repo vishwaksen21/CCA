@@ -29,7 +29,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Edit, Trash2 } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Eye } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
   announcements as initialAnnouncements, 
@@ -37,7 +37,9 @@ import {
   milestones as initialMilestones,
   faqs as initialFaqs,
   leaderboard as initialLeaderboard,
-  upcomingEvents as initialEvents
+  upcomingEvents as initialEvents,
+  contactSubmissions as initialSubmissions,
+  type ContactSubmission,
 } from '@/lib/mock-data';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -80,6 +82,7 @@ type Event = {
   description: string;
 };
 
+
 export default function Page() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>(initialTeamMembers);
@@ -87,12 +90,13 @@ export default function Page() {
   const [faqs, setFaqs] = useState<Faq[]>(initialFaqs);
   const [leaderboard, setLeaderboard] = useState<LeaderboardMember[]>(initialLeaderboard);
   const [events, setEvents] = useState<Event[]>(initialEvents);
+  const [submissions, setSubmissions] = useState<ContactSubmission[]>(initialSubmissions);
 
 
   // Dialog state for all types
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [dialogMode, setDialogMode] = useState<'create' | 'edit'>('create');
-  const [dialogType, setDialogType] = useState<'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard' | 'event' | null>(null);
+  const [dialogMode, setDialogMode] = useState<'create' | 'edit' | 'view'>('create');
+  const [dialogType, setDialogType] = useState<'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard' | 'event' | 'submission' | null>(null);
 
   // State for the item being edited/created
   const [currentItem, setCurrentItem] = useState<any>(null);
@@ -121,14 +125,22 @@ export default function Page() {
     if (type === 'event') setOriginalIdentifier(item.title);
     setIsDialogOpen(true);
   };
+  
+  const handleView = (item: any, type: 'submission') => {
+    setDialogMode('view');
+    setDialogType(type);
+    setCurrentItem(item);
+    setIsDialogOpen(true);
+  }
 
-  const handleDelete = (identifier: string, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event') => {
+  const handleDelete = (identifier: string | number, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event' | 'submission') => {
     // Note: Deleting from leaderboard not implemented as per original scope
     if (type === 'announcement') setAnnouncements(announcements.filter(a => a.title !== identifier));
     if (type === 'member') setTeamMembers(teamMembers.filter(m => m.name !== identifier));
     if (type === 'milestone') setMilestones(milestones.filter(m => m.event !== identifier));
     if (type === 'faq') setFaqs(faqs.filter(f => f.question !== identifier));
     if (type === 'event') setEvents(events.filter(e => e.title !== identifier));
+    if (type === 'submission') setSubmissions(submissions.filter(s => s.id !== identifier));
   };
   
   const handleSave = () => {
@@ -289,7 +301,40 @@ export default function Page() {
               </div>
             </>
           );
+      case 'submission':
+        return (
+            <>
+              <DialogHeader>
+                <DialogTitle className="font-headline">Contact Form Submission</DialogTitle>
+                <DialogDescription>
+                  From: {currentItem.name} &lt;{currentItem.email}&gt;
+                  <br />
+                  Received: {new Date(currentItem.date).toLocaleDateString('en-CA')}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4 whitespace-pre-wrap text-sm">
+                {currentItem.message}
+              </div>
+            </>
+        )
     }
+  }
+  
+  const renderDialogFooter = () => {
+    if (dialogMode === 'view') {
+        return (
+            <DialogFooter>
+                <Button variant="outline" onClick={handleCloseDialog}>Close</Button>
+            </DialogFooter>
+        )
+    }
+
+    return (
+        <DialogFooter>
+            <Button variant="ghost" onClick={handleCloseDialog}>Cancel</Button>
+            <Button onClick={handleSave}>Save Changes</Button>
+        </DialogFooter>
+    )
   }
 
   return (
@@ -316,6 +361,7 @@ export default function Page() {
           <TabsTrigger value="faqs">FAQs</TabsTrigger>
           <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
           <TabsTrigger value="events">Events</TabsTrigger>
+          <TabsTrigger value="submissions">Submissions</TabsTrigger>
         </TabsList>
         
         <TabsContent value="announcements">
@@ -504,20 +550,42 @@ export default function Page() {
             </Card>
         </TabsContent>
 
+        <TabsContent value="submissions">
+            <Card className="shadow-lg">
+                <CardHeader>
+                    <CardTitle>Contact Form Submissions</CardTitle>
+                    <CardDescription>View messages sent through the contact form.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader><TableRow><TableHead>From</TableHead><TableHead>Email</TableHead><TableHead className="hidden md:table-cell">Date</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableBody>
+                            {submissions.map((submission) => (
+                                <TableRow key={submission.id}>
+                                    <TableCell className="font-medium">{submission.name}</TableCell>
+                                    <TableCell>{submission.email}</TableCell>
+                                    <TableCell className="hidden md:table-cell">{new Date(submission.date).toLocaleDateString('en-CA')}</TableCell>
+                                    <TableCell className="text-right space-x-2">
+                                        <Button variant="outline" size="icon" onClick={() => handleView(submission, 'submission')}><Eye className="h-4 w-4" /></Button>
+                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(submission.id, 'submission')}><Trash2 className="h-4 w-4" /></Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+        </TabsContent>
+
       </Tabs>
 
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-[425px]" onEscapeKeyDown={handleCloseDialog}>
             {renderDialogContent()}
-            <DialogFooter>
-                <Button variant="ghost" onClick={handleCloseDialog}>Cancel</Button>
-                <Button onClick={handleSave}>Save Changes</Button>
-            </DialogFooter>
+            {renderDialogFooter()}
         </DialogContent>
       </Dialog>
     </div>
   );
 }
-
-    

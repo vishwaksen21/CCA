@@ -18,6 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
+import { contactSubmissions } from '@/lib/mock-data';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -44,7 +45,17 @@ export default function ContactPage() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    // In a real app, you'd send this to a server.
+    // For this prototype, we'll add it to our mock data array.
+    const newSubmission = {
+      id: `sub${Date.now()}`,
+      ...values,
+      date: new Date().toISOString().split('T')[0],
+    };
+    contactSubmissions.unshift(newSubmission);
+    
+    console.log('Updated Submissions:', contactSubmissions);
+
     toast({
       title: 'Message Sent!',
       description: "Thanks for reaching out. We'll get back to you soon.",
