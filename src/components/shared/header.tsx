@@ -25,8 +25,8 @@ export function Header() {
     <Link
       href={href}
       className={cn(
-        'text-sm font-medium transition-colors hover:text-accent border-b-2',
-        pathname === href ? 'border-accent text-primary' : 'border-transparent text-foreground/60'
+        'text-sm font-medium transition-colors hover:text-accent-foreground',
+        pathname === href ? 'text-accent-foreground' : 'text-foreground/80'
       )}
       onClick={() => setIsSheetOpen(false)}
     >
@@ -35,37 +35,37 @@ export function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-primary/80 backdrop-blur supports-[backdrop-filter]:bg-primary/60">
       <div className="container flex h-16 items-center">
         <Link href="/" className="mr-6 flex items-center gap-2">
-          <Shield className="h-8 w-8 text-primary" />
+          <Shield className="h-8 w-8 text-white" />
           <div className='flex flex-col'>
-            <span className="font-bold font-headline text-lg leading-tight">PLACMENT</span>
-            <span className="text-xs text-muted-foreground leading-tight">DEFENSE CAREERS CLUB</span>
+            <span className="font-bold font-headline text-lg leading-tight text-white">PLACMENT & DEFENSE</span>
+            <span className="text-xs text-primary-foreground/80 leading-tight">CAREERS CLUB</span>
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-6 md:flex ml-auto">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
         </nav>
 
-        <div className="flex flex-1 items-center justify-end gap-2">
+        <div className="flex flex-1 items-center justify-end gap-2 md:hidden">
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Menu className="h-4 w-4" />
+              <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-white/10">
+                <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
+            <SheetContent side="left" className="bg-primary text-primary-foreground">
               <div className="p-4">
                 <Link href="/" className="mb-8 flex items-center gap-2">
-                  <Shield className="h-8 w-8 text-primary" />
+                  <Shield className="h-8 w-8 text-white" />
                   <div className='flex flex-col'>
-                    <span className="font-bold font-headline text-lg leading-tight">PLACMENT</span>
-                    <span className="text-xs text-muted-foreground leading-tight">DEFENSE CAREERS CLUB</span>
+                    <span className="font-bold font-headline text-lg leading-tight text-white">PLACMENT & DEFENSE</span>
+                    <span className="text-xs text-primary-foreground/80 leading-tight">CAREERS CLUB</span>
                   </div>
                 </Link>
                 <nav className="grid gap-6 text-lg font-medium">
