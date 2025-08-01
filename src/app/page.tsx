@@ -31,8 +31,9 @@ export default function Home() {
               src="https://placehold.co/800x1200.png"
               alt="Military Drone"
               fill
-              className="h-full w-full object-cover"
+              className="object-cover"
               data-ai-hint="military drone"
+              priority
             />
             <div className="absolute inset-0 bg-black/50"></div>
           </div>
@@ -41,7 +42,7 @@ export default function Home() {
               src="https://placehold.co/800x1200.png"
               alt="Students in formal wear"
               fill
-              className="h-full w-full object-cover"
+              className="object-cover"
               data-ai-hint="students formal"
             />
             <div className="absolute inset-0 bg-black/50"></div>
@@ -51,7 +52,7 @@ export default function Home() {
               src="https://placehold.co/800x1200.png"
               alt="Meeting with defense personnel"
               fill
-              className="h-full w-full object-cover"
+              className="object-cover"
               data-ai-hint="meeting defense"
             />
             <div className="absolute inset-0 bg-black/50"></div>
@@ -100,7 +101,7 @@ export default function Home() {
                   delay: 1,
                 }}
               >
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-10 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-8 py-5 text-base md:px-10 md:py-6 md:text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                   Learn More
                 </Button>
               </motion.div>
