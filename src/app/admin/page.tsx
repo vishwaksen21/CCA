@@ -29,7 +29,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Edit, Trash2, Eye } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
   announcements as initialAnnouncements, 
@@ -349,12 +349,13 @@ export default function Page() {
           <h1 className="text-3xl font-bold tracking-tighter font-headline text-primary">
             Admin Dashboard
           </h1>
-          <p className="text-muted-foreground">Manage site content.</p>
+          <p className="text-muted-foreground">Manage your site's content and view analytics.</p>
         </div>
       </motion.div>
 
-      <Tabs defaultValue="announcements">
+      <Tabs defaultValue="overview">
         <TabsList className="mb-4">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="announcements">Announcements</TabsTrigger>
           <TabsTrigger value="team">Team Members</TabsTrigger>
           <TabsTrigger value="milestones">Milestones</TabsTrigger>
@@ -363,6 +364,63 @@ export default function Page() {
           <TabsTrigger value="events">Events</TabsTrigger>
           <TabsTrigger value="submissions">Submissions</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="overview">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Total Team Members
+                  </CardTitle>
+                  <Users className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{teamMembers.length}</div>
+                  <p className="text-xs text-muted-foreground">
+                    Currently active members
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">
+                    Upcoming Events
+                  </CardTitle>
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{events.length}</div>
+                   <p className="text-xs text-muted-foreground">
+                    Scheduled future events
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Announcements</CardTitle>
+                  <Megaphone className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{announcements.length}</div>
+                   <p className="text-xs text-muted-foreground">
+                    Total announcements published
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Submissions</CardTitle>
+                  <Inbox className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{submissions.length}</div>
+                   <p className="text-xs text-muted-foreground">
+                    Contact form inquiries
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+        </TabsContent>
         
         <TabsContent value="announcements">
             <Card className="shadow-lg">
