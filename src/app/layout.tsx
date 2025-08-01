@@ -11,6 +11,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { ThemeProvider } from '@/components/shared/theme-provider';
+import { useEffect, useState } from 'react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,6 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -45,21 +51,25 @@ export default function RootLayout({
             disableTransitionOnChange
         >
           <Header />
-          <AnimatePresence mode="wait">
-            <motion.main
-              key={pathname}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{
-                duration: 0.3,
-                ease: 'easeInOut',
-              }}
-              className="flex-1"
-            >
-              {children}
-            </motion.main>
-          </AnimatePresence>
+          {isMounted ? (
+            <AnimatePresence mode="wait">
+              <motion.main
+                key={pathname}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{
+                  duration: 0.3,
+                  ease: 'easeInOut',
+                }}
+                className="flex-1"
+              >
+                {children}
+              </motion.main>
+            </AnimatePresence>
+          ) : (
+            <main className="flex-1">{children}</main>
+          )}
           <Footer />
           <Toaster />
         </ThemeProvider>
