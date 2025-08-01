@@ -41,11 +41,11 @@ export default function Page() {
               <div className="grid w-full items-center gap-6">
                 <div className="flex flex-col space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="admin@example.com" />
+                  <Input id="email" type="email" placeholder="admin@example.com" defaultValue="admin@example.com" />
                 </div>
                 <div className="flex flex-col space-y-2">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" placeholder="••••••••" />
+                  <Input id="password" type="password" placeholder="••••••••" defaultValue="password" />
                 </div>
               </div>
             </form>
@@ -54,6 +54,7 @@ export default function Page() {
             <Link href="/admin" className="w-full">
               <Button className="w-full" size="lg">Sign In</Button>
             </Link>
+            <p className="text-xs text-muted-foreground text-center">This is a demo. No password is required.</p>
           </CardFooter>
         </Card>
       </motion.div>
