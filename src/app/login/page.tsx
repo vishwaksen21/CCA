@@ -12,10 +12,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Shield } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Shield, Mail, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
 import { signInWithGoogle } from '@/lib/firebase';
+import { Separator } from '@/components/ui/separator';
 
 // Helper component for Google icon
 const GoogleIcon = () => (
@@ -30,12 +33,41 @@ const GoogleIcon = () => (
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const router = useRouter();
   const { toast } = useToast();
 
-  const handleGoogleLogin = async () => {
+  const handleManualLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsLoading(true);
+    setError('');
+
+    // In a real app with Firebase email/password auth, you'd use:
+    // try {
+    //   const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    //   if (userCredential.user.email === 'vishwak21@gmail.com') { ... }
+    // } catch (err) { ... }
+    
+    // For this prototype, we'll use a simple check.
+    setTimeout(() => {
+        if (email === 'vishwak21@gmail.com' && password === 'password') {
+             toast({
+                title: 'Login Successful',
+                description: 'Redirecting to the admin dashboard.',
+             });
+             router.push('/admin');
+        } else {
+            setError('Invalid credentials or unauthorized account.');
+        }
+        setIsLoading(false);
+    }, 500);
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsGoogleLoading(true);
     setError('');
     try {
       const user = await signInWithGoogle();
@@ -54,7 +86,7 @@ export default function Page() {
       console.error("Google Sign-In Error:", err);
       setError(err.message || 'Failed to sign in with Google. Please try again.');
     } finally {
-      setIsLoading(false);
+      setIsGoogleLoading(false);
     }
   };
 
@@ -74,18 +106,54 @@ export default function Page() {
               Admin Login
             </CardTitle>
             <CardDescription>
-              Sign in with your authorized Google account to continue.
+              Sign in to manage the CCA website.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-8 pt-0">
-             {error && <p className="text-sm text-destructive text-center mb-4">{error}</p>}
+            <form onSubmit={handleManualLogin} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="admin@example.com"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isLoading || isGoogleLoading}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                   value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={isLoading || isGoogleLoading}
+                />
+              </div>
+               {error && <p className="text-sm text-destructive text-center">{error}</p>}
+               <Button type="submit" className="w-full" disabled={isLoading || isGoogleLoading}>
+                  {isLoading ? 'Signing in...' : 'Sign In'}
+                </Button>
+            </form>
+
+             <div className="my-6 flex items-center">
+                <Separator className="flex-1" />
+                <span className="mx-4 text-xs text-muted-foreground">OR</span>
+                <Separator className="flex-1" />
+            </div>
+
              <Button 
+                variant="outline"
                 className="w-full" 
                 size="lg" 
                 onClick={handleGoogleLogin}
-                disabled={isLoading}
+                disabled={isLoading || isGoogleLoading}
              >
-              {isLoading ? 'Signing in...' : (
+              {isGoogleLoading ? 'Signing in...' : (
                 <>
                   <GoogleIcon /> Sign in with Google
                 </>
