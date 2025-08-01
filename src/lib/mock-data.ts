@@ -34,7 +34,7 @@ export const teamMembers = [
   },
   {
     name: 'Aparnaa',
-    role: 'Treasurer',
+    role: 'cash capzz',
     imageUrl: 'https://placehold.co/400x400.png',
     dataAiHint: 'woman portrait professional',
   },
