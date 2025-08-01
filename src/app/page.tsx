@@ -28,32 +28,32 @@ export default function Home() {
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-3 h-full">
           <div className="relative h-full">
             <Image
-              src="https://placehold.co/800x1200.png"
-              alt="Military Drone"
+              src="/display.png"
+              alt="Hero Image 1"
               fill
               className="object-cover"
-              data-ai-hint="military drone"
+              data-ai-hint="college students"
               priority
             />
             <div className="absolute inset-0 bg-black/50"></div>
           </div>
           <div className="relative h-full hidden md:block">
             <Image
-              src="https://placehold.co/800x1200.png"
-              alt="Students in formal wear"
+              src="/display.png"
+              alt="Hero Image 2"
               fill
               className="object-cover"
-              data-ai-hint="students formal"
+              data-ai-hint="group photo"
             />
             <div className="absolute inset-0 bg-black/50"></div>
           </div>
           <div className="relative h-full hidden md:block">
             <Image
-              src="https://placehold.co/800x1200.png"
-              alt="Meeting with defense personnel"
+              src="/display.png"
+              alt="Hero Image 3"
               fill
               className="object-cover"
-              data-ai-hint="meeting defense"
+              data-ai-hint="team picture"
             />
             <div className="absolute inset-0 bg-black/50"></div>
           </div>
