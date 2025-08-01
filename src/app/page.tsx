@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Link from 'next/link';
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -67,7 +68,7 @@ export default function Home() {
           <motion.h1
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, type: 'spring', stiffness: 100 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter font-headline"
           >
             Placement &amp; Defense Careers Club
@@ -83,12 +84,16 @@ export default function Home() {
           <motion.div
              initial={{ scale: 0.8, opacity: 0 }}
              animate={{ scale: 1, opacity: 1 }}
-             transition={{ duration: 0.5, delay: 0.6 }}
+             transition={{ duration: 0.5, delay: 0.6, type: 'spring', stiffness: 120 }}
+             whileHover={{ scale: 1.05 }}
+             whileTap={{ scale: 0.95 }}
             className="mt-8"
           >
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-10 py-6 text-lg rounded-full">
-              Create a Future
-            </Button>
+            <Link href="/about">
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-10 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                Create a Future
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
       </section>
@@ -99,7 +104,7 @@ export default function Home() {
           variants={fadeIn}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           id="featured-opportunities"
           className="w-full py-12 md:py-16"
         >
@@ -107,17 +112,17 @@ export default function Home() {
             Featured Opportunities
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-            <motion.div whileHover={{ scale: 1.1 }} className="flex justify-center">
-              <Image src="https://placehold.co/150x50.png" alt="Lockheed Martin Logo" width={150} height={50} className="grayscale hover:grayscale-0 transition-opacity" data-ai-hint="Lockheed Martin logo" />
+            <motion.div whileHover={{ scale: 1.1, filter: 'grayscale(0)' }} className="flex justify-center grayscale transition-all duration-300">
+              <Image src="https://placehold.co/150x50.png" alt="Lockheed Martin Logo" width={150} height={50} data-ai-hint="Lockheed Martin logo" />
             </motion.div>
-            <motion.div whileHover={{ scale: 1.1 }} className="flex justify-center">
-              <Image src="https://placehold.co/150x50.png" alt="Raytheon Logo" width={150} height={50} className="grayscale hover:grayscale-0 transition-opacity" data-ai-hint="Raytheon logo" />
+            <motion.div whileHover={{ scale: 1.1, filter: 'grayscale(0)' }} className="flex justify-center grayscale transition-all duration-300">
+              <Image src="https://placehold.co/150x50.png" alt="Raytheon Logo" width={150} height={50} data-ai-hint="Raytheon logo" />
             </motion.div>
-            <motion.div whileHover={{ scale: 1.1 }} className="flex justify-center">
-              <Image src="https://placehold.co/150x50.png" alt="Deloitte Logo" width={150} height={50} className="grayscale hover:grayscale-0 transition-opacity" data-ai-hint="Deloitte logo" />
+            <motion.div whileHover={{ scale: 1.1, filter: 'grayscale(0)' }} className="flex justify-center grayscale transition-all duration-300">
+              <Image src="https://placehold.co/150x50.png" alt="Deloitte Logo" width={150} height={50} data-ai-hint="Deloitte logo" />
             </motion.div>
-            <motion.div whileHover={{ scale: 1.1 }} className="flex justify-center">
-              <Image src="https://placehold.co/150x50.png" alt="Northrop Grumman Logo" width={150} height={50} className="grayscale hover:grayscale-0 transition-opacity" data-ai-hint="Northrop Grumman logo" />
+            <motion.div whileHover={{ scale: 1.1, filter: 'grayscale(0)' }} className="flex justify-center grayscale transition-all duration-300">
+              <Image src="https://placehold.co/150x50.png" alt="Northrop Grumman Logo" width={150} height={50} data-ai-hint="Northrop Grumman logo" />
             </motion.div>
           </div>
         </motion.section>
@@ -127,7 +132,7 @@ export default function Home() {
           variants={fadeIn}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           id="workshops"
           className="w-full py-12 md:py-16 bg-gray-50 -mx-4 px-4 md:-mx-6 md:px-6"
         >
@@ -136,8 +141,8 @@ export default function Home() {
               Upcoming Workshops
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <motion.div whileHover={{ scale: 1.05, y: -5 }}>
-                <Card className="shadow-lg hover:shadow-xl transition-shadow rounded-lg overflow-hidden">
+              <motion.div whileHover={{ scale: 1.05, y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} transition={{ type: 'spring', stiffness: 300 }}>
+                <Card className="shadow-lg rounded-lg overflow-hidden transition-shadow">
                   <CardHeader className="flex flex-row items-center gap-4 p-6">
                     <Image src="https://placehold.co/80x80.png" alt="Workshop Icon" width={60} height={60} className="rounded-md" data-ai-hint="company logo"/>
                     <div>
@@ -149,8 +154,8 @@ export default function Home() {
                   </CardContent>
                 </Card>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05, y: -5 }}>
-                <Card className="shadow-lg hover:shadow-xl transition-shadow rounded-lg overflow-hidden">
+              <motion.div whileHover={{ scale: 1.05, y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} transition={{ type: 'spring', stiffness: 300 }}>
+                <Card className="shadow-lg rounded-lg overflow-hidden transition-shadow">
                   <CardHeader className="flex flex-row items-center gap-4 p-6">
                     <Image src="https://placehold.co/80x80.png" alt="Raytheon Logo" width={60} height={60} className="rounded-md" data-ai-hint="company logo" />
                     <div>
@@ -171,7 +176,7 @@ export default function Home() {
           variants={fadeIn}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           id="success-stories"
           className="w-full py-12 md:py-16"
         >
@@ -180,8 +185,8 @@ export default function Home() {
               Success Stories
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <motion.div whileHover={{ scale: 1.05, y: -5 }}>
-                <Card className="text-center p-6 shadow-md hover:shadow-lg transition-shadow rounded-lg">
+              <motion.div whileHover={{ scale: 1.05, y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} transition={{ type: 'spring', stiffness: 300 }}>
+                <Card className="text-center p-6 shadow-md rounded-lg transition-shadow">
                   <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-gray-200">
                     <AvatarImage src="https://placehold.co/100x100.png" alt="Alumni headshot" data-ai-hint="man portrait professional"/>
                     <AvatarFallback>JD</AvatarFallback>
@@ -191,8 +196,8 @@ export default function Home() {
                   <p className="text-gray-600 mt-2 text-sm">"The club was instrumental in my career search, providing the workshops and connections I needed to land my dream job."</p>
                 </Card>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05, y: -5 }}>
-                <Card className="text-center p-6 shadow-md hover:shadow-lg transition-shadow rounded-lg">
+              <motion.div whileHover={{ scale: 1.05, y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} transition={{ type: 'spring', stiffness: 300 }}>
+                <Card className="text-center p-6 shadow-md rounded-lg transition-shadow">
                   <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-gray-200">
                     <AvatarImage src="https://placehold.co/100x100.png" alt="Alumni headshot" data-ai-hint="woman portrait professional"/>
                     <AvatarFallback>JS</AvatarFallback>
@@ -202,8 +207,8 @@ export default function Home() {
                   <p className="text-gray-600 mt-2 text-sm">"The interview prep sessions were a game-changer. I felt confident and prepared for every stage of the hiring process."</p>
                 </Card>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05, y: -5 }}>
-                <Card className="text-center p-6 shadow-md hover:shadow-lg transition-shadow rounded-lg">
+              <motion.div whileHover={{ scale: 1.05, y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} transition={{ type: 'spring', stiffness: 300 }}>
+                <Card className="text-center p-6 shadow-md rounded-lg transition-shadow">
                   <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-gray-200">
                     <AvatarImage src="https://placehold.co/100x100.png" alt="Alumni headshot" data-ai-hint="person portrait professional" />
                     <AvatarFallback>SA</AvatarFallback>
