@@ -12,11 +12,11 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LogIn, UserPlus } from 'lucide-react';
+import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-export default function Page() {
+export default function RegisterPage() {
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-gray-50 -my-12">
       <motion.div
@@ -27,18 +27,22 @@ export default function Page() {
         <Card className="w-full max-w-md shadow-xl">
           <CardHeader className="text-center space-y-4 p-8">
             <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-              <LogIn className="h-8 w-8 text-primary" />
+              <UserPlus className="h-8 w-8 text-primary" />
             </div>
             <CardTitle className="text-3xl font-headline">
-              Member Login
+              Create an Account
             </CardTitle>
             <CardDescription>
-              Enter your credentials to access your profile and CAP points.
+              Join the club and start earning CAP points today!
             </CardDescription>
           </CardHeader>
           <CardContent className="p-8 pt-0">
             <form>
               <div className="grid w-full items-center gap-6">
+                <div className="flex flex-col space-y-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input id="name" type="text" placeholder="John Doe" />
+                </div>
                 <div className="flex flex-col space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <Input id="email" type="email" placeholder="member@example.com" />
@@ -52,12 +56,12 @@ export default function Page() {
           </CardContent>
           <CardFooter className="p-8 pt-0 flex-col gap-4">
             <Link href="/profile" className="w-full">
-              <Button className="w-full" size="lg">Sign In</Button>
+              <Button className="w-full" size="lg">Create Account</Button>
             </Link>
-            <div className="text-sm text-muted-foreground">
-              Don't have an account?{' '}
-              <Link href="/register" className="font-semibold text-primary hover:underline">
-                Register
+             <div className="text-sm text-muted-foreground">
+              Already have an account?{' '}
+              <Link href="/login" className="font-semibold text-primary hover:underline">
+                Sign In
               </Link>
             </div>
           </CardFooter>
