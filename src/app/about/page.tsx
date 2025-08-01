@@ -56,7 +56,7 @@ export default function AboutPage() {
                   className="relative group"
                 >
                   <Image
-                    src="https://placehold.co/600x400.png"
+                    src="/group.png"
                     alt="Team discussing"
                     width={600}
                     height={400}
