@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, User } from 'lucide-react';
+import { Menu, User, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -13,6 +13,8 @@ import Image from 'next/image';
 const navLinks = [
   { href: '/about', label: 'About Us' },
   { href: '/updates', label: 'Updates' },
+  { href: '/events', label: 'Events' },
+  { href: '/leaderboard', label: 'Leaderboard' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
 ];
