@@ -57,7 +57,7 @@ export default function LeaderboardPage() {
           Members Leaderboard
         </h1>
         <p className="mx-auto max-w-[700px] text-foreground/80 md:text-xl mt-4">
-          This is actually the points gained by the students who participated in the events.
+          Check out the rankings based on CAP points earned by participants.
         </p>
       </motion.div>
 
