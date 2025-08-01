@@ -37,6 +37,12 @@ export default function Page() {
       setError('Invalid email or password. Please try again.');
     }
   };
+  
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-gray-50 -my-12">
@@ -67,6 +73,7 @@ export default function Page() {
                   placeholder="admin@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={handleKeyPress}
                 />
               </div>
               <div className="flex flex-col space-y-2">
@@ -77,6 +84,7 @@ export default function Page() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={handleKeyPress}
                 />
               </div>
               {error && <p className="text-sm text-destructive text-center">{error}</p>}

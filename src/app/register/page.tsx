@@ -46,22 +46,20 @@ export default function RegisterPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="p-8 pt-0">
-            <form>
-              <div className="grid w-full items-center gap-6">
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" type="text" placeholder="John Doe" />
-                </div>
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="member@example.com" />
-                </div>
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" placeholder="••••••••" />
-                </div>
+            <div className="grid w-full items-center gap-6">
+              <div className="flex flex-col space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input id="name" type="text" placeholder="John Doe" />
               </div>
-            </form>
+              <div className="flex flex-col space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" placeholder="member@example.com" />
+              </div>
+              <div className="flex flex-col space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" type="password" placeholder="••••••••" />
+              </div>
+            </div>
           </CardContent>
           <CardFooter className="p-8 pt-0 flex-col gap-4">
             <Button className="w-full" size="lg" onClick={handleCreateAccount}>
