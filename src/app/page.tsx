@@ -29,9 +29,8 @@ export default function Home() {
             <Image
               src="https://placehold.co/800x1200.png"
               alt="Military Drone"
-              layout="fill"
-              objectFit="cover"
-              className="h-full w-full"
+              fill
+              className="h-full w-full object-cover"
               data-ai-hint="military drone"
             />
             <div className="absolute inset-0 bg-black/50"></div>
@@ -40,9 +39,8 @@ export default function Home() {
             <Image
               src="https://placehold.co/800x1200.png"
               alt="Students in formal wear"
-              layout="fill"
-              objectFit="cover"
-              className="h-full w-full"
+              fill
+              className="h-full w-full object-cover"
               data-ai-hint="students formal"
             />
             <div className="absolute inset-0 bg-black/50"></div>
@@ -51,9 +49,8 @@ export default function Home() {
             <Image
               src="https://placehold.co/800x1200.png"
               alt="Meeting with defense personnel"
-              layout="fill"
-              objectFit="cover"
-              className="h-full w-full"
+              fill
+              className="h-full w-full object-cover"
               data-ai-hint="meeting defense"
             />
             <div className="absolute inset-0 bg-black/50"></div>
