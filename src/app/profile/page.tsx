@@ -1,4 +1,6 @@
 
+'use client';
+
 import Image from 'next/image';
 import {
   Card,
@@ -16,6 +18,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { motion } from 'framer-motion';
+
+const cardVariants = {
+  initial: { opacity: 0, y: 30, scale: 0.98 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+};
 
 export default function ProfilePage() {
   const { name, email, avatarUrl, dataAiHint, capPoints, rank, pointsHistory, badges } = userProfile;
@@ -24,8 +32,14 @@ export default function ProfilePage() {
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left Column: Profile Card */}
-        <div className="md:col-span-1">
-          <Card className="shadow-lg">
+        <motion.div
+          variants={cardVariants}
+          initial="initial"
+          animate="animate"
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="md:col-span-1"
+        >
+          <Card className="shadow-lg h-full">
             <CardHeader className="items-center text-center p-6">
               <Avatar className="w-32 h-32 mb-4 border-4 border-primary">
                 <AvatarImage src={avatarUrl} alt={name} data-ai-hint={dataAiHint} />
@@ -52,9 +66,15 @@ export default function ProfilePage() {
                  <TooltipProvider>
                     <div className="flex justify-center gap-4 flex-wrap">
                         {badges.map((badge, index) => (
-                            <Tooltip key={index}>
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                          >
+                            <Tooltip>
                                 <TooltipTrigger>
-                                    <div className="p-2 bg-muted rounded-full">
+                                    <div className="p-2 bg-muted rounded-full hover:bg-primary/20 transition-colors">
                                         <badge.icon className={`h-8 w-8 ${badge.color}`} />
                                     </div>
                                 </TooltipTrigger>
@@ -63,16 +83,23 @@ export default function ProfilePage() {
                                     <p className="text-sm text-muted-foreground">{badge.description}</p>
                                 </TooltipContent>
                             </Tooltip>
+                          </motion.div>
                         ))}
                     </div>
                 </TooltipProvider>
               </div>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
 
         {/* Right Column: Points History */}
-        <div className="md:col-span-2">
+        <motion.div
+          variants={cardVariants}
+          initial="initial"
+          animate="animate"
+          transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+          className="md:col-span-2"
+        >
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="font-headline text-2xl">Points History</CardTitle>
@@ -81,18 +108,24 @@ export default function ProfilePage() {
             <CardContent>
               <ul className="space-y-4">
                 {pointsHistory.map((item, index) => (
-                  <li key={index} className="flex justify-between items-center pb-2 border-b last:border-none">
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                    className="flex justify-between items-center pb-2 border-b last:border-none"
+                  >
                     <div>
                       <p className="font-semibold">{item.activity}</p>
                       <p className="text-sm text-muted-foreground">{item.date}</p>
                     </div>
                     <p className="text-lg font-bold text-green-600">+{item.points}</p>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
