@@ -97,17 +97,9 @@ export default function Page() {
               <CardFooter>
                 <Button 
                   className="w-full"
-                  onClick={() => handleRegister(event.id)}
-                  disabled={event.isRegistered}
+                  disabled
                 >
-                  {event.isRegistered ? (
-                    <>
-                      <CheckCircle className="mr-2 h-4 w-4" />
-                      Registered
-                    </>
-                  ) : (
-                    'Register Now'
-                  )}
+                  Registration Closed
                 </Button>
               </CardFooter>
             </Card>
