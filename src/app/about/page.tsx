@@ -116,7 +116,7 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold tracking-tighter text-center font-headline mb-12">
             Meet the Team
           </h2>
-          <div className="mx-auto grid grid-cols-2 gap-y-10 gap-x-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+          <div className="mx-auto grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.name}
@@ -124,19 +124,16 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="text-center group"
               >
-                <Card
-                  className="text-center hover:shadow-lg transition-shadow border-0 bg-transparent"
-                >
-                  <CardHeader>
-                    <Avatar className="w-24 h-24 mx-auto mb-4 border-2 border-primary/50">
+                  <div className="relative w-24 h-24 mx-auto mb-4">
+                    <Avatar className="w-24 h-24 border-2 border-primary/50 group-hover:border-primary transition-colors duration-300">
                       <AvatarImage src={member.imageUrl} alt={member.name} data-ai-hint={member.dataAiHint} />
                       <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <CardTitle className="font-headline text-lg">{member.name}</CardTitle>
-                    <CardDescription className="text-primary font-semibold text-sm">{member.role}</CardDescription>
-                  </CardHeader>
-                </Card>
+                  </div>
+                  <h3 className="font-headline text-lg font-semibold">{member.name}</h3>
+                  <p className="text-primary font-medium text-sm">{member.role}</p>
               </motion.div>
             ))}
           </div>
