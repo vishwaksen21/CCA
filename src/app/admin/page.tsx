@@ -1,59 +1,190 @@
 
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Lock } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { announcements as initialAnnouncements } from '@/lib/mock-data';
+
+type Announcement = {
+  title: string;
+  date: string;
+  content: string;
+};
 
 export default function Page() {
+  const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [currentAnnouncement, setCurrentAnnouncement] = useState<Announcement | null>(null);
+  const [dialogMode, setDialogMode] = useState<'create' | 'edit'>('create');
+
+  const handleCreate = () => {
+    setCurrentAnnouncement({ title: '', date: '', content: '' });
+    setDialogMode('create');
+    setIsDialogOpen(true);
+  };
+
+  const handleEdit = (announcement: Announcement) => {
+    setCurrentAnnouncement(announcement);
+    setDialogMode('edit');
+    setIsDialogOpen(true);
+  };
+  
+  const handleDelete = (announcementTitle: string) => {
+    setAnnouncements(announcements.filter(a => a.title !== announcementTitle));
+  };
+
+  const handleSave = () => {
+    if (!currentAnnouncement) return;
+
+    if (dialogMode === 'create') {
+      const newAnnouncement = { ...currentAnnouncement, date: new Date().toISOString().split('T')[0] };
+      setAnnouncements([newAnnouncement, ...announcements]);
+    } else {
+      setAnnouncements(
+        announcements.map(a =>
+          a.title === currentAnnouncement.title ? currentAnnouncement : a
+        )
+      );
+    }
+    setIsDialogOpen(false);
+    setCurrentAnnouncement(null);
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-gray-50 -my-12">
+    <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex justify-between items-center mb-8"
       >
-        <Card className="w-full max-w-md shadow-xl">
-          <CardHeader className="text-center space-y-4 p-8">
-            <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit">
-              <Lock className="h-8 w-8 text-primary" />
-            </div>
-            <CardTitle className="text-3xl font-headline">
-              Admin Panel
-            </CardTitle>
+        <div>
+          <h1 className="text-3xl font-bold tracking-tighter font-headline text-primary">
+            Admin Dashboard
+          </h1>
+          <p className="text-muted-foreground">Manage site announcements.</p>
+        </div>
+        <Button onClick={handleCreate}>
+          <PlusCircle className="mr-2 h-4 w-4" />
+          Create Announcement
+        </Button>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle>Announcements List</CardTitle>
             <CardDescription>
-              This area is restricted. Please enter your credentials to proceed.
+              View, edit, or delete existing announcements.
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-8 pt-0">
-            <form>
-              <div className="grid w-full items-center gap-6">
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="admin@example.com" />
-                </div>
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" placeholder="••••••••" />
-                </div>
-              </div>
-            </form>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Title</TableHead>
+                  <TableHead className="hidden md:table-cell">Date</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {announcements.map((announcement, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{announcement.title}</TableCell>
+                    <TableCell className="hidden md:table-cell">{new Date(announcement.date).toLocaleDateString()}</TableCell>
+                    <TableCell className="text-right space-x-2">
+                      <Button variant="outline" size="icon" onClick={() => handleEdit(announcement)}>
+                        <Edit className="h-4 w-4" />
+                        <span className="sr-only">Edit</span>
+                      </Button>
+                      <Button variant="destructive" size="icon" onClick={() => handleDelete(announcement.title)}>
+                        <Trash2 className="h-4 w-4" />
+                        <span className="sr-only">Delete</span>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </CardContent>
-          <CardFooter className="p-8 pt-0">
-            <Button className="w-full" size="lg">Sign In</Button>
-          </CardFooter>
         </Card>
       </motion.div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="font-headline">
+              {dialogMode === 'create' ? 'Create New Announcement' : 'Edit Announcement'}
+            </DialogTitle>
+            <DialogDescription>
+              {dialogMode === 'create' ? "Fill in the details for the new announcement." : "Update the details for the announcement."}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="title" className="text-right">
+                Title
+              </Label>
+              <Input
+                id="title"
+                value={currentAnnouncement?.title || ''}
+                onChange={(e) => setCurrentAnnouncement({ ...currentAnnouncement!, title: e.target.value })}
+                className="col-span-3"
+                disabled={dialogMode === 'edit'}
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="content" className="text-right">
+                Content
+              </Label>
+              <Textarea
+                id="content"
+                value={currentAnnouncement?.content || ''}
+                onChange={(e) => setCurrentAnnouncement({ ...currentAnnouncement!, content: e.target.value })}
+                className="col-span-3"
+                rows={5}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleSave}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
