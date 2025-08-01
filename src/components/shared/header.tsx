@@ -12,7 +12,6 @@ import Image from 'next/image';
 
 const navLinks = [
   { href: '/about', label: 'About Us' },
-  { href: '/leaderboard', label: 'Leaderboard' },
   { href: '/updates', label: 'Updates' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
