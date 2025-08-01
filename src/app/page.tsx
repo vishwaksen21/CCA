@@ -28,7 +28,7 @@ export default function Home() {
         <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-3 h-full">
           <div className="relative h-full">
             <Image
-              src="/display.png"
+              src="/display1.png"
               alt="Hero Image 1"
               fill
               className="object-cover"
@@ -39,7 +39,7 @@ export default function Home() {
           </div>
           <div className="relative h-full hidden md:block">
             <Image
-              src="/display.png"
+              src="/display1.png"
               alt="Hero Image 2"
               fill
               className="object-cover"
@@ -49,7 +49,7 @@ export default function Home() {
           </div>
           <div className="relative h-full hidden md:block">
             <Image
-              src="/display.png"
+              src="/display1.png"
               alt="Hero Image 3"
               fill
               className="object-cover"

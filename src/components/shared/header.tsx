@@ -12,6 +12,7 @@ import Image from 'next/image';
 
 const navLinks = [
   { href: '/about', label: 'About Us' },
+  { href: '/leaderboard', label: 'Leaderboard' },
   { href: '/career-paths', label: 'Career Paths' },
   { href: '/employer-partnerships', label: 'Employer Partnerships' },
   { href: '/events', label: 'Events' },
@@ -51,6 +52,9 @@ export function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
+          <Link href="/profile">
+            <Image src="https://placehold.co/40x40.png" alt="User Profile" width={40} height={40} className="rounded-full hover:ring-2 hover:ring-primary transition-all" data-ai-hint="user avatar"/>
+          </Link>
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2 md:hidden">
@@ -77,6 +81,13 @@ export function Header() {
                   {navLinks.map((link) => (
                     <NavLink key={link.href} {...link} isMobile={true} />
                   ))}
+                   <Link href="/profile" className={cn(
+                      'text-lg text-gray-700 hover:text-primary flex items-center gap-2',
+                      pathname === '/profile' ? 'text-primary' : 'text-gray-700'
+                    )} onClick={() => setIsSheetOpen(false)}>
+                      <Image src="https://placehold.co/40x40.png" alt="User Profile" width={32} height={32} className="rounded-full" data-ai-hint="user avatar"/>
+                      Profile
+                  </Link>
                 </nav>
               </div>
             </SheetContent>
