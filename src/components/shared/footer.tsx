@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Instagram, Linkedin, Mail, UserCog } from 'lucide-react';
+import { Instagram, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export function Footer() {
@@ -30,12 +30,6 @@ export function Footer() {
             <Link href="#" className="text-gray-500 hover:text-primary transition-colors">
               <Linkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
-            </Link>
-          </motion.div>
-           <motion.div whileHover={{ scale: 1.2, rotate: 5 }} whileTap={{ scale: 0.9 }}>
-            <Link href="/admin" className="text-gray-500 hover:text-primary transition-colors">
-              <UserCog className="h-5 w-5" />
-              <span className="sr-only">Admin Login</span>
             </Link>
           </motion.div>
         </div>

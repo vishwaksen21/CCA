@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu } from 'lucide-react';
+import { LogIn, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -50,8 +50,11 @@ export function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
-          <Link href="/profile">
-            <Image src="https://placehold.co/40x40.png" alt="User Profile" width={40} height={40} className="rounded-full hover:ring-2 hover:ring-primary transition-all" data-ai-hint="user avatar"/>
+          <Link href="/login">
+            <Button variant="outline" size="sm">
+              <LogIn className="mr-2 h-4 w-4" />
+              Login
+            </Button>
           </Link>
         </nav>
 
@@ -79,12 +82,12 @@ export function Header() {
                   {navLinks.map((link) => (
                     <NavLink key={link.href} {...link} isMobile={true} />
                   ))}
-                   <Link href="/profile" className={cn(
+                   <Link href="/login" className={cn(
                       'text-lg text-gray-700 hover:text-primary flex items-center gap-2',
-                      pathname === '/profile' ? 'text-primary' : 'text-gray-700'
+                      pathname === '/login' ? 'text-primary' : 'text-gray-700'
                     )} onClick={() => setIsSheetOpen(false)}>
-                      <Image src="https://placehold.co/40x40.png" alt="User Profile" width={32} height={32} className="rounded-full" data-ai-hint="user avatar"/>
-                      Profile
+                      <LogIn className="h-5 w-5"/>
+                      Login
                   </Link>
                 </nav>
               </div>
