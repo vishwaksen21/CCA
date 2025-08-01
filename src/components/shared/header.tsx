@@ -51,7 +51,7 @@ export function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
-          <Link href="/login">
+          <Link href="/member-login">
             <Button variant="outline" size="sm">
               <LogIn className="mr-2 h-4 w-4" />
               Login
@@ -83,9 +83,9 @@ export function Header() {
                   {navLinks.map((link) => (
                     <NavLink key={link.href} {...link} isMobile={true} />
                   ))}
-                   <Link href="/login" className={cn(
+                   <Link href="/member-login" className={cn(
                       'text-lg text-gray-700 hover:text-primary flex items-center gap-2',
-                      pathname === '/login' ? 'text-primary' : 'text-gray-700'
+                      pathname === '/member-login' ? 'text-primary' : 'text-gray-700'
                     )} onClick={() => setIsSheetOpen(false)}>
                       <LogIn className="h-5 w-5"/>
                       Login
