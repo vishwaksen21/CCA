@@ -35,7 +35,8 @@ import {
   announcements as initialAnnouncements, 
   teamMembers as initialTeamMembers,
   milestones as initialMilestones,
-  faqs as initialFaqs
+  faqs as initialFaqs,
+  leaderboard as initialLeaderboard
 } from '@/lib/mock-data';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -63,21 +64,30 @@ type Faq = {
   answer: string;
 };
 
+type LeaderboardMember = {
+  rank: number;
+  name: string;
+  points: number;
+  badges: any[]; // Kept simple for prototype
+};
+
 
 export default function Page() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>(initialTeamMembers);
   const [milestones, setMilestones] = useState<Milestone[]>(initialMilestones);
   const [faqs, setFaqs] = useState<Faq[]>(initialFaqs);
+  const [leaderboard, setLeaderboard] = useState<LeaderboardMember[]>(initialLeaderboard);
+
 
   // Dialog state for all types
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<'create' | 'edit'>('create');
-  const [dialogType, setDialogType] = useState<'announcement' | 'member' | 'milestone' | 'faq' | null>(null);
+  const [dialogType, setDialogType] = useState<'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard' | null>(null);
 
   // State for the item being edited/created
   const [currentItem, setCurrentItem] = useState<any>(null);
-  const [originalIdentifier, setOriginalIdentifier] = useState<string | null>(null);
+  const [originalIdentifier, setOriginalIdentifier] = useState<string | number | null>(null);
 
   const handleCreate = (type: 'announcement' | 'member' | 'milestone' | 'faq') => {
     setDialogMode('create');
@@ -89,7 +99,7 @@ export default function Page() {
     setIsDialogOpen(true);
   };
 
-  const handleEdit = (item: any, type: 'announcement' | 'member' | 'milestone' | 'faq') => {
+  const handleEdit = (item: any, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard') => {
     setDialogMode('edit');
     setDialogType(type);
     setCurrentItem({ ...item });
@@ -97,10 +107,12 @@ export default function Page() {
     if (type === 'member') setOriginalIdentifier(item.name);
     if (type === 'milestone') setOriginalIdentifier(item.event);
     if (type === 'faq') setOriginalIdentifier(item.question);
+    if (type === 'leaderboard') setOriginalIdentifier(item.rank);
     setIsDialogOpen(true);
   };
 
   const handleDelete = (identifier: string, type: 'announcement' | 'member' | 'milestone' | 'faq') => {
+    // Note: Deleting from leaderboard not implemented as per original scope
     if (type === 'announcement') setAnnouncements(announcements.filter(a => a.title !== identifier));
     if (type === 'member') setTeamMembers(teamMembers.filter(m => m.name !== identifier));
     if (type === 'milestone') setMilestones(milestones.filter(m => m.event !== identifier));
@@ -138,6 +150,14 @@ export default function Page() {
                 break;
             case 'faq':
                 setFaqs(faqs.map(f => f.question === originalIdentifier ? currentItem : f));
+                break;
+            case 'leaderboard':
+                const updatedLeaderboard = leaderboard.map(m => m.rank === originalIdentifier ? { ...m, points: Number(currentItem.points) } : m);
+                // Re-sort by points and update ranks
+                const sortedLeaderboard = updatedLeaderboard
+                    .sort((a, b) => b.points - a.points)
+                    .map((member, index) => ({ ...member, rank: index + 1 }));
+                setLeaderboard(sortedLeaderboard);
                 break;
         }
     }
@@ -214,6 +234,23 @@ export default function Page() {
               </div>
             </>
           );
+       case 'leaderboard':
+        return (
+            <>
+              <DialogHeader>
+                <DialogTitle className="font-headline">Edit CAP Points for {currentItem.name}</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <Label htmlFor="points">CAP Points</Label>
+                <Input 
+                  id="points" 
+                  type="number" 
+                  value={currentItem.points} 
+                  onChange={(e) => setCurrentItem({ ...currentItem, points: e.target.value })} 
+                />
+              </div>
+            </>
+        );
     }
   }
 
@@ -239,6 +276,7 @@ export default function Page() {
           <TabsTrigger value="team">Team Members</TabsTrigger>
           <TabsTrigger value="milestones">Milestones</TabsTrigger>
           <TabsTrigger value="faqs">FAQs</TabsTrigger>
+          <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
         </TabsList>
         
         <TabsContent value="announcements">
@@ -361,6 +399,32 @@ export default function Page() {
                                     <TableCell className="text-right space-x-2">
                                         <Button variant="outline" size="icon" onClick={() => handleEdit(faq, 'faq')}><Edit className="h-4 w-4" /></Button>
                                         <Button variant="destructive" size="icon" onClick={() => handleDelete(faq.question, 'faq')}><Trash2 className="h-4 w-4" /></Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+        </TabsContent>
+        
+        <TabsContent value="leaderboard">
+            <Card className="shadow-lg">
+                <CardHeader>
+                    <CardTitle>Leaderboard Management</CardTitle>
+                    <CardDescription>Assign and update CAP points for members.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader><TableRow><TableHead>Rank</TableHead><TableHead>Name</TableHead><TableHead>Points</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableBody>
+                            {leaderboard.map((member) => (
+                                <TableRow key={member.rank}>
+                                    <TableCell className="font-medium">{member.rank}</TableCell>
+                                    <TableCell>{member.name}</TableCell>
+                                    <TableCell>{member.points.toLocaleString()}</TableCell>
+                                    <TableCell className="text-right space-x-2">
+                                        <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'leaderboard')}><Edit className="h-4 w-4" /></Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
