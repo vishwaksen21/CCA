@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu } from 'lucide-react';
+import { Menu, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -51,6 +51,12 @@ export function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
+           <Link href="/login">
+            <Button variant="outline" size="sm">
+              <User className="mr-2 h-4 w-4" />
+              Admin Login
+            </Button>
+          </Link>
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2 md:hidden">
@@ -66,7 +72,7 @@ export function Header() {
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               </SheetHeader>
                <div className="p-4 pt-8">
-                 <Link href="/" className="mb-10 flex items-center gap-3">
+                 <Link href="/" className="mb-10 flex items-center gap-3" onClick={() => setIsSheetOpen(false)}>
                     <Image src="/logo2.png" alt="CCA Logo" width={40} height={40} className="h-10 w-10" />
                      <div className='flex flex-col'>
                         <span className="font-bold font-headline text-xl leading-tight text-gray-900">CCA</span>
@@ -77,6 +83,12 @@ export function Header() {
                   {navLinks.map((link) => (
                     <NavLink key={link.href} {...link} isMobile={true} />
                   ))}
+                  <Link href="/login" onClick={() => setIsSheetOpen(false)}>
+                    <Button variant="outline" className="w-full">
+                      <User className="mr-2 h-4 w-4" />
+                      Admin Login
+                    </Button>
+                  </Link>
                 </nav>
               </div>
             </SheetContent>
