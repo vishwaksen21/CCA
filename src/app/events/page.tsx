@@ -41,7 +41,8 @@ export default function Page() {
             key={index}
             variants={cardVariants}
             initial="initial"
-            animate="animate"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
@@ -73,3 +74,5 @@ export default function Page() {
     </div>
   );
 }
+
+    

@@ -36,7 +36,8 @@ import {
   teamMembers as initialTeamMembers,
   milestones as initialMilestones,
   faqs as initialFaqs,
-  leaderboard as initialLeaderboard
+  leaderboard as initialLeaderboard,
+  upcomingEvents as initialEvents
 } from '@/lib/mock-data';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -71,6 +72,13 @@ type LeaderboardMember = {
   badges: any[]; // Kept simple for prototype
 };
 
+type Event = {
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+};
 
 export default function Page() {
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
@@ -78,28 +86,30 @@ export default function Page() {
   const [milestones, setMilestones] = useState<Milestone[]>(initialMilestones);
   const [faqs, setFaqs] = useState<Faq[]>(initialFaqs);
   const [leaderboard, setLeaderboard] = useState<LeaderboardMember[]>(initialLeaderboard);
+  const [events, setEvents] = useState<Event[]>(initialEvents);
 
 
   // Dialog state for all types
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<'create' | 'edit'>('create');
-  const [dialogType, setDialogType] = useState<'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard' | null>(null);
+  const [dialogType, setDialogType] = useState<'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard' | 'event' | null>(null);
 
   // State for the item being edited/created
   const [currentItem, setCurrentItem] = useState<any>(null);
   const [originalIdentifier, setOriginalIdentifier] = useState<string | number | null>(null);
 
-  const handleCreate = (type: 'announcement' | 'member' | 'milestone' | 'faq') => {
+  const handleCreate = (type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event') => {
     setDialogMode('create');
     setDialogType(type);
     if (type === 'announcement') setCurrentItem({ title: '', date: '', content: '' });
     if (type === 'member') setCurrentItem({ name: '', role: '', imageUrl: 'https://placehold.co/400x400.png', dataAiHint: 'person portrait' });
     if (type === 'milestone') setCurrentItem({ year: '', event: '', description: '' });
     if (type === 'faq') setCurrentItem({ question: '', answer: '' });
+    if (type === 'event') setCurrentItem({ title: '', date: '', time: '', location: '', description: '' });
     setIsDialogOpen(true);
   };
 
-  const handleEdit = (item: any, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard') => {
+  const handleEdit = (item: any, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard' | 'event') => {
     setDialogMode('edit');
     setDialogType(type);
     setCurrentItem({ ...item });
@@ -108,15 +118,17 @@ export default function Page() {
     if (type === 'milestone') setOriginalIdentifier(item.event);
     if (type === 'faq') setOriginalIdentifier(item.question);
     if (type === 'leaderboard') setOriginalIdentifier(item.rank);
+    if (type === 'event') setOriginalIdentifier(item.title);
     setIsDialogOpen(true);
   };
 
-  const handleDelete = (identifier: string, type: 'announcement' | 'member' | 'milestone' | 'faq') => {
+  const handleDelete = (identifier: string, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event') => {
     // Note: Deleting from leaderboard not implemented as per original scope
     if (type === 'announcement') setAnnouncements(announcements.filter(a => a.title !== identifier));
     if (type === 'member') setTeamMembers(teamMembers.filter(m => m.name !== identifier));
     if (type === 'milestone') setMilestones(milestones.filter(m => m.event !== identifier));
     if (type === 'faq') setFaqs(faqs.filter(f => f.question !== identifier));
+    if (type === 'event') setEvents(events.filter(e => e.title !== identifier));
   };
   
   const handleSave = () => {
@@ -135,6 +147,9 @@ export default function Page() {
                 break;
             case 'faq':
                 setFaqs([...faqs, currentItem]);
+                break;
+            case 'event':
+                setEvents([...events, currentItem]);
                 break;
         }
     } else { // edit mode
@@ -158,6 +173,9 @@ export default function Page() {
                     .sort((a, b) => b.points - a.points)
                     .map((member, index) => ({ ...member, rank: index + 1 }));
                 setLeaderboard(sortedLeaderboard);
+                break;
+            case 'event':
+                setEvents(events.map(e => e.title === originalIdentifier ? currentItem : e));
                 break;
         }
     }
@@ -251,6 +269,26 @@ export default function Page() {
               </div>
             </>
         );
+      case 'event':
+        return (
+            <>
+              <DialogHeader>
+                <DialogTitle className="font-headline">{dialogMode === 'create' ? 'Create' : 'Edit'} Event</DialogTitle>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <Label htmlFor="title">Title</Label>
+                <Input id="title" value={currentItem.title} onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })} />
+                <Label htmlFor="date">Date (YYYY-MM-DD)</Label>
+                <Input id="date" value={currentItem.date} onChange={(e) => setCurrentItem({ ...currentItem, date: e.target.value })} />
+                <Label htmlFor="time">Time</Label>
+                <Input id="time" value={currentItem.time} onChange={(e) => setCurrentItem({ ...currentItem, time: e.target.value })} />
+                <Label htmlFor="location">Location</Label>
+                <Input id="location" value={currentItem.location} onChange={(e) => setCurrentItem({ ...currentItem, location: e.target.value })} />
+                <Label htmlFor="description">Description</Label>
+                <Textarea id="description" value={currentItem.description} onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })} rows={3} />
+              </div>
+            </>
+          );
     }
   }
 
@@ -277,6 +315,7 @@ export default function Page() {
           <TabsTrigger value="milestones">Milestones</TabsTrigger>
           <TabsTrigger value="faqs">FAQs</TabsTrigger>
           <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
+          <TabsTrigger value="events">Events</TabsTrigger>
         </TabsList>
         
         <TabsContent value="announcements">
@@ -433,6 +472,38 @@ export default function Page() {
                 </CardContent>
             </Card>
         </TabsContent>
+
+         <TabsContent value="events">
+            <Card className="shadow-lg">
+                <CardHeader className="flex flex-row justify-between items-center">
+                    <div>
+                        <CardTitle>Events</CardTitle>
+                        <CardDescription>Manage upcoming events.</CardDescription>
+                    </div>
+                    <Button onClick={() => handleCreate('event')}>
+                        <PlusCircle className="mr-2 h-4 w-4" /> Create Event
+                    </Button>
+                </CardHeader>
+                <CardContent>
+                    <Table>
+                        <TableHeader><TableRow><TableHead>Title</TableHead><TableHead>Date</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableBody>
+                            {events.map((event) => (
+                                <TableRow key={event.title}>
+                                    <TableCell className="font-medium">{event.title}</TableCell>
+                                    <TableCell>{new Date(event.date).toLocaleDateString('en-CA')}</TableCell>
+                                    <TableCell className="text-right space-x-2">
+                                        <Button variant="outline" size="icon" onClick={() => handleEdit(event, 'event')}><Edit className="h-4 w-4" /></Button>
+                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(event.title, 'event')}><Trash2 className="h-4 w-4" /></Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+        </TabsContent>
+
       </Tabs>
 
 
@@ -448,3 +519,5 @@ export default function Page() {
     </div>
   );
 }
+
+    
