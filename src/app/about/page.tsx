@@ -61,7 +61,7 @@ export default function AboutPage() {
                     width={600}
                     height={400}
                     className="rounded-lg shadow-xl"
-                    data-ai-hint="team mission"
+                    data-ai-hint="team meeting"
                   />
                   <div className="absolute inset-0 bg-primary/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.div>
