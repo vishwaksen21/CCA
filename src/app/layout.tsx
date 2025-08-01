@@ -7,9 +7,8 @@ import { Footer } from '@/components/shared/footer';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'CCA Hub',
-  description:
-    'The official website for the Centre for Cognitive Activities (CCA).',
+  title: 'Placment - Defense Careers Club',
+  description: 'Your partner in building a successful career in the defense sector and beyond.',
 };
 
 export default function RootLayout({
@@ -18,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

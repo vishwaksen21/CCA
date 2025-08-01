@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Briefcase,
   Shield,
@@ -15,213 +16,133 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { announcements, leaderboard } from '@/lib/mock-data';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { teamMembers, announcements } from '@/lib/mock-data';
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-[100dvh]">
-      <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-primary/10">
+    <div className="flex flex-col min-h-[100dvh] bg-gray-50">
+      <section className="w-full">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-            <div className="flex flex-col justify-center space-y-4">
-              <div className="space-y-2">
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline text-primary">
-                  CCA: Centre for Cognitive Activities
-                </h1>
-                <p className="max-w-[600px] text-foreground/80 md:text-xl">
-                  Empowering students with skills in defense awareness,
-                  placement preparation, and personality development for a
-                  successful future.
-                </p>
-              </div>
-              <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Button asChild size="lg">
-                  <Link href="/about">Learn More</Link>
-                </Button>
-                <Button asChild variant="secondary" size="lg">
-                  <Link href="/leaderboard">View Leaderboard</Link>
-                </Button>
-              </div>
+          <div className="relative h-[600px] w-full">
+            <div className="absolute inset-0 grid grid-cols-2 h-full">
+                <div className="h-full">
+                  <Image
+                    src="https://placehold.co/800x600.png"
+                    alt="Drone at sunset"
+                    layout="fill"
+                    objectFit="cover"
+                    className="h-full w-full"
+                    data-ai-hint="drone sunset"
+                  />
+                </div>
+                <div className="h-full">
+                   <Image
+                      src="https://placehold.co/800x600.png"
+                      alt="Professionals talking"
+                      layout="fill"
+                      objectFit="cover"
+                      className="h-full w-full"
+                      data-ai-hint="professionals talking"
+                    />
+                </div>
             </div>
-            <div className="hidden lg:flex items-center justify-center">
-              <Trophy className="h-48 w-48 text-accent animate-pulse" />
+             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent"></div>
+             <div className="absolute inset-x-0 bottom-0 h-full flex items-end justify-start">
+                  <Image
+                      src="https://placehold.co/1200x400.png"
+                      alt="Team in a meeting"
+                      layout="fill"
+                      objectFit="cover"
+                      className="h-full w-full"
+                       data-ai-hint="team meeting"
+                    />
+            </div>
+            <div className="absolute inset-0 bg-black/50"></div>
+            <div className="relative z-10 flex flex-col justify-center h-full text-white p-8 md:p-12 lg:p-16">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
+                Placement &
+                <br />
+                Defense Careers Club
+              </h1>
+              <div className="mt-6">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                  Create Profile
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="features" className="w-full py-12 md:py-24 lg:py-32">
+      <section id="featured-opportunities" className="w-full py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
-                Our Core Focus
-              </h2>
-              <p className="max-w-[900px] text-foreground/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                We provide a structured platform for holistic development,
-                focusing on three key pillars to ensure our members are
-                well-rounded and career-ready.
-              </p>
-            </div>
-          </div>
-          <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:grid-cols-3 lg:gap-12 mt-12">
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="items-center">
-                <div className="bg-accent/20 p-4 rounded-full">
-                  <Shield className="h-8 w-8 text-accent" />
-                </div>
-                <CardTitle className="font-headline mt-2">
-                  Defense Awareness
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-sm text-foreground/80">
-                  Instilling a sense of national pride and awareness of career
-                  opportunities in the defense sector.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="items-center">
-                <div className="bg-accent/20 p-4 rounded-full">
-                  <Briefcase className="h-8 w-8 text-accent" />
-                </div>
-                <CardTitle className="font-headline mt-2">
-                  Placement Preparation
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-sm text-foreground/80">
-                  Equipping students with the necessary skills for cracking
-                  interviews and securing top placements.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="items-center">
-                <div className="bg-accent/20 p-4 rounded-full">
-                  <Users className="h-8 w-8 text-accent" />
-                </div>
-                <CardTitle className="font-headline mt-2">
-                  Personality Development
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-sm text-foreground/80">
-                  Nurturing soft skills, communication, and leadership
-                  qualities for all-around personal growth.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="announcements"
-        className="w-full py-12 md:py-24 lg:py-32 bg-primary/10"
-      >
-        <div className="container px-4 md:px-6">
-          <h2 className="text-3xl font-bold tracking-tighter text-center sm:text-5xl font-headline mb-12">
-            Recent Announcements
+          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12">
+            Featured Opportunities
           </h2>
-          <Carousel
-            opts={{
-              align: 'start',
-              loop: true,
-            }}
-            className="w-full max-w-4xl mx-auto"
-          >
-            <CarouselContent>
-              {announcements.map((ann, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1 h-full">
-                    <Card className="h-full flex flex-col">
-                      <CardHeader>
-                        <CardTitle>{ann.title}</CardTitle>
-                        <CardDescription>{ann.date}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="flex-grow">
-                        <p className="text-sm text-foreground/80">
-                          {ann.content}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card className="p-8 flex items-center justify-around">
+              <Image src="https://placehold.co/150x50.png" alt="Lockheed Martin" width={150} height={50} data-ai-hint="company logo"/>
+              <Image src="https://placehold.co/150x50.png" alt="Raytheon" width={150} height={50} data-ai-hint="company logo"/>
+              <Image src="https://placehold.co/70x70.png" alt="Northrop Grumman" width={70} height={70} data-ai-hint="company logo"/>
+              <Image src="https://placehold.co/150x50.png" alt="Deloitte" width={150} height={50} data-ai-hint="company logo"/>
+            </Card>
+            <div className="grid grid-cols-2 gap-4">
+               <Image src="https://placehold.co/300x200.png" alt="Discussion" width={300} height={200} className="rounded-lg object-cover w-full h-full" data-ai-hint="men discussion"/>
+               <Image src="https://placehold.co/300x200.png" alt="Military discussion" width={300} height={200} className="rounded-lg object-cover w-full h-full" data-ai-hint="military discussion"/>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section
-        id="leaderboard-preview"
-        className="w-full py-12 md:py-24 lg:py-32"
-      >
+      <section id="workshops-stories" className="w-full py-12 md:py-24 lg:py-32 bg-white">
         <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
-                Top Performers
-              </h2>
-              <p className="max-w-[900px] text-foreground/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                A glimpse of our current leaders. Check out the full
-                leaderboard for more details.
-              </p>
+            <div className="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h2 className="text-2xl font-bold tracking-tighter mb-8">Upcoming Workshops</h2>
+                    <div className="space-y-6">
+                        <Card className="flex items-center p-4 gap-4">
+                             <Image src="https://placehold.co/100x40.png" alt="Company Logo" width={100} height={40} data-ai-hint="company logo"/>
+                             <p className="font-semibold">Resume Building for Government Contracts</p>
+                        </Card>
+                         <Card className="flex items-center p-4 gap-4">
+                             <Image src="https://placehold.co/100x40.png" alt="Raytheon Logo" width={100} height={40} data-ai-hint="company logo"/>
+                             <p className="font-semibold">Networking in the Defense Sector</p>
+                        </Card>
+                    </div>
+                </div>
+                 <div>
+                    <h2 className="text-2xl font-bold tracking-tighter mb-8">Success Stories</h2>
+                    <div className="grid grid-cols-2 gap-6">
+                        <Card className="p-4 text-center">
+                            <div className="flex justify-center items-center gap-2 mb-2">
+                                <Avatar>
+                                    <AvatarImage src="https://placehold.co/40x40.png" alt="member photo" data-ai-hint="man portrait"/>
+                                    <AvatarFallback>U</AvatarFallback>
+                                </Avatar>
+                                 <Avatar>
+                                    <AvatarImage src="https://placehold.co/40x40.png" alt="member photo" data-ai-hint="woman portrait"/>
+                                    <AvatarFallback>H</AvatarFallback>
+                                </Avatar>
+                            </div>
+                            <p className="text-sm text-muted-foreground">Uarming hatted to shantine ras samutiiici aid piseisemite oostoops</p>
+                        </Card>
+                         <Card className="p-4 text-center">
+                            <div className="flex justify-center items-center gap-2 mb-2">
+                                <Avatar>
+                                    <AvatarImage src="https://placehold.co/40x40.png" alt="member photo" data-ai-hint="man portrait professional"/>
+                                    <AvatarFallback>C</AvatarFallback>
+                                </Avatar>
+                                  <Avatar>
+                                    <AvatarImage src="https://placehold.co/40x40.png" alt="member photo" data-ai-hint="woman portrait professional"/>
+                                    <AvatarFallback>F</AvatarFallback>
+                                </Avatar>
+                            </div>
+                            <p className="text-sm text-muted-foreground">Cakawat et for mating the wiamtientionstined emaersaling greataste.</p>
+                        </Card>
+                    </div>
+                </div>
             </div>
-          </div>
-          <Card className="mt-12 max-w-4xl mx-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[80px]">Rank</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead className="text-right">Cap Points</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {leaderboard
-                  .slice(0, 3)
-                  .map((member) => (
-                    <TableRow key={member.rank}>
-                      <TableCell className="font-medium">
-                        {member.rank}
-                      </TableCell>
-                      <TableCell>{member.name}</TableCell>
-                      <TableCell className="text-right font-semibold text-primary">
-                        {member.points}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-            <div className="p-4 text-center">
-              <Button asChild variant="link">
-                <Link href="/leaderboard">
-                  View Full Leaderboard <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
-              </Button>
-            </div>
-          </Card>
         </div>
       </section>
     </div>

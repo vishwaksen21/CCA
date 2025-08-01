@@ -2,29 +2,14 @@ import { Award, Medal, Star } from 'lucide-react';
 
 export const announcements = [
   {
-    title: 'Guest Lecture on AI',
+    title: 'Resume Building for Government Contracts',
     date: '2024-08-15',
-    content: 'Join us for an insightful session on Artificial Intelligence with industry expert Dr. Anya Sharma.',
+    content: 'Join us for an insightful session on building resumes for government contracts.',
   },
   {
-    title: 'SSB Interview Workshop',
+    title: 'Networking in the Defense Sector',
     date: '2024-08-10',
-    content: 'A hands-on workshop to prepare aspirants for the SSB interview process. Limited seats available.',
-  },
-  {
-    title: 'Annual Fest "Cognito"',
-    date: '2024-07-28',
-    content: 'Get ready for our annual tech and cultural fest, "Cognito". More details to be announced soon!',
-  },
-    {
-    title: 'Resume Building Session',
-    date: '2024-07-20',
-    content: 'Learn how to build a professional resume that stands out to recruiters. Highly recommended for final year students.',
-  },
-    {
-    title: 'Welcome Freshers!',
-    date: '2024-07-15',
-    content: 'A warm welcome to all the new members of the CCA family. Join our orientation session this Friday.',
+    content: 'A hands-on workshop to prepare for networking in the defense industry.',
   },
 ];
 
@@ -52,18 +37,6 @@ export const teamMembers = [
     role: 'Treasurer',
     imageUrl: 'https://placehold.co/400x400.png',
     dataAiHint: 'woman portrait professional',
-  },
-    {
-    name: 'Vikram Rathore',
-    role: 'Defense Wing Head',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'man portrait serious',
-  },
-    {
-    name: 'Anjali Desai',
-    role: 'Placement Head',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'woman portrait corporate',
   },
 ];
 
@@ -137,23 +110,11 @@ export const userProfile = {
 
 export const faqs = [
   {
-    question: 'What is CCA?',
-    answer: 'CCA, the Centre for Cognitive Activities, is a student-run club focused on defense awareness, placement preparation, and personality development to prepare students for their careers and beyond.',
+    question: 'What is the Placement & Defense Careers Club?',
+    answer: 'We are a student-run club focused on providing resources and opportunities for careers in the defense sector and beyond.',
   },
   {
-    question: 'How can I join CCA?',
-    answer: 'Membership drives are held at the beginning of each academic year. Look out for announcements on the college notice boards and our website. You can typically register through a form provided during the drive.',
-  },
-  {
-    question: 'What are Cap Points?',
-    answer: 'Cap Points are a reward system to encourage active participation. You earn points for attending events, winning competitions, volunteering, and contributing to the club. These points determine your rank on the leaderboard.',
-  },
-  {
-    question: 'How are Cap Points updated?',
-    answer: 'Cap Points are updated by club admins after each event or activity. It may take a few days for the points to reflect on your profile. If you have a discrepancy, please contact a team member.',
-  },
-  {
-    question: 'Are there any membership fees?',
-    answer: 'Yes, there is a nominal annual membership fee to cover the costs of events, workshops, and other club activities. The exact amount will be specified during the membership drive.',
+    question: 'How can I join?',
+    answer: 'Membership drives are held at the beginning of each academic year. Look out for announcements on our website.',
   },
 ];
