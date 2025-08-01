@@ -1,13 +1,24 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Header } from '@/components/shared/header';
 import { Footer } from '@/components/shared/footer';
 import { Toaster } from '@/components/ui/toaster';
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+});
+
+
 export const metadata: Metadata = {
-  title: 'Placment - Defense Careers Club',
+  title: 'CCA - Centre for Cognitive Activities',
   description: 'Your partner in building a successful career in the defense sector and beyond.',
 };
 
@@ -18,21 +29,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body
         className={cn(
-          'min-h-screen bg-background font-body text-foreground antialiased flex flex-col'
+          'min-h-screen bg-background font-body text-foreground antialiased flex flex-col',
+          inter.variable,
+          spaceGrotesk.variable
         )}
       >
         <Header />

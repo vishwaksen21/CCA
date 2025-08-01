@@ -21,12 +21,13 @@ export function Header() {
   const pathname = usePathname();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const NavLink = ({ href, label }: { href: string; label: string }) => (
+  const NavLink = ({ href, label, isMobile = false }: { href: string; label: string; isMobile?: boolean }) => (
     <Link
       href={href}
       className={cn(
-        'text-sm font-medium transition-colors hover:text-accent-foreground',
-        pathname === href ? 'text-accent-foreground' : 'text-foreground/80'
+        'text-sm font-medium transition-colors hover:text-primary',
+        pathname === href ? 'text-primary' : 'text-gray-600',
+        isMobile && 'text-lg text-gray-700 hover:text-primary'
       )}
       onClick={() => setIsSheetOpen(false)}
     >
@@ -35,13 +36,13 @@ export function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-primary/80 backdrop-blur supports-[backdrop-filter]:bg-primary/60">
-      <div className="container flex h-16 items-center">
-        <Link href="/" className="mr-6 flex items-center gap-2">
-          <Shield className="h-8 w-8 text-white" />
+    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
+      <div className="container flex h-20 items-center">
+        <Link href="/" className="mr-6 flex items-center gap-3">
+          <Shield className="h-8 w-8 text-primary" />
           <div className='flex flex-col'>
-            <span className="font-bold font-headline text-lg leading-tight text-white">PLACMENT & DEFENSE</span>
-            <span className="text-xs text-primary-foreground/80 leading-tight">CAREERS CLUB</span>
+            <span className="font-bold font-headline text-xl leading-tight text-gray-900">CCA</span>
+            <span className="text-xs text-gray-500 leading-tight -mt-1">Centre for Cognitive Activities</span>
           </div>
         </Link>
 
@@ -54,23 +55,23 @@ export function Header() {
         <div className="flex flex-1 items-center justify-end gap-2 md:hidden">
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-white/10">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="md:hidden text-gray-800 hover:bg-gray-100">
+                <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="bg-primary text-primary-foreground">
-              <div className="p-4">
-                <Link href="/" className="mb-8 flex items-center gap-2">
-                  <Shield className="h-8 w-8 text-white" />
-                  <div className='flex flex-col'>
-                    <span className="font-bold font-headline text-lg leading-tight text-white">PLACMENT & DEFENSE</span>
-                    <span className="text-xs text-primary-foreground/80 leading-tight">CAREERS CLUB</span>
-                  </div>
+            <SheetContent side="left" className="bg-white">
+               <div className="p-4 pt-8">
+                 <Link href="/" className="mb-10 flex items-center gap-3">
+                    <Shield className="h-8 w-8 text-primary" />
+                     <div className='flex flex-col'>
+                        <span className="font-bold font-headline text-xl leading-tight text-gray-900">CCA</span>
+                        <span className="text-xs text-gray-500 leading-tight -mt-1">Centre for Cognitive Activities</span>
+                    </div>
                 </Link>
-                <nav className="grid gap-6 text-lg font-medium">
+                <nav className="grid gap-6">
                   {navLinks.map((link) => (
-                    <NavLink key={link.href} {...link} />
+                    <NavLink key={link.href} {...link} isMobile={true} />
                   ))}
                 </nav>
               </div>
