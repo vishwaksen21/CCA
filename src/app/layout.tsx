@@ -51,7 +51,6 @@ export default function RootLayout({
             disableTransitionOnChange
         >
           <Header />
-          {isMounted ? (
             <AnimatePresence mode="wait">
               <motion.main
                 key={pathname}
@@ -67,9 +66,6 @@ export default function RootLayout({
                 {children}
               </motion.main>
             </AnimatePresence>
-          ) : (
-            <main className="flex-1">{children}</main>
-          )}
           <Footer />
           <Toaster />
         </ThemeProvider>
