@@ -79,7 +79,6 @@ export default function LeaderboardPage() {
                   <TableHead className="w-[80px] text-center">Rank</TableHead>
                   <TableHead>Name</TableHead>
                    <TableHead>Badges</TableHead>
-                  <TableHead className="text-right">CAP Points</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -98,7 +97,6 @@ export default function LeaderboardPage() {
                      <TableCell>
                         {renderBadges(member.badges)}
                     </TableCell>
-                    <TableCell className="text-right font-bold text-primary text-lg">{member.points.toLocaleString()}</TableCell>
                   </motion.tr>
                 ))}
               </TableBody>
