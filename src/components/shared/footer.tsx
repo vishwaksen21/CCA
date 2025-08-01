@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -15,7 +16,7 @@ export function Footer() {
         </div>
         <div className="flex items-center gap-5">
           <motion.div whileHover={{ scale: 1.2, rotate: 5 }} whileTap={{ scale: 0.9 }}>
-            <Link href="#" className="text-gray-500 hover:text-primary transition-colors">
+            <Link href="https://www.instagram.com/cca_cmrit" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors">
               <Instagram className="h-5 w-5" />
               <span className="sr-only">Instagram</span>
             </Link>
