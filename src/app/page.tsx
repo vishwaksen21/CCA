@@ -91,7 +91,7 @@ export default function Home() {
           >
             <Link href="/about">
               <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-10 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                Create a Future
+                Learn More
               </Button>
             </Link>
           </motion.div>
