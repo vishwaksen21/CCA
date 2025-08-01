@@ -165,27 +165,6 @@ export const leaderboard: { rank: number; name: string; points: number; badges: 
   { rank: 10, name: 'Anika Verma', points: 1500, badges: [] },
 ];
 
-export const userProfile = {
-    name: 'Aarav Sharma',
-    email: 'aarav.sharma@example.com',
-    avatarUrl: 'https://placehold.co/128x128.png',
-    dataAiHint: 'man portrait smiling',
-    capPoints: 2580,
-    rank: 1,
-    pointsHistory: [
-        { activity: 'Won "Cognito" Hackathon', points: 500, date: '2024-07-29' },
-        { activity: 'Volunteered for Guest Lecture', points: 100, date: '2024-08-15' },
-        { activity: 'Attended SSB Workshop', points: 50, date: '2024-08-10' },
-        { activity: 'Monthly Quiz Winner', points: 150, date: '2024-07-01' },
-        { activity: 'Mentored a junior', points: 80, date: '2024-06-25' },
-    ],
-    badges: [
-        { name: 'Top Performer', icon: Medal, color: 'text-yellow-500', description: 'Achieved Rank 1 in a monthly leaderboard.' },
-        { name: 'Active Member', icon: Star, color: 'text-blue-500', description: 'Participated in 5+ events in a month.' },
-        { name: 'Hackathon Winner', icon: Award, color: 'text-purple-500', description: 'Secured first place in a hackathon.' },
-    ]
-};
-
 export const faqs = [
   {
     question: 'What is the Placement & Defense Careers Club (CCA)?',

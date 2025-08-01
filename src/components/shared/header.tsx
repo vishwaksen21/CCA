@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LogIn, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -51,12 +51,6 @@ export function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
-          <Link href="/member-login">
-            <Button variant="outline" size="sm">
-              <LogIn className="mr-2 h-4 w-4" />
-              Login
-            </Button>
-          </Link>
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2 md:hidden">
@@ -83,13 +77,6 @@ export function Header() {
                   {navLinks.map((link) => (
                     <NavLink key={link.href} {...link} isMobile={true} />
                   ))}
-                   <Link href="/member-login" className={cn(
-                      'text-lg text-gray-700 hover:text-primary flex items-center gap-2',
-                      pathname === '/member-login' ? 'text-primary' : 'text-gray-700'
-                    )} onClick={() => setIsSheetOpen(false)}>
-                      <LogIn className="h-5 w-5"/>
-                      Login
-                  </Link>
                 </nav>
               </div>
             </SheetContent>
