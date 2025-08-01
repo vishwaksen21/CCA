@@ -100,6 +100,11 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 animate={{
                   scale: [1, 1.02, 1],
+                  boxShadow: [
+                    '0 0 0 0px rgba(255, 193, 7, 0.7)',
+                    '0 0 0 10px rgba(255, 193, 7, 0)',
+                    '0 0 0 0px rgba(255, 193, 7, 0)'
+                  ],
                 }}
                 transition={{
                   duration: 2,
@@ -108,6 +113,7 @@ export default function Home() {
                   ease: 'easeInOut',
                   delay: 1,
                 }}
+                className="rounded-full"
               >
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-8 py-5 text-base md:px-10 md:py-6 md:text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                   Learn More
