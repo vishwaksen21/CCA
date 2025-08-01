@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, Clock, MapPin, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { upcomingEvents as initialEvents } from '@/lib/mock-data';
+import { upcomingEvents as initialEventsData } from '@/lib/mock-data';
 import { useToast } from '@/hooks/use-toast';
 
 const fadeIn = {
@@ -21,21 +21,23 @@ const cardVariants = {
 };
 
 export default function Page() {
-  const [events, setEvents] = useState(initialEvents.map(event => ({ ...event, isRegistered: false })));
+  // Use a different name to avoid confusion with the global mock data
+  const [pageEvents, setPageEvents] = useState(initialEventsData.map(event => ({ ...event, isRegistered: false })));
   const { toast } = useToast();
 
   const handleRegister = (eventId: string) => {
-    setEvents(currentEvents => 
+    setPageEvents(currentEvents => 
       currentEvents.map(event => {
         if (event.id === eventId && !event.isRegistered) {
           // In a real app, you would send a request to your backend to register the user.
           // For this prototype, we'll just simulate it on the client-side.
-          // Let's also add a mock user to the registrations list.
-          const eventInData = initialEvents.find(e => e.id === eventId);
+          // Let's also add a mock user to the registrations list in the original mock data.
+          const eventInData = initialEventsData.find(e => e.id === eventId);
           if (eventInData) {
             eventInData.registrations.push('New User'); // Example user
           }
           
+          // The toast should only be called here, inside the event handler
           toast({
             title: 'Registration Successful!',
             description: `You are now registered for "${event.title}".`,
@@ -64,7 +66,7 @@ export default function Page() {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {events.map((event, index) => (
+        {pageEvents.map((event, index) => (
           <motion.div
             key={event.id}
             variants={cardVariants}
