@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
@@ -61,6 +61,9 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="bg-white">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              </SheetHeader>
                <div className="p-4 pt-8">
                  <Link href="/" className="mb-10 flex items-center gap-3">
                     <Shield className="h-8 w-8 text-primary" />
