@@ -83,14 +83,27 @@ export default function Home() {
              initial={{ scale: 0.8, opacity: 0 }}
              animate={{ scale: 1, opacity: 1 }}
              transition={{ duration: 0.5, delay: 0.6, type: 'spring', stiffness: 120 }}
-             whileHover={{ scale: 1.05 }}
-             whileTap={{ scale: 0.95 }}
-            className="mt-8"
+             className="mt-8"
           >
             <Link href="/about">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-10 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                Learn More
-              </Button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                animate={{
+                  scale: [1, 1.02, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  ease: 'easeInOut',
+                  delay: 1,
+                }}
+              >
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-10 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+                  Learn More
+                </Button>
+              </motion.div>
             </Link>
           </motion.div>
         </motion.div>
