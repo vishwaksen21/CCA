@@ -57,7 +57,7 @@ export default function Home() {
       <section className="relative w-full h-[80vh] text-white">
         <div className="absolute inset-0">
            <Image
-              src="/display1.png"
+              src="/display2.png"
               alt="Hero Image"
               fill
               className="object-cover"
