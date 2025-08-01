@@ -3,11 +3,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, Shield } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
+import Image from 'next/image';
 
 const navLinks = [
   { href: '/about', label: 'About Us' },
@@ -39,7 +40,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
       <div className="container flex h-20 items-center">
         <Link href="/" className="mr-6 flex items-center gap-3">
-          <Shield className="h-8 w-8 text-primary" />
+          <Image src="/logo2.png" alt="CCA Logo" width={40} height={40} className="h-10 w-10" />
           <div className='flex flex-col'>
             <span className="font-bold font-headline text-xl leading-tight text-gray-900">CCA</span>
             <span className="text-xs text-gray-500 leading-tight -mt-1">Centre for Cognitive Activities</span>
@@ -66,7 +67,7 @@ export function Header() {
               </SheetHeader>
                <div className="p-4 pt-8">
                  <Link href="/" className="mb-10 flex items-center gap-3">
-                    <Shield className="h-8 w-8 text-primary" />
+                    <Image src="/logo2.png" alt="CCA Logo" width={40} height={40} className="h-10 w-10" />
                      <div className='flex flex-col'>
                         <span className="font-bold font-headline text-xl leading-tight text-gray-900">CCA</span>
                         <span className="text-xs text-gray-500 leading-tight -mt-1">Centre for Cognitive Activities</span>
