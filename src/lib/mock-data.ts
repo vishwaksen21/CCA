@@ -38,6 +38,54 @@ export const teamMembers = [
     imageUrl: 'https://placehold.co/400x400.png',
     dataAiHint: 'woman portrait professional',
   },
+  {
+    name: 'Arjun Reddy',
+    role: 'Head of Corporate Relations',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'man portrait serious',
+  },
+  {
+    name: 'Neha Sharma',
+    role: 'Events Coordinator',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'woman portrait friendly',
+  },
+  {
+    name: 'Vikram Singh',
+    role: 'Head of Workshops',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'man portrait glasses',
+  },
+  {
+    name: 'Ishita Kumar',
+    role: 'Marketing Lead',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'woman portrait smiling',
+  },
+  {
+    name: 'Aditya Mehta',
+    role: 'Technical Lead',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'man portrait tech',
+  },
+  {
+    name: 'Saanvi Desai',
+    role: 'Alumni Relations',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'woman portrait kind',
+  },
+  {
+    name: 'Karan Malhotra',
+    role: 'Content Strategist',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'man portrait creative',
+  },
+  {
+    name: 'Anjali Rao',
+    role: 'First Year Representative',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'woman portrait young',
+  },
 ];
 
 export const milestones = [
