@@ -15,6 +15,7 @@ const navLinks = [
   { href: '/leaderboard', label: 'Leaderboard' },
   { href: '/updates', label: 'Updates' },
   { href: '/faq', label: 'FAQ' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export function Header() {
