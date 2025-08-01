@@ -53,7 +53,7 @@ export default function Page() {
     
     // For this prototype, we'll use a simple check.
     setTimeout(() => {
-        if (email === 'vishwak21@gmail.com' && password === 'password') {
+        if (email === 'vishwak21@gmail.com' && password === 'vishwak@151370') {
              toast({
                 title: 'Login Successful',
                 description: 'Redirecting to the admin dashboard.',
