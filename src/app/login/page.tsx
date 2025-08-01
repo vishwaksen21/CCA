@@ -19,8 +19,8 @@ import { motion } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';
 
 export default function Page() {
-  const [email, setEmail] = useState('vishwak21@gmail.com');
-  const [password, setPassword] = useState('vishwak@151370');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
   const { toast } = useToast();
@@ -34,7 +34,7 @@ export default function Page() {
       });
       router.push('/admin');
     } else {
-      setError('Invalid email or password. Please try again.');
+      setError('Wrong credentials');
     }
   };
   
