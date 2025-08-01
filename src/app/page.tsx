@@ -157,7 +157,7 @@ export default function Home() {
           className="w-full py-16 md:py-24"
         >
           <div className="container mx-auto px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline text-gray-800">
+            <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">
               Upcoming Workshops
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -166,11 +166,11 @@ export default function Home() {
                   <CardHeader className="flex flex-row items-center gap-4 p-6">
                     <Image src="https://placehold.co/80x80.png" alt="Workshop Icon" width={60} height={60} className="rounded-md" data-ai-hint="company logo"/>
                     <div>
-                      <CardTitle className="font-headline text-xl text-gray-900">Resume Building for Government Contracts</CardTitle>
+                      <CardTitle className="font-headline text-xl">Resume Building for Government Contracts</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6 pt-0">
-                    <p className="text-gray-600">Learn the keys to crafting a resume that stands out for competitive government and defense contract roles.</p>
+                    <p className="text-muted-foreground">Learn the keys to crafting a resume that stands out for competitive government and defense contract roles.</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -179,11 +179,11 @@ export default function Home() {
                   <CardHeader className="flex flex-row items-center gap-4 p-6">
                     <Image src="https://placehold.co/80x80.png" alt="Raytheon Logo" width={60} height={60} className="rounded-md" data-ai-hint="company logo" />
                     <div>
-                      <CardTitle className="font-headline text-xl text-gray-900">Networking in the Defense Sector</CardTitle>
+                      <CardTitle className="font-headline text-xl">Networking in the Defense Sector</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent className="p-6 pt-0">
-                    <p className="text-gray-600">Gain practical tips and strategies for building your professional network within the defense industry.</p>
+                    <p className="text-muted-foreground">Gain practical tips and strategies for building your professional network within the defense industry.</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -201,7 +201,7 @@ export default function Home() {
           className="w-full py-12 md:py-16 bg-card/50 -mx-4 px-4 md:-mx-6 md:px-6 rounded-lg"
         >
           <div className="container mx-auto px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline text-gray-800">
+            <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">
               Success Stories
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -211,9 +211,9 @@ export default function Home() {
                     <AvatarImage src="https://placehold.co/100x100.png" alt="Alumni headshot" data-ai-hint="man portrait professional"/>
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
-                  <CardTitle className="font-headline text-lg text-gray-900">John Doe</CardTitle>
+                  <CardTitle className="font-headline text-lg">John Doe</CardTitle>
                   <p className="text-primary font-semibold">Systems Engineer, Raytheon</p>
-                  <p className="text-gray-600 mt-2 text-sm italic">"The club was instrumental in my career search, providing the workshops and connections I needed to land my dream job."</p>
+                  <p className="text-muted-foreground mt-2 text-sm italic">"The club was instrumental in my career search, providing the workshops and connections I needed to land my dream job."</p>
                 </Card>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05, y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} transition={{ type: 'spring', stiffness: 300 }}>
@@ -222,9 +222,9 @@ export default function Home() {
                     <AvatarImage src="https://placehold.co/100x100.png" alt="Alumni headshot" data-ai-hint="woman portrait professional"/>
                     <AvatarFallback>JS</AvatarFallback>
                   </Avatar>
-                  <CardTitle className="font-headline text-lg text-gray-900">Jane Smith</CardTitle>
+                  <CardTitle className="font-headline text-lg">Jane Smith</CardTitle>
                   <p className="text-primary font-semibold">Consultant, Deloitte</p>
-                  <p className="text-gray-600 mt-2 text-sm italic">"The interview prep sessions were a game-changer. I felt confident and prepared for every stage of the hiring process."</p>
+                  <p className="text-muted-foreground mt-2 text-sm italic">"The interview prep sessions were a game-changer. I felt confident and prepared for every stage of the hiring process."</p>
                 </Card>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05, y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} transition={{ type: 'spring', stiffness: 300 }}>
@@ -233,9 +233,9 @@ export default function Home() {
                     <AvatarImage src="https://placehold.co/100x100.png" alt="Alumni headshot" data-ai-hint="person portrait professional" />
                     <AvatarFallback>SA</AvatarFallback>
                   </Avatar>
-                  <CardTitle className="font-headline text-lg text-gray-900">Sam Armas</CardTitle>
+                  <CardTitle className="font-headline text-lg">Sam Armas</CardTitle>
                   <p className="text-primary font-semibold">Project Manager, Lockheed Martin</p>
-                  <p className="text-gray-600 mt-2 text-sm italic">"From networking events to mentorship, the club offered a comprehensive support system that was invaluable."</p>
+                  <p className="text-muted-foreground mt-2 text-sm italic">"From networking events to mentorship, the club offered a comprehensive support system that was invaluable."</p>
                 </Card>
               </motion.div>
             </div>
@@ -245,5 +245,3 @@ export default function Home() {
     </div>
   );
 }
-
-    

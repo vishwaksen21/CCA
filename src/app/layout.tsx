@@ -10,6 +10,7 @@ import { Footer } from '@/components/shared/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { ThemeProvider } from '@/components/shared/theme-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,7 +30,7 @@ export default function RootLayout({
   const pathname = usePathname();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           'min-h-screen bg-background font-body text-foreground antialiased flex flex-col',
@@ -37,21 +38,28 @@ export default function RootLayout({
           spaceGrotesk.variable
         )}
       >
-        <Header />
-        <AnimatePresence mode="wait">
-          <motion.main
-            key={pathname}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="flex-1"
-          >
-            {children}
-          </motion.main>
-        </AnimatePresence>
-        <Footer />
-        <Toaster />
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+          <Header />
+          <AnimatePresence mode="wait">
+            <motion.main
+              key={pathname}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="flex-1"
+            >
+              {children}
+            </motion.main>
+          </AnimatePresence>
+          <Footer />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

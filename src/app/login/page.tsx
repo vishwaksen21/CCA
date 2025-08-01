@@ -45,7 +45,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-gray-50 -my-12">
+    <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] -my-12">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}

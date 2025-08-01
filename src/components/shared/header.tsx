@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import Image from 'next/image';
+import { ThemeToggle } from './theme-toggle';
 
 const navLinks = [
   { href: '/about', label: 'About Us' },
@@ -38,13 +39,13 @@ export function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
       <div className="container flex h-20 items-center">
         <Link href="/" className="mr-6 flex items-center gap-3">
           <Image src="/logo2.png" alt="CCA Logo" width={40} height={40} className="h-10 w-10" />
           <div className='flex flex-col'>
-            <span className="font-bold font-headline text-xl leading-tight text-gray-900">CCA</span>
-            <span className="text-xs text-gray-500 leading-tight -mt-1">Centre for Cognitive Activities</span>
+            <span className="font-bold font-headline text-xl leading-tight">CCA</span>
+            <span className="text-xs text-muted-foreground leading-tight -mt-1">Centre for Cognitive Activities</span>
           </div>
         </Link>
 
@@ -58,17 +59,19 @@ export function Header() {
               Admin Login
             </Button>
           </Link>
+          <ThemeToggle />
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2 md:hidden">
+          <ThemeToggle />
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden text-gray-800 hover:bg-gray-100">
+              <Button variant="ghost" size="icon" className="md:hidden text-muted-foreground hover:bg-muted/50">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="bg-white">
+            <SheetContent side="left" className="bg-background">
               <SheetHeader>
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               </SheetHeader>
@@ -76,8 +79,8 @@ export function Header() {
                  <Link href="/" className="mb-10 flex items-center gap-3" onClick={() => setIsSheetOpen(false)}>
                     <Image src="/logo2.png" alt="CCA Logo" width={40} height={40} className="h-10 w-10" />
                      <div className='flex flex-col'>
-                        <span className="font-bold font-headline text-xl leading-tight text-gray-900">CCA</span>
-                        <span className="text-xs text-gray-500 leading-tight -mt-1">Centre for Cognitive Activities</span>
+                        <span className="font-bold font-headline text-xl leading-tight">CCA</span>
+                        <span className="text-xs text-muted-foreground leading-tight -mt-1">Centre for Cognitive Activities</span>
                     </div>
                 </Link>
                 <nav className="grid gap-6">
