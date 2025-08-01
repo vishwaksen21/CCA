@@ -1,11 +1,13 @@
 
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Clock, MapPin } from 'lucide-react';
+import { Calendar, Clock, MapPin, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { upcomingEvents } from '@/lib/mock-data';
+import { upcomingEvents as initialEvents } from '@/lib/mock-data';
+import { useToast } from '@/hooks/use-toast';
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -19,6 +21,32 @@ const cardVariants = {
 };
 
 export default function Page() {
+  const [events, setEvents] = useState(initialEvents.map(event => ({ ...event, isRegistered: false })));
+  const { toast } = useToast();
+
+  const handleRegister = (eventId: string) => {
+    setEvents(currentEvents => 
+      currentEvents.map(event => {
+        if (event.id === eventId && !event.isRegistered) {
+          // In a real app, you would send a request to your backend to register the user.
+          // For this prototype, we'll just simulate it on the client-side.
+          // Let's also add a mock user to the registrations list.
+          const eventInData = initialEvents.find(e => e.id === eventId);
+          if (eventInData) {
+            eventInData.registrations.push('New User'); // Example user
+          }
+          
+          toast({
+            title: 'Registration Successful!',
+            description: `You are now registered for "${event.title}".`,
+          });
+          return { ...event, isRegistered: true };
+        }
+        return event;
+      })
+    );
+  };
+
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <motion.div
@@ -36,9 +64,9 @@ export default function Page() {
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {upcomingEvents.map((event, index) => (
+        {events.map((event, index) => (
           <motion.div
-            key={index}
+            key={event.id}
             variants={cardVariants}
             initial="initial"
             whileInView="animate"
@@ -65,7 +93,20 @@ export default function Page() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full">Register Now</Button>
+                <Button 
+                  className="w-full"
+                  onClick={() => handleRegister(event.id)}
+                  disabled={event.isRegistered}
+                >
+                  {event.isRegistered ? (
+                    <>
+                      <CheckCircle className="mr-2 h-4 w-4" />
+                      Registered
+                    </>
+                  ) : (
+                    'Register Now'
+                  )}
+                </Button>
               </CardFooter>
             </Card>
           </motion.div>
@@ -74,5 +115,3 @@ export default function Page() {
     </div>
   );
 }
-
-    

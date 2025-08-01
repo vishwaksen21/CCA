@@ -29,7 +29,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info, UserCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
   announcements as initialAnnouncements, 
@@ -45,6 +45,7 @@ import {
 } from '@/lib/mock-data';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 type Announcement = {
   title: string;
@@ -79,11 +80,13 @@ type LeaderboardMember = {
 };
 
 type Event = {
+  id: string;
   title: string;
   date: string;
   time: string;
   location: string;
   description: string;
+  registrations: string[];
 };
 
 
@@ -100,7 +103,7 @@ export default function Page() {
   // Dialog state for all types
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogMode, setDialogMode] = useState<'create' | 'edit' | 'view'>('create');
-  const [dialogType, setDialogType] = useState<'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard' | 'event' | 'submission' | null>(null);
+  const [dialogType, setDialogType] = useState<'announcement' | 'member' | 'milestone' | 'faq' | 'leaderboard' | 'event' | 'submission' | 'registrations' | null>(null);
 
   // State for the item being edited/created
   const [currentItem, setCurrentItem] = useState<any>(null);
@@ -113,7 +116,7 @@ export default function Page() {
     if (type === 'member') setCurrentItem({ name: '', role: '', imageUrl: 'https://placehold.co/400x400.png', dataAiHint: 'person portrait' });
     if (type === 'milestone') setCurrentItem({ year: '', event: '', description: '' });
     if (type === 'faq') setCurrentItem({ question: '', answer: '' });
-    if (type === 'event') setCurrentItem({ title: '', date: '', time: '', location: '', description: '' });
+    if (type === 'event') setCurrentItem({ id: `evt${Date.now()}`, title: '', date: '', time: '', location: '', description: '', registrations: [] });
     if (type === 'leaderboard') setCurrentItem({ name: '', points: 0, badges: []});
     setIsDialogOpen(true);
   };
@@ -127,11 +130,11 @@ export default function Page() {
     if (type === 'milestone') setOriginalIdentifier(item.event);
     if (type === 'faq') setOriginalIdentifier(item.question);
     if (type === 'leaderboard') setOriginalIdentifier(item.rank);
-    if (type === 'event') setOriginalIdentifier(item.title);
+    if (type === 'event') setOriginalIdentifier(item.id);
     setIsDialogOpen(true);
   };
   
-  const handleView = (item: any, type: 'submission') => {
+  const handleView = (item: any, type: 'submission' | 'registrations') => {
     setDialogMode('view');
     setDialogType(type);
     setCurrentItem(item);
@@ -143,7 +146,7 @@ export default function Page() {
     if (type === 'member') setTeamMembers(teamMembers.filter(m => m.name !== identifier));
     if (type === 'milestone') setMilestones(milestones.filter(m => m.event !== identifier));
     if (type === 'faq') setFaqs(faqs.filter(f => f.question !== identifier));
-    if (type === 'event') setEvents(events.filter(e => e.title !== identifier));
+    if (type === 'event') setEvents(events.filter(e => e.id !== identifier));
     if (type === 'submission') setSubmissions(submissions.filter(s => s.id !== identifier));
     if (type === 'leaderboard') {
         const updated = leaderboard.filter(m => m.rank !== identifier)
@@ -203,7 +206,7 @@ export default function Page() {
                 setLeaderboard(sortedLeaderboard);
                 break;
             case 'event':
-                setEvents(events.map(e => e.title === originalIdentifier ? currentItem : e));
+                setEvents(events.map(e => e.id === originalIdentifier ? currentItem : e));
                 break;
         }
     }
@@ -376,7 +379,36 @@ export default function Page() {
                 {currentItem.message}
               </div>
             </>
-        )
+        );
+      case 'registrations':
+        return (
+          <>
+            <DialogHeader>
+              <DialogTitle className="font-headline">Event Registrations</DialogTitle>
+              <DialogDescription>
+                Attendees for "{currentItem.title}"
+                <br />
+                Total: {currentItem.registrations.length}
+              </DialogDescription>
+            </DialogHeader>
+            <ScrollArea className="h-64 mt-4 border rounded-md">
+                <div className="p-4">
+                {currentItem.registrations.length > 0 ? (
+                    <ul className="space-y-2">
+                        {currentItem.registrations.map((attendee: string, index: number) => (
+                            <li key={index} className="text-sm flex items-center gap-2">
+                                <UserCheck className="h-4 w-4 text-primary" />
+                                {attendee}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="text-sm text-muted-foreground text-center py-8">No registrations yet.</p>
+                )}
+                </div>
+            </ScrollArea>
+          </>
+        );
     }
   }
   
@@ -679,7 +711,7 @@ export default function Page() {
                 <CardHeader className="flex flex-row justify-between items-center">
                     <div>
                         <CardTitle>Events</CardTitle>
-                        <CardDescription>Manage upcoming events.</CardDescription>
+                        <CardDescription>Manage upcoming events and view registrations.</CardDescription>
                     </div>
                     <Button onClick={() => handleCreate('event')}>
                         <PlusCircle className="mr-2 h-4 w-4" /> Create Event
@@ -687,21 +719,23 @@ export default function Page() {
                 </CardHeader>
                 <CardContent>
                     <Table>
-                        <TableHeader><TableRow><TableHead>Title</TableHead><TableHead>Date</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableHeader><TableRow><TableHead>Title</TableHead><TableHead>Date</TableHead><TableHead>Registrations</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
                             {events.length > 0 ? (
                                 events.map((event) => (
-                                    <TableRow key={event.title}>
+                                    <TableRow key={event.id}>
                                         <TableCell className="font-medium">{event.title}</TableCell>
                                         <TableCell>{new Date(event.date).toLocaleDateString('en-CA')}</TableCell>
+                                        <TableCell>{event.registrations.length}</TableCell>
                                         <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" onClick={() => handleView(event, 'registrations')}><Users className="h-4 w-4" /></Button>
                                             <Button variant="outline" size="icon" onClick={() => handleEdit(event, 'event')}><Edit className="h-4 w-4" /></Button>
-                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(event.title, 'event')}><Trash2 className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(event.id, 'event')}><Trash2 className="h-4 w-4" /></Button>
                                         </TableCell>
                                     </TableRow>
                                 ))
                             ) : (
-                                <EmptyState message="No upcoming events found. Click 'Create Event' to add one." colSpan={3} />
+                                <EmptyState message="No upcoming events found. Click 'Create Event' to add one." colSpan={4} />
                             )}
                         </TableBody>
                     </Table>
