@@ -1,3 +1,6 @@
+
+'use client'
+
 import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
@@ -5,6 +8,8 @@ import { cn } from '@/lib/utils';
 import { Header } from '@/components/shared/header';
 import { Footer } from '@/components/shared/footer';
 import { Toaster } from '@/components/ui/toaster';
+import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -16,17 +21,13 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 });
 
-
-export const metadata: Metadata = {
-  title: 'CCA - Centre for Cognitive Activities',
-  description: 'Your partner in building a successful career in the defense sector and beyond.',
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+
   return (
     <html lang="en">
       <body
@@ -37,7 +38,18 @@ export default function RootLayout({
         )}
       >
         <Header />
-        <main className="flex-1">{children}</main>
+        <AnimatePresence mode="wait">
+          <motion.main
+            key={pathname}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="flex-1"
+          >
+            {children}
+          </motion.main>
+        </AnimatePresence>
         <Footer />
         <Toaster />
       </body>

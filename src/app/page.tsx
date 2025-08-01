@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -95,7 +96,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <main className="container mx-auto px-4 md:px-6 py-12">
+      <div className="container mx-auto px-4 md:px-6 py-12">
         {/* Featured Opportunities Section */}
         <motion.section
           variants={fadeIn}
@@ -218,7 +219,7 @@ export default function Home() {
             </div>
           </div>
         </motion.section>
-      </main>
+      </div>
     </div>
   );
 }
