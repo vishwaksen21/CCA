@@ -132,7 +132,7 @@ export default function Page() {
                 {announcements.map((announcement, index) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium">{announcement.title}</TableCell>
-                    <TableCell className="hidden md:table-cell">{new Date(announcement.date).toLocaleDateString()}</TableCell>
+                    <TableCell className="hidden md:table-cell">{new Date(announcement.date).toLocaleDateString('en-CA')}</TableCell>
                     <TableCell className="text-right space-x-2">
                       <Button variant="outline" size="icon" onClick={() => handleEdit(announcement)}>
                         <Edit className="h-4 w-4" />
