@@ -45,6 +45,7 @@ export default function Page() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentAnnouncement, setCurrentAnnouncement] = useState<Announcement | null>(null);
   const [dialogMode, setDialogMode] = useState<'create' | 'edit'>('create');
+  const [originalTitle, setOriginalTitle] = useState<string | null>(null);
 
   const handleCreate = () => {
     setCurrentAnnouncement({ title: '', date: '', content: '' });
@@ -53,7 +54,8 @@ export default function Page() {
   };
 
   const handleEdit = (announcement: Announcement) => {
-    setCurrentAnnouncement(announcement);
+    setCurrentAnnouncement({ ...announcement });
+    setOriginalTitle(announcement.title);
     setDialogMode('edit');
     setIsDialogOpen(true);
   };
@@ -71,13 +73,20 @@ export default function Page() {
     } else {
       setAnnouncements(
         announcements.map(a =>
-          a.title === currentAnnouncement.title ? currentAnnouncement : a
+          a.title === originalTitle ? currentAnnouncement : a
         )
       );
     }
     setIsDialogOpen(false);
     setCurrentAnnouncement(null);
+    setOriginalTitle(null);
   };
+  
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+    setCurrentAnnouncement(null);
+    setOriginalTitle(null);
+  }
 
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
@@ -144,7 +153,7 @@ export default function Page() {
       </motion.div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px]" onEscapeKeyDown={handleCloseDialog}>
           <DialogHeader>
             <DialogTitle className="font-headline">
               {dialogMode === 'create' ? 'Create New Announcement' : 'Edit Announcement'}
@@ -163,7 +172,6 @@ export default function Page() {
                 value={currentAnnouncement?.title || ''}
                 onChange={(e) => setCurrentAnnouncement({ ...currentAnnouncement!, title: e.target.value })}
                 className="col-span-3"
-                disabled={dialogMode === 'edit'}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -180,7 +188,7 @@ export default function Page() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="ghost" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
+            <Button variant="ghost" onClick={handleCloseDialog}>Cancel</Button>
             <Button onClick={handleSave}>Save Changes</Button>
           </DialogFooter>
         </DialogContent>
