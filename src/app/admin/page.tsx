@@ -29,7 +29,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
   announcements as initialAnnouncements, 
@@ -397,6 +397,17 @@ export default function Page() {
     )
   }
 
+  const EmptyState = ({ message, colSpan }: { message: string, colSpan: number }) => (
+    <TableRow>
+        <TableCell colSpan={colSpan} className="h-24 text-center">
+            <div className="flex flex-col items-center justify-center gap-2">
+                <Info className="h-8 w-8 text-muted-foreground" />
+                <p className="text-muted-foreground">{message}</p>
+            </div>
+        </TableCell>
+    </TableRow>
+  );
+
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <motion.div
@@ -503,16 +514,20 @@ export default function Page() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {announcements.map((announcement) => (
-                                <TableRow key={announcement.title}>
-                                    <TableCell className="font-medium">{announcement.title}</TableCell>
-                                    <TableCell className="hidden md:table-cell">{new Date(announcement.date).toLocaleDateString('en-CA')}</TableCell>
-                                    <TableCell className="text-right space-x-2">
-                                        <Button variant="outline" size="icon" onClick={() => handleEdit(announcement, 'announcement')}><Edit className="h-4 w-4" /></Button>
-                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(announcement.title, 'announcement')}><Trash2 className="h-4 w-4" /></Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {announcements.length > 0 ? (
+                                announcements.map((announcement) => (
+                                    <TableRow key={announcement.title}>
+                                        <TableCell className="font-medium">{announcement.title}</TableCell>
+                                        <TableCell className="hidden md:table-cell">{new Date(announcement.date).toLocaleDateString('en-CA')}</TableCell>
+                                        <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" onClick={() => handleEdit(announcement, 'announcement')}><Edit className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(announcement.title, 'announcement')}><Trash2 className="h-4 w-4" /></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                               <EmptyState message="No announcements found. Click 'Create New' to add one." colSpan={3} />
+                            )}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -534,16 +549,20 @@ export default function Page() {
                     <Table>
                         <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>Role</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
-                            {teamMembers.map((member) => (
-                                <TableRow key={member.name}>
-                                    <TableCell className="font-medium">{member.name}</TableCell>
-                                    <TableCell>{member.role}</TableCell>
-                                    <TableCell className="text-right space-x-2">
-                                        <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'member')}><Edit className="h-4 w-4" /></Button>
-                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(member.name, 'member')}><Trash2 className="h-4 w-4" /></Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {teamMembers.length > 0 ? (
+                                teamMembers.map((member) => (
+                                    <TableRow key={member.name}>
+                                        <TableCell className="font-medium">{member.name}</TableCell>
+                                        <TableCell>{member.role}</TableCell>
+                                        <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'member')}><Edit className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(member.name, 'member')}><Trash2 className="h-4 w-4" /></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <EmptyState message="No team members found. Click 'Add Member' to get started." colSpan={3} />
+                            )}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -565,16 +584,20 @@ export default function Page() {
                     <Table>
                         <TableHeader><TableRow><TableHead>Year</TableHead><TableHead>Event</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
-                            {milestones.map((milestone) => (
-                                <TableRow key={milestone.event}>
-                                    <TableCell className="font-medium">{milestone.year}</TableCell>
-                                    <TableCell>{milestone.event}</TableCell>
-                                    <TableCell className="text-right space-x-2">
-                                        <Button variant="outline" size="icon" onClick={() => handleEdit(milestone, 'milestone')}><Edit className="h-4 w-4" /></Button>
-                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(milestone.event, 'milestone')}><Trash2 className="h-4 w-4" /></Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {milestones.length > 0 ? (
+                                milestones.map((milestone) => (
+                                    <TableRow key={milestone.event}>
+                                        <TableCell className="font-medium">{milestone.year}</TableCell>
+                                        <TableCell>{milestone.event}</TableCell>
+                                        <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" onClick={() => handleEdit(milestone, 'milestone')}><Edit className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(milestone.event, 'milestone')}><Trash2 className="h-4 w-4" /></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <EmptyState message="No milestones found. Click 'Add Milestone' to build your timeline." colSpan={3} />
+                            )}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -596,15 +619,19 @@ export default function Page() {
                     <Table>
                         <TableHeader><TableRow><TableHead>Question</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
-                            {faqs.map((faq) => (
-                                <TableRow key={faq.question}>
-                                    <TableCell className="font-medium">{faq.question}</TableCell>
-                                    <TableCell className="text-right space-x-2">
-                                        <Button variant="outline" size="icon" onClick={() => handleEdit(faq, 'faq')}><Edit className="h-4 w-4" /></Button>
-                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(faq.question, 'faq')}><Trash2 className="h-4 w-4" /></Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                           {faqs.length > 0 ? (
+                                faqs.map((faq) => (
+                                    <TableRow key={faq.question}>
+                                        <TableCell className="font-medium">{faq.question}</TableCell>
+                                        <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" onClick={() => handleEdit(faq, 'faq')}><Edit className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(faq.question, 'faq')}><Trash2 className="h-4 w-4" /></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                           ) : (
+                               <EmptyState message="No FAQs found. Click 'Add FAQ' to create one." colSpan={2} />
+                           )}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -626,17 +653,21 @@ export default function Page() {
                     <Table>
                         <TableHeader><TableRow><TableHead>Rank</TableHead><TableHead>Name</TableHead><TableHead>Points</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
-                            {leaderboard.map((member) => (
-                                <TableRow key={member.rank}>
-                                    <TableCell className="font-medium">{member.rank}</TableCell>
-                                    <TableCell>{member.name}</TableCell>
-                                    <TableCell>{member.points.toLocaleString()}</TableCell>
-                                    <TableCell className="text-right space-x-2">
-                                        <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'leaderboard')}><Edit className="h-4 w-4" /></Button>
-                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(member.rank, 'leaderboard')}><Trash2 className="h-4 w-4" /></Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {leaderboard.length > 0 ? (
+                                leaderboard.map((member) => (
+                                    <TableRow key={member.rank}>
+                                        <TableCell className="font-medium">{member.rank}</TableCell>
+                                        <TableCell>{member.name}</TableCell>
+                                        <TableCell>{member.points.toLocaleString()}</TableCell>
+                                        <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'leaderboard')}><Edit className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(member.rank, 'leaderboard')}><Trash2 className="h-4 w-4" /></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <EmptyState message="No members on the leaderboard. Click 'Add Member' to start." colSpan={4} />
+                            )}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -658,16 +689,20 @@ export default function Page() {
                     <Table>
                         <TableHeader><TableRow><TableHead>Title</TableHead><TableHead>Date</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
-                            {events.map((event) => (
-                                <TableRow key={event.title}>
-                                    <TableCell className="font-medium">{event.title}</TableCell>
-                                    <TableCell>{new Date(event.date).toLocaleDateString('en-CA')}</TableCell>
-                                    <TableCell className="text-right space-x-2">
-                                        <Button variant="outline" size="icon" onClick={() => handleEdit(event, 'event')}><Edit className="h-4 w-4" /></Button>
-                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(event.title, 'event')}><Trash2 className="h-4 w-4" /></Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {events.length > 0 ? (
+                                events.map((event) => (
+                                    <TableRow key={event.title}>
+                                        <TableCell className="font-medium">{event.title}</TableCell>
+                                        <TableCell>{new Date(event.date).toLocaleDateString('en-CA')}</TableCell>
+                                        <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" onClick={() => handleEdit(event, 'event')}><Edit className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(event.title, 'event')}><Trash2 className="h-4 w-4" /></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <EmptyState message="No upcoming events found. Click 'Create Event' to add one." colSpan={3} />
+                            )}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -684,17 +719,21 @@ export default function Page() {
                     <Table>
                         <TableHeader><TableRow><TableHead>From</TableHead><TableHead>Email</TableHead><TableHead className="hidden md:table-cell">Date</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
-                            {submissions.map((submission) => (
-                                <TableRow key={submission.id}>
-                                    <TableCell className="font-medium">{submission.name}</TableCell>
-                                    <TableCell>{submission.email}</TableCell>
-                                    <TableCell className="hidden md:table-cell">{new Date(submission.date).toLocaleDateString('en-CA')}</TableCell>
-                                    <TableCell className="text-right space-x-2">
-                                        <Button variant="outline" size="icon" onClick={() => handleView(submission, 'submission')}><Eye className="h-4 w-4" /></Button>
-                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(submission.id, 'submission')}><Trash2 className="h-4 w-4" /></Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                           {submissions.length > 0 ? (
+                                submissions.map((submission) => (
+                                    <TableRow key={submission.id}>
+                                        <TableCell className="font-medium">{submission.name}</TableCell>
+                                        <TableCell>{submission.email}</TableCell>
+                                        <TableCell className="hidden md:table-cell">{new Date(submission.date).toLocaleDateString('en-CA')}</TableCell>
+                                        <TableCell className="text-right space-x-2">
+                                            <Button variant="outline" size="icon" onClick={() => handleView(submission, 'submission')}><Eye className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(submission.id, 'submission')}><Trash2 className="h-4 w-4" /></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                           ) : (
+                               <EmptyState message="No submissions yet." colSpan={4} />
+                           )}
                         </TableBody>
                     </Table>
                 </CardContent>
@@ -713,3 +752,5 @@ export default function Page() {
     </div>
   );
 }
+
+    
