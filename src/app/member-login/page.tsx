@@ -15,8 +15,17 @@ import { Label } from '@/components/ui/label';
 import { LogIn, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
+
+  const handleSignIn = () => {
+    // In a real app, you'd have validation here.
+    // For the prototype, we just redirect.
+    router.push('/profile');
+  };
+
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-gray-50 -my-12">
       <motion.div
@@ -51,9 +60,9 @@ export default function Page() {
             </form>
           </CardContent>
           <CardFooter className="p-8 pt-0 flex-col gap-4">
-            <Link href="/profile" className="w-full">
-              <Button className="w-full" size="lg">Sign In</Button>
-            </Link>
+            <Button className="w-full" size="lg" onClick={handleSignIn}>
+              Sign In
+            </Button>
             <div className="text-sm text-muted-foreground">
               Don't have an account?{' '}
               <Link href="/register" className="font-semibold text-primary hover:underline">
