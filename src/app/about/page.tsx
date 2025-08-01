@@ -7,9 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { teamMembers } from '@/lib/mock-data';
+import { teamMembers, milestones } from '@/lib/mock-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { CheckCircle } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -46,7 +46,29 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="team" className="w-full py-12 md:py-24 bg-gray-100 -mx-4 px-4 md:-mx-6 md:px-6">
+       <section id="timeline" className="w-full py-12 md:py-24">
+        <h2 className="text-3xl font-bold tracking-tighter text-center font-headline mb-12">
+          Our Journey
+        </h2>
+        <div className="relative max-w-5xl mx-auto">
+          <div className="absolute left-1/2 w-0.5 h-full bg-border -translate-x-1/2"></div>
+          {milestones.map((milestone, index) => (
+            <div key={index} className="relative mb-8 flex justify-between items-center w-full">
+              <div className={`w-5/12 ${index % 2 === 0 ? 'order-1 text-right' : 'order-3 text-left'}`}>
+                <p className="text-lg font-bold font-headline text-primary">{milestone.year}</p>
+                <h3 className="text-xl font-semibold mb-1">{milestone.event}</h3>
+                <p className="text-foreground/70">{milestone.description}</p>
+              </div>
+              <div className="z-10 flex items-center order-2 bg-primary p-3 rounded-full shadow-lg">
+                <Calendar className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <div className="w-5/12"></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="team" className="w-full py-12 md:py-24 bg-card/50 -mx-4 px-4 md:-mx-6 md:px-6 rounded-lg">
         <div className="container">
           <h2 className="text-3xl font-bold tracking-tighter text-center font-headline mb-12">
             Meet the Team
@@ -58,7 +80,7 @@ export default function AboutPage() {
                 className="text-center hover:shadow-lg transition-shadow border-0 bg-transparent"
               >
                 <CardHeader>
-                  <Avatar className="w-24 h-24 mx-auto mb-4">
+                  <Avatar className="w-24 h-24 mx-auto mb-4 border-2 border-primary/50">
                     <AvatarImage src={member.imageUrl} alt={member.name} data-ai-hint={member.dataAiHint} />
                     <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
                   </Avatar>
