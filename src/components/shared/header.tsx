@@ -13,10 +13,8 @@ import Image from 'next/image';
 const navLinks = [
   { href: '/about', label: 'About Us' },
   { href: '/leaderboard', label: 'Leaderboard' },
-  { href: '/career-paths', label: 'Career Paths' },
-  { href: '/employer-partnerships', label: 'Employer Partnerships' },
-  { href: '/events', label: 'Events' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/updates', label: 'Updates' },
+  { href: '/faq', label: 'FAQ' },
 ];
 
 export function Header() {

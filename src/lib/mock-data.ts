@@ -1,15 +1,21 @@
+
 import { Award, Medal, Star } from 'lucide-react';
 
 export const announcements = [
   {
+    title: 'New "Cognito" Fest Dates Announced!',
+    date: '2024-09-01',
+    content: 'Get ready for our annual flagship event, Cognito! This year promises to be bigger and better than ever. Mark your calendars for October 25-27th.',
+  },
+  {
     title: 'Resume Building for Government Contracts',
     date: '2024-08-15',
-    content: 'Join us for an insightful session on building resumes for government contracts.',
+    content: 'Join us for an insightful session on building resumes that stand out for government and defense contract roles. Workshop on September 15th.',
   },
   {
     title: 'Networking in the Defense Sector',
     date: '2024-08-10',
-    content: 'A hands-on workshop to prepare for networking in the defense industry.',
+    content: 'A hands-on workshop to prepare for networking in the defense industry. Great opportunity to connect with alumni. Event on October 5th.',
   },
 ];
 
@@ -158,11 +164,26 @@ export const userProfile = {
 
 export const faqs = [
   {
-    question: 'What is the Placement & Defense Careers Club?',
-    answer: 'We are a student-run club focused on providing resources and opportunities for careers in the defense sector and beyond.',
+    question: 'What is the Placement & Defense Careers Club (CCA)?',
+    answer:
+      'The Centre for Cognitive Activities (CCA) is a student-run club focused on holistic development. We provide resources and opportunities for careers in the defense sector, tech, and beyond, focusing on defense awareness, placement preparation, and personality development.',
   },
   {
-    question: 'How can I join?',
-    answer: 'Membership drives are held at the beginning of each academic year. Look out for announcements on our website.',
+    question: 'How can I join the CCA?',
+    answer:
+      'Membership drives are held at the beginning of each academic year. Keep an eye on our website and social media channels for announcements regarding the application process and deadlines.',
+  },
+  {
+    question: 'What are CAP Points?',
+    answer:
+      'CAP (Career and Achievement Points) is our internal rewards system. Members earn points by participating in workshops, volunteering for events, winning competitions, and contributing to the club. These points determine your rank on the leaderboard.',
+  },
+  {
+    question: 'How often is the leaderboard updated?',
+    answer: 'The leaderboard is updated at the end of every week to reflect the latest point totals and rankings.',
+  },
+    {
+    question: 'Do I need a specific academic background to join?',
+    answer: 'Not at all! We welcome students from all academic disciplines. Our goal is to foster a diverse community of driven individuals. A passion for learning and professional growth is all you need.',
   },
 ];
