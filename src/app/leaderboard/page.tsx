@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { leaderboard, BadgeType } from '@/lib/mock-data';
+import { leaderboard, type BadgeInfo } from '@/lib/mock-data';
 import { Trophy, Crown, Gem } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -33,10 +33,10 @@ const getRankIcon = (rank: number) => {
   return <span className="font-bold text-lg w-6 text-center">{rank}</span>;
 };
 
-const renderBadges = (badges: BadgeType[]) => (
+const renderBadges = (badges: BadgeInfo[]) => (
     <div className="flex gap-2">
         {badges.map((badge, index) => (
-            <div key={index} className="flex items-center gap-1 text-xs p-1 rounded">
+            <div key={index} className="flex items-center gap-1 text-xs p-1 rounded" title={badge.name}>
                 <badge.icon className={`h-4 w-4 ${badge.color}`} />
             </div>
         ))}
@@ -79,6 +79,7 @@ export default function LeaderboardPage() {
                   <TableHead className="w-[80px] text-center">Rank</TableHead>
                   <TableHead>Name</TableHead>
                    <TableHead>Badges</TableHead>
+                  <TableHead className="text-right">CAP Points</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -97,6 +98,7 @@ export default function LeaderboardPage() {
                      <TableCell>
                         {renderBadges(member.badges)}
                     </TableCell>
+                    <TableCell className="text-right font-semibold text-primary">{member.points.toLocaleString()}</TableCell>
                   </motion.tr>
                 ))}
               </TableBody>

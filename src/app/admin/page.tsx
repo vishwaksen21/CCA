@@ -39,9 +39,12 @@ import {
   leaderboard as initialLeaderboard,
   upcomingEvents as initialEvents,
   contactSubmissions as initialSubmissions,
+  availableBadges,
+  type BadgeInfo,
   type ContactSubmission,
 } from '@/lib/mock-data';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Checkbox } from '@/components/ui/checkbox';
 
 type Announcement = {
   title: string;
@@ -59,6 +62,7 @@ type TeamMember = {
 type Milestone = {
   year: string;
   event: string;
+
   description: string;
 };
 
@@ -71,7 +75,7 @@ type LeaderboardMember = {
   rank: number;
   name: string;
   points: number;
-  badges: any[]; // Kept simple for prototype
+  badges: BadgeInfo[];
 };
 
 type Event = {
@@ -102,7 +106,7 @@ export default function Page() {
   const [currentItem, setCurrentItem] = useState<any>(null);
   const [originalIdentifier, setOriginalIdentifier] = useState<string | number | null>(null);
 
-  const handleCreate = (type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event') => {
+  const handleCreate = (type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event' | 'leaderboard') => {
     setDialogMode('create');
     setDialogType(type);
     if (type === 'announcement') setCurrentItem({ title: '', date: '', content: '' });
@@ -110,6 +114,7 @@ export default function Page() {
     if (type === 'milestone') setCurrentItem({ year: '', event: '', description: '' });
     if (type === 'faq') setCurrentItem({ question: '', answer: '' });
     if (type === 'event') setCurrentItem({ title: '', date: '', time: '', location: '', description: '' });
+    if (type === 'leaderboard') setCurrentItem({ name: '', points: 0, badges: []});
     setIsDialogOpen(true);
   };
 
@@ -133,14 +138,19 @@ export default function Page() {
     setIsDialogOpen(true);
   }
 
-  const handleDelete = (identifier: string | number, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event' | 'submission') => {
-    // Note: Deleting from leaderboard not implemented as per original scope
+  const handleDelete = (identifier: string | number, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event' | 'submission' | 'leaderboard') => {
     if (type === 'announcement') setAnnouncements(announcements.filter(a => a.title !== identifier));
     if (type === 'member') setTeamMembers(teamMembers.filter(m => m.name !== identifier));
     if (type === 'milestone') setMilestones(milestones.filter(m => m.event !== identifier));
     if (type === 'faq') setFaqs(faqs.filter(f => f.question !== identifier));
     if (type === 'event') setEvents(events.filter(e => e.title !== identifier));
     if (type === 'submission') setSubmissions(submissions.filter(s => s.id !== identifier));
+    if (type === 'leaderboard') {
+        const updated = leaderboard.filter(m => m.rank !== identifier)
+            .sort((a, b) => b.points - a.points)
+            .map((member, index) => ({ ...member, rank: index + 1 }));
+        setLeaderboard(updated);
+    }
   };
   
   const handleSave = () => {
@@ -163,6 +173,13 @@ export default function Page() {
             case 'event':
                 setEvents([...events, currentItem]);
                 break;
+            case 'leaderboard':
+                 const newMember = { ...currentItem, points: Number(currentItem.points) };
+                 const updatedLeaderboard = [...leaderboard, newMember]
+                    .sort((a, b) => b.points - a.points)
+                    .map((member, index) => ({ ...member, rank: index + 1 }));
+                 setLeaderboard(updatedLeaderboard);
+                break;
         }
     } else { // edit mode
         switch(dialogType) {
@@ -179,8 +196,7 @@ export default function Page() {
                 setFaqs(faqs.map(f => f.question === originalIdentifier ? currentItem : f));
                 break;
             case 'leaderboard':
-                const updatedLeaderboard = leaderboard.map(m => m.rank === originalIdentifier ? { ...m, points: Number(currentItem.points) } : m);
-                // Re-sort by points and update ranks
+                const updatedLeaderboard = leaderboard.map(m => m.rank === originalIdentifier ? { ...m, ...currentItem, points: Number(currentItem.points) } : m);
                 const sortedLeaderboard = updatedLeaderboard
                     .sort((a, b) => b.points - a.points)
                     .map((member, index) => ({ ...member, rank: index + 1 }));
@@ -192,6 +208,26 @@ export default function Page() {
         }
     }
     handleCloseDialog();
+  };
+
+  const handleBadgeChange = (badge: BadgeInfo, isChecked: boolean) => {
+    if (!currentItem) return;
+
+    const currentBadges: BadgeInfo[] = currentItem.badges || [];
+    let updatedBadges: BadgeInfo[];
+
+    if (isChecked) {
+        // Add badge if it's not already there
+        if (!currentBadges.some(b => b.name === badge.name)) {
+            updatedBadges = [...currentBadges, badge];
+        } else {
+            updatedBadges = currentBadges;
+        }
+    } else {
+        // Remove badge
+        updatedBadges = currentBadges.filter(b => b.name !== badge.name);
+    }
+    setCurrentItem({ ...currentItem, badges: updatedBadges });
   };
   
   const handleCloseDialog = () => {
@@ -268,9 +304,15 @@ export default function Page() {
         return (
             <>
               <DialogHeader>
-                <DialogTitle className="font-headline">Edit CAP Points for {currentItem.name}</DialogTitle>
+                <DialogTitle className="font-headline">{dialogMode === 'create' ? 'Add New Member' : `Edit ${currentItem.name}`}</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
+                {dialogMode === 'create' && (
+                    <>
+                        <Label htmlFor="name">Member Name</Label>
+                        <Input id="name" value={currentItem.name} onChange={(e) => setCurrentItem({ ...currentItem, name: e.target.value })} />
+                    </>
+                )}
                 <Label htmlFor="points">CAP Points</Label>
                 <Input 
                   id="points" 
@@ -278,6 +320,24 @@ export default function Page() {
                   value={currentItem.points} 
                   onChange={(e) => setCurrentItem({ ...currentItem, points: e.target.value })} 
                 />
+                <div>
+                  <Label>Badges</Label>
+                  <div className="space-y-2 mt-2">
+                    {availableBadges.map(badge => (
+                      <div key={badge.name} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`badge-${badge.name}`}
+                          checked={currentItem.badges.some((b: BadgeInfo) => b.name === badge.name)}
+                          onCheckedChange={(checked) => handleBadgeChange(badge, !!checked)}
+                        />
+                         <Label htmlFor={`badge-${badge.name}`} className="flex items-center gap-2 font-normal">
+                          <badge.icon className={`h-4 w-4 ${badge.color}`} />
+                          {badge.name}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </>
         );
@@ -553,9 +613,14 @@ export default function Page() {
         
         <TabsContent value="leaderboard">
             <Card className="shadow-lg">
-                <CardHeader>
-                    <CardTitle>Leaderboard Management</CardTitle>
-                    <CardDescription>Assign and update CAP points for members.</CardDescription>
+                <CardHeader className="flex flex-row justify-between items-center">
+                     <div>
+                        <CardTitle>Leaderboard Management</CardTitle>
+                        <CardDescription>Add members, assign points, and manage badges.</CardDescription>
+                    </div>
+                     <Button onClick={() => handleCreate('leaderboard')}>
+                        <PlusCircle className="mr-2 h-4 w-4" /> Add Member
+                    </Button>
                 </CardHeader>
                 <CardContent>
                     <Table>
@@ -568,6 +633,7 @@ export default function Page() {
                                     <TableCell>{member.points.toLocaleString()}</TableCell>
                                     <TableCell className="text-right space-x-2">
                                         <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'leaderboard')}><Edit className="h-4 w-4" /></Button>
+                                        <Button variant="destructive" size="icon" onClick={() => handleDelete(member.rank, 'leaderboard')}><Trash2 className="h-4 w-4" /></Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
