@@ -1,6 +1,8 @@
 
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -13,10 +15,29 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Shield } from 'lucide-react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Page() {
+  const [email, setEmail] = useState('vishwak21@gmail.com');
+  const [password, setPassword] = useState('vishwak@151370');
+  const [error, setError] = useState('');
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleLogin = () => {
+    setError('');
+    if (email === 'vishwak21@gmail.com' && password === 'vishwak@151370') {
+      toast({
+        title: 'Login Successful',
+        description: 'Redirecting to the admin dashboard.',
+      });
+      router.push('/admin');
+    } else {
+      setError('Invalid email or password. Please try again.');
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-gray-50 -my-12">
       <motion.div
@@ -37,24 +58,34 @@ export default function Page() {
             </CardDescription>
           </CardHeader>
           <CardContent className="p-8 pt-0">
-            <form>
-              <div className="grid w-full items-center gap-6">
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="admin@example.com" defaultValue="admin@example.com" />
-                </div>
-                <div className="flex flex-col space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" placeholder="••••••••" defaultValue="password" />
-                </div>
+            <div className="grid w-full items-center gap-6">
+              <div className="flex flex-col space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="admin@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
-            </form>
+              <div className="flex flex-col space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              {error && <p className="text-sm text-destructive text-center">{error}</p>}
+            </div>
           </CardContent>
           <CardFooter className="p-8 pt-0 flex-col gap-4">
-            <Link href="/admin" className="w-full">
-              <Button className="w-full" size="lg">Sign In</Button>
-            </Link>
-            <p className="text-xs text-muted-foreground text-center">This is a demo. No password is required.</p>
+            <Button className="w-full" size="lg" onClick={handleLogin}>
+              Sign In
+            </Button>
           </CardFooter>
         </Card>
       </motion.div>
