@@ -99,7 +99,7 @@ export default function Page() {
                   className="w-full"
                   disabled
                 >
-                  Registration Closed
+                  Register Now
                 </Button>
               </CardFooter>
             </Card>
