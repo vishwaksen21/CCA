@@ -42,7 +42,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
       <div className="container flex h-20 items-center">
         <Link href="/" className="mr-6 flex items-center gap-3">
-          <Image src="/logo2-.png" alt="CCA Logo" width={48} height={48} className="h-12 w-12" />
+          <Image src="/logo2-.png" alt="CCA Logo" width={56} height={56} className="h-14 w-14" />
           <div className='flex flex-col'>
             <span className="font-bold font-headline text-xl leading-tight">CCA</span>
             <span className="text-xs text-muted-foreground leading-tight -mt-1">Centre for Cognitive Activities</span>
@@ -77,7 +77,7 @@ export function Header() {
               </SheetHeader>
                <div className="p-4 pt-8">
                  <Link href="/" className="mb-10 flex items-center gap-3" onClick={() => setIsSheetOpen(false)}>
-                    <Image src="/logo2-.png" alt="CCA Logo" width={48} height={48} className="h-12 w-12" />
+                    <Image src="/logo2-.png" alt="CCA Logo" width={56} height={56} className="h-14 w-14" />
                      <div className='flex flex-col'>
                         <span className="font-bold font-headline text-xl leading-tight">CCA</span>
                         <span className="text-xs text-muted-foreground leading-tight -mt-1">Centre for Cognitive Activities</span>
