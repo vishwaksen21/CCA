@@ -43,7 +43,7 @@ export default function Page() {
             description: `You are now registered for "${event.title}".`,
           });
           return { ...event, isRegistered: true };
-        }
+        }// hi heelo
         return event;
       })
     );
