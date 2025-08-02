@@ -21,9 +21,6 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: 'CCA',
   description: 'Centre for Cognitive Activities',
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 export default function RootLayout({
