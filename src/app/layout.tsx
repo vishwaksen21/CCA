@@ -29,14 +29,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body
         className={cn(
           'min-h-screen bg-background font-body text-foreground antialiased flex flex-col',
@@ -51,21 +49,19 @@ export default function RootLayout({
             disableTransitionOnChange
         >
           <Header />
-            <AnimatePresence mode="wait">
-              <motion.main
-                key={pathname}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{
-                  duration: 0.3,
-                  ease: 'easeInOut',
-                }}
-                className="flex-1"
-              >
-                {children}
-              </motion.main>
-            </AnimatePresence>
+            <motion.main
+              key={pathname}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{
+                duration: 0.5,
+                ease: 'easeInOut',
+              }}
+              className="flex-1"
+            >
+              {children}
+            </motion.main>
           <Footer />
           <Toaster />
         </ThemeProvider>
