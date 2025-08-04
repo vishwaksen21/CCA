@@ -26,7 +26,9 @@ export const upcomingEvents: {
   time: string;
   location: string;
   description: string;
+  imageUrl?: string; // Optional image URL for the event
   registrations: string[];
+  registrationUrl?: string;
 }[] = [
   {
     id: 'evt1',
@@ -35,7 +37,9 @@ export const upcomingEvents: {
     time: '2:00 PM - 4:00 PM',
     location: 'Virtual / Zoom',
     description: 'Learn how to tailor your resume for top defense and tech companies. An interactive session with live feedback.',
+ imageUrl: '/seminar.png', // Placeholder image
     registrations: ['Aarav Sharma', 'Diya Mehta'],
+    registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeH6PJ1TKuNJtp4dKBoxY33r3IrHkkNyNsv2HJRZzTYRqwVYg/viewform', // Add the URL here
   },
   {
     id: 'evt2',
@@ -44,7 +48,9 @@ export const upcomingEvents: {
     time: '6:00 PM - 8:00 PM',
     location: 'University Auditorium',
     description: 'An exclusive opportunity to network with recruiters and engineers from Northrop Grumman.',
+ imageUrl: 'https://placehold.co/600x400.png', // Placeholder image
     registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
+    registrationUrl: 'https://example.com/register-resume-workshop',
   },
     {
     id: 'evt3',
@@ -53,7 +59,9 @@ export const upcomingEvents: {
     time: '12:00 PM - 1:00 PM',
     location: 'Online Webinar',
     description: 'Demystify the security clearance process. A must-attend for anyone considering a career in defense.',
+ imageUrl: 'https://placehold.co/600x400.png', // Placeholder image
     registrations: [],
+    registrationUrl: 'https://example.com/register-resume-workshop',
   },
 ];
 

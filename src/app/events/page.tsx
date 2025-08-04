@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
 import { Calendar, Clock, MapPin, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { upcomingEvents as initialEventsData } from '@/lib/mock-data';
@@ -77,6 +78,21 @@ export default function Page() {
           >
             <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
               <CardHeader>
+              {event.imageUrl && (
+  <div className="w-full max-w-sm mx-auto mb-4">
+    <Image
+      src={event.imageUrl}
+      alt="Event Image"
+      width={400} // or adjust as needed
+      height={500} // to maintain 4:5 aspect ratio
+      objectFit="cover"
+      className="rounded-lg"
+    />
+  </div>
+)}
+
+
+
                 <CardTitle className="font-headline text-xl">{event.title}</CardTitle>
                 <CardDescription>{event.description}</CardDescription>
               </CardHeader>
@@ -95,12 +111,19 @@ export default function Page() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button 
-                  className="w-full"
-                  disabled
-                >
-                  Register Now
-                </Button>
+              <Button
+      className="w-full"
+      onClick={() => {
+        if (event.registrationUrl) {
+          window.open(event.registrationUrl, '_blank'); // Opens in a new tab
+          // If you want to redirect in the same tab, use:
+          // window.location.href = event.registrationUrl;
+        }
+      }}
+    >
+      Register Now
+    </Button>
+
               </CardFooter>
             </Card>
           </motion.div>
