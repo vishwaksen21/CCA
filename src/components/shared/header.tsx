@@ -42,7 +42,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
       <div className="container flex h-20 items-center">
         <Link href="/" className="mr-6 flex items-center gap-3">
-          <Image src="/logo2-.png" alt="CCA Logo" width={64} height={64} className="h-16 w-16" />
+          <Image src="/logo2-.png" alt="CCA Logo" width={64} height={64} className="h-16 w-16" priority />
           <div className='flex flex-col'>
             <span className="font-bold font-headline text-xl leading-tight">CCA</span>
             <span className="text-xs text-muted-foreground leading-tight -mt-1">Centre for Cognitive Activities</span>
@@ -53,12 +53,6 @@ export function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
-           <Link href="/login">
-            <Button variant="outline" size="sm">
-              <User className="mr-2 h-4 w-4" />
-              Admin Login
-            </Button>
-          </Link>
           <ThemeToggle />
         </nav>
 
@@ -87,12 +81,6 @@ export function Header() {
                   {navLinks.map((link) => (
                     <NavLink key={link.href} {...link} isMobile={true} />
                   ))}
-                  <Link href="/login" onClick={() => setIsSheetOpen(false)}>
-                    <Button variant="outline" className="w-full">
-                      <User className="mr-2 h-4 w-4" />
-                      Admin Login
-                    </Button>
-                  </Link>
                 </nav>
               </div>
             </SheetContent>
