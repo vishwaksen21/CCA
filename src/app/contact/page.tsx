@@ -46,14 +46,14 @@ export default function ContactPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // In a real app, you'd send this to a server.
-    // For this prototype, we'll add it to our mock data array.
-    const newSubmission = {
-      id: `sub${Date.now()}`,
-      ...values,
-      date: new Date().toISOString().split('T')[0],
-    };
-    contactSubmissions.unshift(newSubmission);
-    
+    // For this prototype, we'll simulate sending an email and add to mock data.
+
+    // Simulate sending email
+    // This is a simplified approach. In a real application, you would use a backend service
+    // to send the email to prevent exposing the email address and for better security.
+    window.location.href = `mailto:cvi23csds@cmrit.ac.in?subject=Contact Form Submission&body=Name: ${values.name}%0D%0AEmail: ${values.email}%0D%0AMessage: ${values.message}`;
+
+    console.log('Contact form submitted with values:', values);
     console.log('Updated Submissions:', contactSubmissions);
 
     toast({
