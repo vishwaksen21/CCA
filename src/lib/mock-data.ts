@@ -32,36 +32,47 @@ export const upcomingEvents: {
 }[] = [
   {
     id: 'evt1',
-    title: 'Resume Building Workshop',
-    date: '2024-09-15',
+    title: 'Placement event',
+    date: '2025-08-20',
     time: '2:00 PM - 4:00 PM',
-    location: 'Virtual / Zoom',
-    description: 'Learn how to tailor your resume for top defense and tech companies. An interactive session with live feedback.',
- imageUrl: '/seminar.png', // Placeholder image
+    location: 'AV HALL',
+    description: 'This event prepares you to stand out and succeed in competitive campus placements.',
+ imageUrl: '/example3.png', // Placeholder image
     registrations: ['Aarav Sharma', 'Diya Mehta'],
     registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeH6PJ1TKuNJtp4dKBoxY33r3IrHkkNyNsv2HJRZzTYRqwVYg/viewform', // Add the URL here
   },
   {
     id: 'evt2',
-    title: 'Industry Mixer with Northrop Grumman',
-    date: '2024-10-05',
-    time: '6:00 PM - 8:00 PM',
-    location: 'University Auditorium',
-    description: 'An exclusive opportunity to network with recruiters and engineers from Northrop Grumman.',
- imageUrl: 'https://placehold.co/600x400.png', // Placeholder image
+    title: 'Soft Skills based Event',
+    date: '2025-09-03',
+    time: '2:00 PM - 4:00 PM',
+    location: 'AV HALL',
+    description: 'Strong soft skills set you apart and give you the edge in every placement interview.',
+ imageUrl: '/example3.png', // Placeholder image
     registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
     registrationUrl: 'https://example.com/register-resume-workshop',
   },
     {
     id: 'evt3',
-    title: 'Security Clearance Simplified',
-    date: '2024-11-01',
-    time: '12:00 PM - 1:00 PM',
-    location: 'Online Webinar',
-    description: 'Demystify the security clearance process. A must-attend for anyone considering a career in defense.',
- imageUrl: 'https://placehold.co/600x400.png', // Placeholder image
+    title: 'Higher Studies Event',
+    date: '2025-09-17',
+    time: '2:00 PM - 4:00 PM',
+    location: 'AV HALL',
+    description: 'This event equips you with the guidance and strategies to excel in your journey toward higher studies.',
+ imageUrl: '/example3.png', // Placeholder image
     registrations: [],
     registrationUrl: 'https://example.com/register-resume-workshop',
+  },
+  {
+    id: 'evt4', // Give it a unique ID
+    title: 'Defense Event', // New event title
+    date: '2025-09-25', // New date
+    time: '2:00 PM - 4:00 PM', // New time
+    location: 'AV HALL', // New location
+    description: 'This event prepares you to navigate the path and excel in a career with the defense sector.', // New description
+    registrations: [], // Start with an empty registrations array
+    imageUrl: '/example3.png', // Optional image URL
+    registrationUrl: 'https://example.com/register-tech-workshop', // Optional registration URL
   },
 ];
 
