@@ -15,10 +15,6 @@ export function Footer() {
           </p>
         </div>
         {/* Admin Login Link */}
-        <Link href="/admin" className="text-sm text-gray-500 hover:text-primary transition-colors">
-          Admin Login
-        </Link>
-        {/* Admin Login Link */}
         <div className="flex items-center gap-5">
           <motion.div whileHover={{ scale: 1.2, rotate: 5 }} whileTap={{ scale: 0.9 }}>
             <Link href="https://www.instagram.com/cca_cmrit" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors">
