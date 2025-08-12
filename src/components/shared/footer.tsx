@@ -23,7 +23,7 @@ export function Footer() {
             </Link>
           </motion.div>
           <motion.div whileHover={{ scale: 1.2, rotate: 5 }} whileTap={{ scale: 0.9 }}>
-            <Link href="mailto:cca.club@example.com" className="text-gray-500 hover:text-primary transition-colors">
+            <Link href="mailto:cmritcca@gmail.com" className="text-gray-500 hover:text-primary transition-colors">
               <Mail className="h-5 w-5" />
               <span className="sr-only">Gmail</span>
             </Link>
