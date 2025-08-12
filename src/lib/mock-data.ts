@@ -48,7 +48,7 @@ export const upcomingEvents: {
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
     description: 'Strong soft skills set you apart and give you the edge in every placement interview.',
- imageUrl: '/coming_soon.png', // Placeholder image
+ imageUrl: '/coming_soon_.png', // Placeholder image
     registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
     registrationUrl: 'https://example.com/register-resume-workshop',
   },
@@ -59,7 +59,7 @@ export const upcomingEvents: {
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
     description: 'This event equips you with the guidance and strategies to excel in your journey toward higher studies.',
- imageUrl: '/coming_soon.png', // Placeholder image
+ imageUrl: '/coming_soon_.png', // Placeholder image
     registrations: [],
     registrationUrl: 'https://example.com/register-resume-workshop',
   },
@@ -71,7 +71,7 @@ export const upcomingEvents: {
     location: 'AV HALL', // New location
     description: 'This event prepares you to navigate the path and excel in a career with the defense sector.', // New description
     registrations: [], // Start with an empty registrations array
-    imageUrl: '/coming_soon.png', // Optional image URL
+    imageUrl: '/coming_soon_.png', // Optional image URL
     registrationUrl: 'https://example.com/register-tech-workshop', // Optional registration URL
   },
 ];
