@@ -32,14 +32,14 @@ export const upcomingEvents: {
 }[] = [
   {
     id: 'evt1',
-    title: 'Placement event',
+    title: 'The Placement Pursuit',
     date: '2025-08-20',
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
     description: 'This event prepares you to stand out and succeed in competitive campus placements.',
- imageUrl: '/coming_soon.png', // Placeholder image
+ imageUrl: '/event1.png', // Placeholder image
     registrations: ['Aarav Sharma', 'Diya Mehta'],
-    registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeH6PJ1TKuNJtp4dKBoxY33r3IrHkkNyNsv2HJRZzTYRqwVYg/viewform', // Add the URL here
+    registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdo7ehPXc3_45oUN8Zs6Jp4DAjDpsq_kon5V_F4GEZ0haCgAw/viewform', // Add the URL here
   },
   {
     id: 'evt2',
