@@ -51,7 +51,7 @@ export default function ContactPage() {
     // Simulate sending email
     // This is a simplified approach. In a real application, you would use a backend service
     // to send the email to prevent exposing the email address and for better security.
-    window.location.href = `mailto:cvi23csds@cmrit.ac.in?subject=Contact Form Submission&body=Name: ${values.name}%0D%0AEmail: ${values.email}%0D%0AMessage: ${values.message}`;
+    window.location.href = `mailto:cmritcca@gmail.com?subject=Contact Form Submission&body=Name: ${values.name}%0D%0AEmail: ${values.email}%0D%0AMessage: ${values.message}`;
 
     console.log('Contact form submitted with values:', values);
     console.log('Updated Submissions:', contactSubmissions);
@@ -101,7 +101,7 @@ export default function ContactPage() {
                   <FormItem>
                     <FormLabel>Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="John Doe" {...field} />
+                      <Input placeholder="your name" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -114,7 +114,7 @@ export default function ContactPage() {
                   <FormItem>
                     <FormLabel>Email Address</FormLabel>
                     <FormControl>
-                      <Input placeholder="you@example.com" {...field} />
+                      <Input placeholder="you@egmail.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
