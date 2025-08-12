@@ -37,7 +37,7 @@ export const upcomingEvents: {
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
     description: 'This event prepares you to stand out and succeed in competitive campus placements.',
- imageUrl: '/example3.png', // Placeholder image
+ imageUrl: '/coming_soon.png', // Placeholder image
     registrations: ['Aarav Sharma', 'Diya Mehta'],
     registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeH6PJ1TKuNJtp4dKBoxY33r3IrHkkNyNsv2HJRZzTYRqwVYg/viewform', // Add the URL here
   },
@@ -48,7 +48,7 @@ export const upcomingEvents: {
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
     description: 'Strong soft skills set you apart and give you the edge in every placement interview.',
- imageUrl: '/example3.png', // Placeholder image
+ imageUrl: '/coming_soon.png', // Placeholder image
     registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
     registrationUrl: 'https://example.com/register-resume-workshop',
   },
@@ -59,7 +59,7 @@ export const upcomingEvents: {
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
     description: 'This event equips you with the guidance and strategies to excel in your journey toward higher studies.',
- imageUrl: '/example3.png', // Placeholder image
+ imageUrl: '/coming_soon.png', // Placeholder image
     registrations: [],
     registrationUrl: 'https://example.com/register-resume-workshop',
   },
@@ -71,7 +71,7 @@ export const upcomingEvents: {
     location: 'AV HALL', // New location
     description: 'This event prepares you to navigate the path and excel in a career with the defense sector.', // New description
     registrations: [], // Start with an empty registrations array
-    imageUrl: '/example3.png', // Optional image URL
+    imageUrl: '/coming_soon.png', // Optional image URL
     registrationUrl: 'https://example.com/register-tech-workshop', // Optional registration URL
   },
 ];
