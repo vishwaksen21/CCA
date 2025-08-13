@@ -38,15 +38,9 @@ const featureCards = [
 const upcomingWorkshops = [
   {
     title: 'Resume Building for Government Contracts',
-    date: 'September 12, 2025',
-    description: 'Craft job-winning resumes tailored to government and defense sector requirements.',
-    image: '/resume3.png',
-  },
-  {
-    title: 'Networking in the Defense Sector',
-    date: 'October 3, 2025',
-    description: 'Master the art of networking and build key connections in the defense ecosystem.',
-    image: '/defense.png',
+    date: '2nd week of Sept. 2025',
+    description: 'Kickstarting your journey towards success with CCA’s guidance and opportunities.',
+    image: '/orientation.png',
   },
 ];
 
