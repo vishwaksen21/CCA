@@ -3,19 +3,14 @@ import { Award, Medal, Star } from 'lucide-react';
 
 export const announcements = [
   {
-    title: 'New "Cognito" Fest Dates Announced!',
-    date: '2024-09-01',
-    content: 'Get ready for our annual flagship event, Cognito! This year promises to be bigger and better than ever. Mark your calendars for October 25-27th.',
+    title: '"CCA Freshers’ Orientation 2025"',
+    date: '2025-09-12',
+    content: 'Welcoming freshers to explore growth, skills, and career opportunities with CCA.',
   },
   {
-    title: 'Resume Building for Government Contracts',
-    date: '2024-08-15',
-    content: 'Join us for an insightful session on building resumes that stand out for government and defense contract roles. Workshop on September 15th.',
-  },
-  {
-    title: 'Networking in the Defense Sector',
-    date: '2024-08-10',
-    content: 'A hands-on workshop to prepare for networking in the defense industry. Great opportunity to connect with alumni. Event on October 5th.',
+    title: 'Event: The Placement Pursuit',
+    date: '2025-08-20',
+    content: 'The Placement Pursuit – sharpen your skills, crack interviews, and actually make it to the final round.',
   },
 ];
 
