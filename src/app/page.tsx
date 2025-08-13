@@ -37,7 +37,7 @@ const featureCards = [
 
 const upcomingWorkshops = [
   {
-    title: 'Resume Building for Government Contracts',
+    title: 'CCA Freshers’ Orientation 2025',
     date: '2nd week of Sept. 2025',
     description: 'Kickstarting your journey towards success with CCA’s guidance and opportunities.',
     image: '/orientation.png',
