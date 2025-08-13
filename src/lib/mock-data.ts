@@ -192,16 +192,16 @@ export const availableBadges: BadgeInfo[] = [
 ];
 
 export const leaderboard: { rank: number; name: string; points: number; badges: BadgeInfo[] }[] = [
-  { rank: 1, name: 'Aarav Sharma', points: 2580, badges: [availableBadges[0], availableBadges[1]] },
-  { rank: 2, name: 'Diya Mehta', points: 2450, badges: [availableBadges[1]] },
-  { rank: 3, name: 'Kabir Khan', points: 2300, badges: [availableBadges[2]] },
-  { rank: 4, name: 'Vivaan Reddy', points: 2150, badges: [] },
-  { rank: 5, name: 'Ishaan Gupta', points: 2020, badges: [availableBadges[1]] },
-  { rank: 6, name: 'Myra Joshi', points: 1980, badges: [] },
-  { rank: 7, name: 'Arjun Nair', points: 1850, badges: [] },
-  { rank: 8, name: 'Saanvi Patel', points: 1700, badges: [availableBadges[2]] },
-  { rank: 9, name: 'Yash Singh', points: 1650, badges: [] },
-  { rank: 10, name: 'Anika Verma', points: 1500, badges: [] },
+  { rank: 1, name: '---', points: 2580, badges: [availableBadges[0], availableBadges[1]] },
+  { rank: 2, name: '---', points: 2450, badges: [availableBadges[1]] },
+  { rank: 3, name: '---', points: 2300, badges: [availableBadges[2]] },
+  { rank: 4, name: '---', points: 2150, badges: [] },
+  { rank: 5, name: '---', points: 2020, badges: [availableBadges[1]] },
+  { rank: 6, name: '---', points: 1980, badges: [] },
+  { rank: 7, name: '---', points: 1850, badges: [] },
+  { rank: 8, name: '---', points: 1700, badges: [availableBadges[2]] },
+  { rank: 9, name: '---', points: 1650, badges: [] },
+  { rank: 10, name: '---', points: 1500, badges: [] },
 ];
 
 export const faqs = [
