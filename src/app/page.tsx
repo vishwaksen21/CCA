@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import Link from 'next/link';
-import { Award, ShieldCheck, TrendingUp } from 'lucide-react';
+import { Award, ShieldCheck, TrendingUp, BookOpen } from 'lucide-react'; // ✅ fixed import
 
 import SplashScreen from '@/components/shared/splash-screen';
 
@@ -22,17 +22,17 @@ const featureCards = [
     color: 'text-accent',
   },
   {
-  icon: BookOpen,
-  title: 'Higher Studies Guidance',
-  description: 'Gain insights into global education opportunities with exclusive workshops on admissions, scholarships, and career pathways.',
-  color: 'text-accent',
-},
+    icon: BookOpen,
+    title: 'Higher Studies Guidance',
+    description: 'Gain insights into global education opportunities with exclusive workshops on admissions, scholarships, and career pathways.',
+    color: 'text-accent',
+  },
   {
-  icon: TrendingUp,
-  title: 'Defense Awareness',
-  description: 'Gain insights into the defense sector with exclusive workshops and seminars from industry experts.',
-  color: 'text-accent',
-},
+    icon: TrendingUp,
+    title: 'Defense Awareness',
+    description: 'Gain insights into the defense sector with exclusive workshops and seminars from industry experts.',
+    color: 'text-accent',
+  },
   {
     icon: TrendingUp,
     title: 'Personality Development',
@@ -181,81 +181,79 @@ export default function Home() {
         </motion.section>
 
         {/* Workshops */}
-<motion.section
-  initial="initial"
-  whileInView="animate"
-  viewport={{ once: true, amount: 0.2 }}
-  id="workshops"
-  className="w-full py-20"
->
-  <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">
-    📅 Upcoming Workshops
-  </h2>
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-    {upcomingWorkshops.map((workshop, index) => (
-      <motion.div
-        key={index}
-        whileHover={{ y: -5, scale: 1.03 }}
-        transition={{ type: 'spring', stiffness: 300 }}
-      >
-        <Card className="p-6 shadow-lg">
-          <Image
-            src={workshop.image}
-            alt={workshop.title}
-            width={800}
-            height={400}
-            className="rounded-lg w-full h-[200px] object-cover mb-4"
-          />
-          <CardTitle className="font-headline text-xl mb-1">{workshop.title}</CardTitle>
-          <p className="text-sm text-muted-foreground mb-2">{workshop.date}</p>
-          <p className="text-base text-foreground">{workshop.description}</p>
-        </Card>
-      </motion.div>
-    ))}
-  </div>
-</motion.section>
+        <motion.section
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, amount: 0.2 }}
+          id="workshops"
+          className="w-full py-20"
+        >
+          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">
+            📅 Upcoming Workshops
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {upcomingWorkshops.map((workshop, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ y: -5, scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <Card className="p-6 shadow-lg">
+                  <Image
+                    src={workshop.image}
+                    alt={workshop.title}
+                    width={800}
+                    height={400}
+                    className="rounded-lg w-full h-[200px] object-cover mb-4"
+                  />
+                  <CardTitle className="font-headline text-xl mb-1">{workshop.title}</CardTitle>
+                  <p className="text-sm text-muted-foreground mb-2">{workshop.date}</p>
+                  <p className="text-base text-foreground">{workshop.description}</p>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
 
-{/* Section Divider */}
-<div className="relative w-full flex justify-center my-8">
-  <div className="w-24 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent rounded-full" />
-</div>
+        {/* Section Divider */}
+        <div className="relative w-full flex justify-center my-8">
+          <div className="w-24 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent rounded-full" />
+        </div>
 
-{/* Achievers */}
-{Object.entries(winnersData).map(([year, winners], idx) => (
-  <motion.div
-    key={year}
-    initial="initial"
-    whileInView="animate"
-    viewport={{ once: true, amount: 0.2 }}
-    id={`winners-${year}`}
-    className={`w-full py-12 md:py-16 bg-card/50 rounded-lg ${idx === 0 ? 'mt-0' : 'mt-12'}`}
-  >
-    <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline">
-      🎓 {year} Achievers
-    </h2>
-    <div className="px-4 sm:px-6 flex justify-center">
-      <Card className="p-4 sm:p-6 shadow-lg w-full max-w-3xl">
-        <Image
-          src={winners.groupImage}
-          alt={`${year} Achievers Group Photo`}
-          width={800}
-          height={400}
-          unoptimized
-          className="rounded-lg object-cover w-full h-[200px] md:h-[300px] mb-4"
-        />
-        <CardContent className="text-center">
-          {winners.names.map((name, index) => (
-            <p key={index} className="text-lg font-semibold text-foreground">
-              {name}
-            </p>
-          ))}
-        </CardContent>
-      </Card>
-    </div>
-  </motion.div>
-))}
-
-
+        {/* Achievers */}
+        {Object.entries(winnersData).map(([year, winners], idx) => (
+          <motion.div
+            key={year}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.2 }}
+            id={`winners-${year}`}
+            className={`w-full py-12 md:py-16 bg-card/50 rounded-lg ${idx === 0 ? 'mt-0' : 'mt-12'}`}
+          >
+            <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline">
+              🎓 {year} Achievers
+            </h2>
+            <div className="px-4 sm:px-6 flex justify-center">
+              <Card className="p-4 sm:p-6 shadow-lg w-full max-w-3xl">
+                <Image
+                  src={winners.groupImage}
+                  alt={`${year} Achievers Group Photo`}
+                  width={800}
+                  height={400}
+                  unoptimized
+                  className="rounded-lg object-cover w-full h-[200px] md:h-[300px] mb-4"
+                />
+                <CardContent className="text-center">
+                  {winners.names.map((name, index) => (
+                    <p key={index} className="text-lg font-semibold text-foreground">
+                      {name}
+                    </p>
+                  ))}
+                </CardContent>
+              </Card>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
