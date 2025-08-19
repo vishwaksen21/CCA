@@ -16,17 +16,23 @@ import SplashScreen from '@/components/shared/splash-screen';
 
 const featureCards = [
   {
-    icon: ShieldCheck,
-    title: 'Defense Awareness',
-    description: 'Gain insights into the defense sector with exclusive workshops and seminars from industry experts.',
-    color: 'text-primary',
-  },
-  {
     icon: Award,
     title: 'Placement Preparation',
     description: 'Sharpen your skills with our resume building, group discussion, and interview preparation sessions.',
     color: 'text-accent',
   },
+  {
+  icon: BookOpen,
+  title: 'Higher Studies Guidance',
+  description: 'Gain insights into global education opportunities with exclusive workshops on admissions, scholarships, and career pathways.',
+  color: 'text-accent',
+},
+  {
+  icon: TrendingUp,
+  title: 'Defense Awareness',
+  description: 'Gain insights into the defense sector with exclusive workshops and seminars from industry experts.',
+  color: 'text-accent',
+},
   {
     icon: TrendingUp,
     title: 'Personality Development',
