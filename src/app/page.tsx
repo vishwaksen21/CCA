@@ -28,7 +28,7 @@ const featureCards = [
     color: 'text-accent',
   },
   {
-    icon: TrendingUp,
+    icon: Shield,
     title: 'Defense Awareness',
     description: 'Gain insights into the defense sector with exclusive workshops and seminars from industry experts.',
     color: 'text-accent',
