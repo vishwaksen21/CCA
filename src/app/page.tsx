@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import Link from 'next/link';
-import { Award, ShieldCheck, TrendingUp, BookOpen } from 'lucide-react'; // ✅ fixed import
+import { Award, ShieldCheck, TrendingUp, Shield } from 'lucide-react'; // ✅ fixed import
 
 import SplashScreen from '@/components/shared/splash-screen';
 
