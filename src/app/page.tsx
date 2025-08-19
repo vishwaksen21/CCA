@@ -51,17 +51,17 @@ const upcomingWorkshops = [
 ];
 
 const winnersData = {
-  2022: {
-    groupImage: 'https://placehold.co/600x400.png',
-    names: ['Achiever Name 1 (2022)', 'Achiever Name 2 (2022)', 'Achiever Name 3 (2022)'],
+  2024: {
+    groupImage: '/2024winners.png',
+    names: ['Bhavani 🥳', 'Keerthika Sana 🎉', 'Hitesh L 🍻'],
   },
   2023: {
     groupImage: 'https://placehold.co/600x400.png',
     names: ['Achiever Name 1 (2023)', 'Achiever Name 2 (2023)', 'Achiever Name 3 (2023)'],
   },
-  2024: {
-    groupImage: '/2024winners.png',
-    names: ['Bhavani 🥳', 'Keerthika Sana 🎉', 'Hitesh L 🍻'],
+  2022: {
+   groupImage: 'https://placehold.co/600x400.png',
+    names: ['Achiever Name 1 (2023)', 'Achiever Name 2 (2023)', 'Achiever Name 3 (2023)'],
   },
 };
 
