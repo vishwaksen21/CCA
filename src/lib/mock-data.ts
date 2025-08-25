@@ -12,6 +12,11 @@ export const announcements = [
     date: '2025-08-20',
     content: 'The Placement Pursuit – sharpen your skills, crack interviews, and actually make it to the final round.',
   },
+   {
+    title: 'Event: Express & Impress',
+    date: '2025-09-03',
+    content: 'Express & Impress – speak with confidence, shine with charm, and leave a mark they won’t forget.',
+  },
 ];
 
 export const upcomingEvents: {
