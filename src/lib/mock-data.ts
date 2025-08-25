@@ -43,12 +43,12 @@ export const upcomingEvents: {
   },
   {
     id: 'evt2',
-    title: 'Soft Skills based Event',
+    title: 'Express & Impress',
     date: '2025-09-03',
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
     description: 'Strong soft skills set you apart and give you the edge in every placement interview.',
- imageUrl: '/coming_soon_.png', // Placeholder image
+ imageUrl: '/event2.png', // Placeholder image
     registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
     registrationUrl: 'https://example.com/register-resume-workshop',
   },
