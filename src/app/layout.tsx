@@ -6,7 +6,7 @@ import { Header } from '@/components/shared/header';
 import { Footer } from '@/components/shared/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { Providers } from './providers';
-import Script from 'next/script'; // ✅ import Script
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
@@ -24,7 +24,8 @@ export default function RootLayout({
       <head>
         {/* ✅ OneSignal SDK */}
         <Script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async />
-        {/* ✅ OneSignal Initialization with safety checks + fallback */}
+        
+        {/* ✅ OneSignal Initialization with custom text */}
         <Script id="onesignal-init" strategy="afterInteractive">
           {`
             try {
@@ -34,8 +35,18 @@ export default function RootLayout({
                 OneSignal.init({
                   appId: "4757bad8-5f4b-4b59-b2ef-fdd3de694379",
                   notifyButton: { enable: true },
+                  promptOptions: {
+                    slidedown: {
+                      enabled: true,
+                      actionMessage: "We’ve got the tea 🍵 Subscribe so you don’t miss it!",
+                      acceptButtonText: "Spill it!",
+                      cancelButtonText: "Maybe Later"
+                    }
+                  }
                 });
+
                 console.log("[OneSignal] Notification.permission =", Notification.permission);
+
                 if (Notification.permission === 'default') {
                   console.log("[OneSignal] Prompting user for notification permission...");
                   OneSignal.showSlidedownPrompt();
