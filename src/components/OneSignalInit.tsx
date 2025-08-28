@@ -17,23 +17,9 @@ export default function OneSignalInit() {
         window.OneSignal.push(function () {
           // @ts-ignore
           window.OneSignal.init({
-            appId: '4757bad8-5f4b-4b59-b2ef-fdd3de694379',
+            appId: '4757bad8-5f4b-4b59-b2ef-fdd3de694379', // replace with your real ID
             notifyButton: { enable: true },
-            promptOptions: {
-              slidedown: {
-                enabled: true,
-                actionMessage: "We’ve got the tea 🍵 Subscribe so you don’t miss it!",
-                acceptButtonText: "Spill it!",
-                cancelButtonText: "Maybe Later",
-              },
-            },
           });
-
-          // Optional: force show slidedown if not yet granted/denied
-          if (Notification.permission === 'default') {
-            // @ts-ignore
-            window.OneSignal.showSlidedownPrompt();
-          }
         });
       }
     };
