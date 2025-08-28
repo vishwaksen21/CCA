@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect } from 'react';
 
 export default function OneSignalInit() {
@@ -18,11 +17,23 @@ export default function OneSignalInit() {
         window.OneSignal.push(function () {
           // @ts-ignore
           window.OneSignal.init({
-            appId: '4757bad8-5f4b-4b59-b2ef-fdd3de694379', // replace this
-            notifyButton: {
-              enable: true,
+            appId: '4757bad8-5f4b-4b59-b2ef-fdd3de694379',
+            notifyButton: { enable: true },
+            promptOptions: {
+              slidedown: {
+                enabled: true,
+                actionMessage: "We’ve got the tea 🍵 Subscribe so you don’t miss it!",
+                acceptButtonText: "Spill it!",
+                cancelButtonText: "Maybe Later",
+              },
             },
           });
+
+          // Optional: force show slidedown if not yet granted/denied
+          if (Notification.permission === 'default') {
+            // @ts-ignore
+            window.OneSignal.showSlidedownPrompt();
+          }
         });
       }
     };
