@@ -34,7 +34,7 @@ export default function RootLayout({
         {/* ✅ OneSignal SDK */}
         <Script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async />
 
-        {/* ✅ OneSignal Initialization with safety checks + fallback */}
+        {/* ✅ OneSignal Initialization with custom prompt text */}
         <Script id="onesignal-init" strategy="afterInteractive">
           {`
             try {
@@ -45,6 +45,14 @@ export default function RootLayout({
                 OneSignal.init({
                   appId: "4757bad8-5f4b-4b59-b2ef-fdd3de694379",
                   notifyButton: { enable: true },
+                  promptOptions: {
+                    slidedown: {
+                      enabled: true,
+                      actionMessage: "We’ve got the tea 🍵 Subscribe so you don’t miss it!",
+                      acceptButtonText: "Yes, Notify Me",
+                      cancelButtonText: "Maybe Later"
+                    }
+                  }
                 });
 
                 console.log("[OneSignal] Notification.permission =", Notification.permission);
