@@ -152,31 +152,23 @@ export const teamMembers = [
 ];
 
 export const milestones = [
-    {
-        year: '2020',
-        event: 'Club Founded',
-        description: 'CCA was established with the vision to foster holistic student development.'
-    },
-    {
-        year: '2021',
-        event: 'First "Cognito" Fest',
-        description: 'Successfully organized our first annual technical and cultural festival.'
-    },
-    {
-        year: '2022',
-        event: '100+ Placements',
-        description: 'Our members achieved over 100 successful placements in top companies.'
-    },
-    {
-        year: '2023',
-        event: 'National Level Seminar',
-        description: 'Hosted a national-level seminar on "Future of Defense Tech".'
-    },
-    {
-        year: '2024',
-        event: 'Introduced Cap Points',
-        description: 'Launched the Cap Points system to gamify participation and reward members.'
-    }
+  {
+    year: '2021',
+    event: 'Club Founded',
+    description: 'CCA was founded by Anirudh, Harshith, and Abhay to empower engineering students for placements, higher studies, defense, and civil services, under the guidance of faculty Sachin Gudimani and Mohd Yasin.'
+  },
+  {
+    event: 'Unique Aptitude Events',
+    description: 'Pioneered India’s first aptitude-based competitions including Treasure Hunt, Hackathon, Marathon, and Relay, attracting 120+ teams and 350+ individual participants.'
+  },
+  {
+    event: 'Placement & Career Guidance',
+    description: 'Conducted mock drives in real company formats, soft-skill sessions, and offered mentorship for GATE (all branches), higher studies, and defense exams such as SSB, NDA, and SSC.'
+  },
+  {
+    event: 'National Recognition',
+    description: 'Earned recognition for innovative aptitude-driven events and holistic student development initiatives.'
+  }
 ];
 
 export type BadgeInfo = {
