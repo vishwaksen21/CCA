@@ -1,17 +1,40 @@
-
 'use client';
-
-import Image from 'next/image';
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { teamMembers, milestones } from '@/lib/mock-data';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
+
+// You need your teamMembers data for the team section; import as you already have
+import { teamMembers } from '@/lib/mock-data';
+
+// Journey data with open source SVGs
+const milestones = [
+  {
+    year: "2021",
+    event: "Club Founded",
+    description:
+      "CCA was founded by Anirudh, Harshith, and Abhay to empower engineering students for placements, higher studies, defense, and civil services, under the guidance of faculty Sachin Gudimani and Mohd Yasin.",
+    image: "/club_founded.png",
+  },
+  {
+    event: "Unique Aptitude Events",
+    year: "",
+    description:
+      "Pioneered India's first aptitude-based competitions including Treasure Hunt, Hackathon, Marathon, and Relay, attracting 120+ teams and 350+ participants.",
+    image: "/aptitude_event.png",
+  },
+  {
+    event: "Placement & Career Guidance",
+    year: "",
+    description:
+      "Conducted mock drives in real company formats, soft-skill sessions, and offered mentorship for GATE (all branches), higher studies, and defense exams such as SSB, NDA, and SSC.",
+    image: "/placement_guidance.png",   // next image will be generated
+  },
+  {
+    event: "National Recognition",
+    year: "",
+    description:
+      "Earned recognition for innovative aptitude-driven events and holistic student development initiatives.",
+    image: "/national_recognition.png",  // next image will be generated
+  },
+];
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -22,10 +45,8 @@ const fadeIn = {
 export default function AboutPage() {
   return (
     <div className="bg-background/50">
-       <div
-        className="absolute inset-0 z-[-10] h-full w-full bg-background bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem] opacity-10"
-      ></div>
       <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
+        {/* About Us Section */}
         <motion.section
           variants={fadeIn}
           initial="initial"
@@ -39,7 +60,7 @@ export default function AboutPage() {
             Your partner in building a successful career in the defense sector and beyond.
           </p>
         </motion.section>
-
+        {/* Mission Section */}
         <motion.section
           variants={fadeIn}
           initial="initial"
@@ -49,23 +70,22 @@ export default function AboutPage() {
           className="w-full py-12 md:py-24"
         >
           <div className="grid items-center gap-12 lg:grid-cols-2">
-             <div className="flex justify-center order-last lg:order-first">
-                <motion.div
-                  whileHover={{ scale: 1.05, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                  className="relative group"
-                >
-                  <Image
-                    src="/group.png"
-                    alt="Team discussing"
-                    width={600}
-                    height={400}
-                    className="rounded-lg shadow-xl"
-                    data-ai-hint="team meeting"
-                  />
-                  <div className="absolute inset-0 bg-primary/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </motion.div>
-              </div>
+            <div className="flex justify-center order-last lg:order-first">
+              <motion.div
+                whileHover={{ scale: 1.05, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                className="relative group"
+              >
+                <img
+                  src="/group.png"
+                  alt="Team discussing"
+                  width={600}
+                  height={400}
+                  className="rounded-lg shadow-xl"
+                />
+                <div className="absolute inset-0 bg-primary/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.div>
+            </div>
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter font-headline">
                 Our Mission
@@ -76,7 +96,7 @@ export default function AboutPage() {
             </div>
           </div>
         </motion.section>
-
+        {/* Our Journey Section */}
         <motion.section
           variants={fadeIn}
           initial="initial"
@@ -88,31 +108,37 @@ export default function AboutPage() {
           <h2 className="text-3xl font-bold tracking-tighter text-center font-headline mb-16">
             Our Journey
           </h2>
-          <div className="relative max-w-5xl mx-auto">
-            <div className="absolute left-1/2 w-0.5 h-full bg-border -translate-x-1/2"></div>
+          <div className="max-w-2xl mx-auto space-y-10">
             {milestones.map((milestone, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="relative mb-8 flex justify-between items-center w-full"
+                transition={{ duration: 0.5, delay: index * 0.09 }}
+                className="flex items-start gap-6"
               >
-                <div className={`w-5/12 ${index % 2 === 0 ? 'order-1 text-right' : 'order-3 text-left'}`}>
-                  <p className="text-lg font-bold font-headline text-primary">{milestone.year}</p>
-                  <h3 className="text-xl font-semibold mb-1">{milestone.event}</h3>
-                  <p className="text-foreground/70">{milestone.description}</p>
+                <div className="flex-shrink-0 mt-1">
+                  <div className="bg-[#E6F0FF] p-3 rounded-lg">
+                    <img
+                      src={milestone.image}
+                      alt={milestone.event + ' icon'}
+                      width={48}
+                      height={48}
+                      className="h-12 w-12 object-contain"
+                    />
+                  </div>
                 </div>
-                <div className="z-10 flex items-center order-2 bg-primary p-3 rounded-full shadow-lg border-4 border-background">
-                  <Calendar className="h-6 w-6 text-primary-foreground" />
+                <div>
+                  <p className="text-primary font-bold text-lg">{milestone.year}</p>
+                  <h3 className="text-xl font-semibold mb-1 mt-1">{milestone.event}</h3>
+                  <p className="text-foreground/80">{milestone.description}</p>
                 </div>
-                <div className="w-5/12"></div>
               </motion.div>
             ))}
           </div>
         </motion.section>
-
+        {/* Meet the Team Section */}
         <motion.section
           variants={fadeIn}
           initial="initial"
@@ -135,14 +161,15 @@ export default function AboutPage() {
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   className="text-center group"
                 >
-                    <div className="relative w-24 h-24 mx-auto mb-4">
-                      <Avatar className="w-24 h-24 border-2 border-primary/50 group-hover:border-primary transition-colors duration-300">
-                        <AvatarImage src={member.imageUrl} alt={member.name} data-ai-hint={member.dataAiHint} />
-                        <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <h3 className="font-headline text-lg font-semibold">{member.name}</h3>
-                    <p className="text-primary font-medium text-sm">{member.role}</p>
+                  <div className="relative w-24 h-24 mx-auto mb-4">
+                    <img
+                      src={member.imageUrl}
+                      alt={member.name}
+                      className="w-24 h-24 object-cover rounded-full border-2 border-primary/50 group-hover:border-primary transition-colors duration-300"
+                    />
+                  </div>
+                  <h3 className="font-headline text-lg font-semibold">{member.name}</h3>
+                  <p className="text-primary font-medium text-sm">{member.role}</p>
                 </motion.div>
               ))}
             </div>
