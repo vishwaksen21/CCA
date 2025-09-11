@@ -50,7 +50,7 @@ export const upcomingEvents: {
     description: 'Strong soft skills set you apart and give you the edge in every placement interview.',
  imageUrl: '/event2.png', // Placeholder image
     registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
-    registrationUrl: 'https://example.com/register-resume-workshop',
+    registrationUrl: 'https://forms.gle/QzJLs6K4BYLsZmPL7',
   },
     {
     id: 'evt3',
