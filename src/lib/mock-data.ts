@@ -57,22 +57,22 @@ export const upcomingEvents: {
     title: 'Higher Studies Event',
     date: '2025-09-17',
     time: '2:00 PM - 4:00 PM',
-    location: 'AV HALL',
+    location: 'AV HALL ',
     description: 'This event equips you with the guidance and strategies to excel in your journey toward higher studies.',
- imageUrl: '/coming_soon_.png', // Placeholder image
+ imageUrl: '/event4.png', // Placeholder image
     registrations: [],
     registrationUrl: 'https://example.com/register-resume-workshop',
   },
   {
     id: 'evt4', // Give it a unique ID
-    title: 'Defense Event', // New event title
-    date: '2025-09-25', // New date
+    title: 'Load Up & Lock In', // New event title
+    date: '2025-09-10', // New date
     time: '2:00 PM - 4:00 PM', // New time
-    location: 'AV HALL', // New location
+    location: '4th floor,CV 403-D block', // New location
     description: 'This event prepares you to navigate the path and excel in a career with the defense sector.', // New description
     registrations: [], // Start with an empty registrations array
-    imageUrl: '/coming_soon_.png', // Optional image URL
-    registrationUrl: 'https://example.com/register-tech-workshop', // Optional registration URL
+    imageUrl: '/event3.png', // Optional image URL
+    registrationUrl: 'https://forms.gle/ro3ePuquCweufAbP9', // Optional registration URL
   },
 ];
 
