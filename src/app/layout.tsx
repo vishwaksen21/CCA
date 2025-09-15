@@ -6,7 +6,7 @@ import { Header } from '@/components/shared/header';
 import { Footer } from '@/components/shared/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { Providers } from './providers';
-import Script from 'next/script'; // ✅ import Script
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
@@ -22,9 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* ✅ OneSignal SDK */}
+        {/* OneSignal SDK */}
         <Script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async />
-        {/* ✅ OneSignal Initialization with safety checks + fallback */}
         <Script id="onesignal-init" strategy="afterInteractive">
           {`
             try {
@@ -63,6 +62,18 @@ export default function RootLayout({
             }
           `}
         </Script>
+
+        {/* Favicon & App Icons */}
+        <link rel="icon" type="image/x-icon" href="/icon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icon16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon32.png" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/icon48.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/icon96.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon512.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/icon192.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+
       </head>
       <body
         className={cn(
