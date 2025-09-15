@@ -70,8 +70,8 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/icon32.png" />
         <link rel="icon" type="image/png" sizes="48x48" href="/icon48.png" />
         <link rel="icon" type="image/png" sizes="96x96" href="/icon96.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/icon192.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/icon512.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon512.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/icon192.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
