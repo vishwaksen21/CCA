@@ -54,7 +54,7 @@ export const upcomingEvents: {
   },
     {
     id: 'evt3',
-    title: 'Higher Studies Event',
+    title: 'Edu Voyage',
     date: '2025-09-17',
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL ',
