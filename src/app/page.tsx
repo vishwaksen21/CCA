@@ -104,8 +104,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-4 max-w-2xl text-lg text-gray-200"
           >
-            Your premier resource for launching a successful career in the defense and technology
-            sectors.
+            Shaping driven minds and confident professionals through purposeful training and mentorship at CCA.
           </motion.p>
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
