@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
-import { Award, Shield, TrendingUp, BookOpen } from 'lucide-react'; // ✅ only needed icons
+import { Award, Shield, TrendingUp, BookOpen } from 'lucide-react';
 import SplashScreen from '@/components/shared/splash-screen';
 
 const featureCards = [
@@ -104,7 +104,8 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-4 max-w-2xl text-lg text-gray-200"
           >
-            Shaping driven minds and confident professionals through purposeful training and mentorship at CCA.
+            Your premier resource for launching a successful career in the defense and technology
+            sectors.
           </motion.p>
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -217,42 +218,42 @@ export default function Home() {
           <div className="w-24 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent rounded-full" />
         </div>
 
-        {/* Achievers */}
-        {Object.entries(winnersData).map(([year, winners], idx) => (
-          <motion.div
-            key={year}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, amount: 0.2 }}
-            id={`winners-${year}`}
-            className={`w-full py-12 md:py-16 bg-card/50 rounded-lg ${
-              idx === 0 ? 'mt-0' : 'mt-12'
-            }`}
-          >
-            <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline">
-              🎓 {year} Achievers
-            </h2>
-            <div className="px-4 sm:px-6 flex justify-center">
-              <Card className="p-4 sm:p-6 shadow-lg w-full max-w-3xl">
-                <Image
-                  src={winners.groupImage}
-                  alt={`${year} Achievers Group Photo`}
-                  width={800}
-                  height={400}
-                  unoptimized
-                  className="rounded-lg object-cover w-full h-[200px] md:h-[300px] mb-4"
-                />
-                <CardContent className="text-center">
-                  {winners.names.map((name, index) => (
-                    <p key={index} className="text-lg font-semibold text-foreground">
-                      {name}
-                    </p>
-                  ))}
-                </CardContent>
-              </Card>
-            </div>
-          </motion.div>
-        ))}
+        {/* Achievers - descending year order */}
+        {Object.entries(winnersData)
+          .sort((a, b) => b[0] - a[0])
+          .map(([year, winners], idx) => (
+            <motion.div
+              key={year}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.2 }}
+              id={`winners-${year}`}
+              className={`w-full py-12 md:py-16 bg-card/50 rounded-lg ${idx === 0 ? 'mt-0' : 'mt-12'}`}
+            >
+              <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline">
+                🎓 {year} Achievers
+              </h2>
+              <div className="px-4 sm:px-6 flex justify-center">
+                <Card className="p-4 sm:p-6 shadow-lg w-full max-w-3xl">
+                  <Image
+                    src={winners.groupImage}
+                    alt={`${year} Achievers Group Photo`}
+                    width={800}
+                    height={400}
+                    unoptimized
+                    className="rounded-lg object-cover w-full h-[200px] md:h-[300px] mb-4"
+                  />
+                  <CardContent className="text-center">
+                    {winners.names.map((name, index) => (
+                      <p key={index} className="text-lg font-semibold text-foreground">
+                        {name}
+                      </p>
+                    ))}
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.div>
+          ))}
       </div>
     </div>
   );
