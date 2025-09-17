@@ -3,21 +3,37 @@ import { Award, Medal, Star } from 'lucide-react';
 
 export const announcements = [
   {
-    title: '"CCA Freshers’ Orientation 2025"',
-    date: '2025-09-12',
-    content: 'Welcoming freshers to explore growth, skills, and career opportunities with CCA.',
+    title: 'CCA Freshers’ Orientation 2025',
+    date: '2025-09-23',
+    content:
+      'The official welcome event for the new batch of freshers! 🎉 Join us to discover what CCA is all about – from placement prep, higher studies guidance, to defense and civil service awareness. Meet the core team, explore our roadmap for the year, and learn how you can actively participate. An engaging session filled with icebreakers, insights, and opportunities to kickstart your journey.',
   },
   {
     title: 'Event: The Placement Pursuit',
     date: '2025-08-20',
-    content: 'The Placement Pursuit – sharpen your skills, crack interviews, and actually make it to the final round.',
+    content:
+      'A flagship event designed to simulate the real-world placement process. From aptitude tests and group discussions to mock interviews, this event gives you a taste of what it takes to crack top company drives. Boost your confidence, sharpen your problem-solving, and walk away with feedback that will help you level up for actual placements.',
   },
-   {
+  {
     title: 'Event: Express & Impress',
     date: '2025-09-03',
-    content: 'Express & Impress – speak with confidence, shine with charm, and leave a mark they won’t forget.',
+    content:
+      'A dynamic communication and public speaking workshop that equips you with the skills to stand out in interviews, GDs, and beyond. Practice real scenarios, get tips from mentors, and learn how to express your ideas clearly while leaving a lasting impression. A must-attend for anyone aiming to polish soft skills and gain confidence in professional interactions.',
+  },
+  {
+    title: 'Event: Load Up & Lock In',
+    date: '2025-09-10',
+    content:
+      'Step into the world of defense careers with this focused session. Get insights into pathways like NDA, CDS, and SSB interviews, and understand what it takes to build a career in the defense sector. Designed for students passionate about discipline, service, and national duty, this event helps you prepare and align your journey with defense opportunities.',
+  },
+  {
+    title: 'Event: Edu Voyage',
+    date: '2025-09-17',
+    content:
+      'Thinking about higher studies abroad or in India? 🌍 Edu Voyage is your guide to universities, scholarships, and preparation strategies. Learn how to approach GRE/IELTS/TOEFL, explore funding opportunities, and gain clarity on application timelines. A must-attend session for anyone aspiring to pursue masters or higher education with confidence.',
   },
 ];
+
 
 export const upcomingEvents: {
   id: string;
