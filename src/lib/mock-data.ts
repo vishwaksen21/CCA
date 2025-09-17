@@ -52,19 +52,8 @@ export const upcomingEvents: {
     registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
     registrationUrl: 'https://forms.gle/QzJLs6K4BYLsZmPL7',
   },
-    {
-    id: 'evt3',
-    title: 'Edu Voyage',
-    date: '2025-09-17',
-    time: '2:00 PM - 4:00 PM',
-    location: 'AV HALL ',
-    description: 'This event equips you with the guidance and strategies to excel in your journey toward higher studies.',
- imageUrl: '/event4.png', // Placeholder image
-    registrations: [],
-    registrationUrl: 'https://example.com/register-resume-workshop',
-  },
   {
-    id: 'evt4', // Give it a unique ID
+    id: 'evt3', // Give it a unique ID
     title: 'Load Up & Lock In', // New event title
     date: '2025-09-10', // New date
     time: '2:00 PM - 4:00 PM', // New time
@@ -73,6 +62,17 @@ export const upcomingEvents: {
     registrations: [], // Start with an empty registrations array
     imageUrl: '/event3.png', // Optional image URL
     registrationUrl: 'https://forms.gle/ro3ePuquCweufAbP9', // Optional registration URL
+  },
+    {
+    id: 'evt4',
+    title: 'Edu Voyage',
+    date: '2025-09-17',
+    time: '2:00 PM - 4:00 PM',
+    location: 'AV HALL ',
+    description: 'This event equips you with the guidance and strategies to excel in your journey toward higher studies.',
+ imageUrl: '/event4.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://forms.gle/zUjUTVHb8cQFqBh36',
   },
 ];
 
