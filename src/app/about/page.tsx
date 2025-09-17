@@ -1,38 +1,37 @@
 'use client';
 import { motion } from 'framer-motion';
-
 // You need your teamMembers data for the team section; import as you already have
 import { teamMembers } from '@/lib/mock-data';
 
-// Journey data with open source SVGs
+// Revised milestones array with accurate CCA info
 const milestones = [
   {
     year: "2021",
     event: "Club Founded",
     description:
-      "CCA was founded by Anirudh, Harshith, and Abhay to empower engineering students for placements, higher studies, defense, and civil services, under the guidance of faculty Sachin Gudimani and Mohd Yasin.",
+      "The Centre for Cognitive Activities (CCA) was founded at CMRIT to foster holistic student development. The club focuses on aptitude, mental ability, personality development, and critical thinking, enabling students to prepare effectively for placements, interviews, and competitive exams.",
     image: "/club_founded.png",
   },
   {
-    event: "Unique Aptitude Events",
+    event: "Skill Development Initiatives",
     year: "",
     description:
-      "Pioneered India's first aptitude-based competitions including Treasure Hunt, Hackathon, Marathon, and Relay, attracting 120+ teams and 350+ participants.",
+      "CCA has organized unique aptitude events, practical workshops, and training sessions targeting key skills needed for placements, defense, civil services, and higher studies.",
     image: "/aptitude_event.png",
   },
   {
-    event: "Placement & Career Guidance",
+    event: "Placement & Exam Readiness",
     year: "",
     description:
-      "Conducted mock drives in real company formats, soft-skill sessions, and offered mentorship for GATE (all branches), higher studies, and defense exams such as SSB, NDA, and SSC.",
-    image: "/placement_guidance.png",   // next image will be generated
+      "Students receive mentorship for interviews, soft skills, and exam preparation including GATE (all branches), SSB, NDA, SSC, and more, ensuring readiness for a variety of career pathways.",
+    image: "/placement_guidance.png",
   },
   {
-    event: "National Recognition",
+    event: "Recognition & Impact",
     year: "",
     description:
-      "Earned recognition for innovative aptitude-driven events and holistic student development initiatives.",
-    image: "/national_recognition.png",  // next image will be generated
+      "CCA is recognized for driving innovative, student-led initiatives and all-round growth, helping hundreds of students at CMRIT reach their professional and academic goals.",
+    image: "/national_recognition.png",
   },
 ];
 
@@ -60,7 +59,7 @@ export default function AboutPage() {
             Your partner in building a successful career in the defense sector and beyond.
           </p>
         </motion.section>
-        {/* Mission Section */}
+        {/* Mission Section - UPDATED */}
         <motion.section
           variants={fadeIn}
           initial="initial"
@@ -91,12 +90,12 @@ export default function AboutPage() {
                 Our Mission
               </h2>
               <p className="text-foreground/80 leading-relaxed text-lg">
-                Our mission is to bridge the gap between academic learning and the professional world, providing students with the resources, skills, and networking opportunities necessary to secure fulfilling careers in the defense industry and other competitive sectors. We are dedicated to fostering a community of driven individuals prepared to become the next generation of leaders.
+                CCA’s mission is to bridge the gap between academic learning and real-world careers by nurturing aptitude, mental agility, personality development, and critical thinking. We help students excel in placements, interviews, and exams through focused training, hands-on events, and all-round personal growth.
               </p>
             </div>
           </div>
         </motion.section>
-        {/* Our Journey Section */}
+        {/* Our Journey Section - UPDATED */}
         <motion.section
           variants={fadeIn}
           initial="initial"
@@ -138,7 +137,7 @@ export default function AboutPage() {
             ))}
           </div>
         </motion.section>
-        {/* Meet the Team Section */}
+        {/* Meet the Team Section - UNCHANGED */}
         <motion.section
           variants={fadeIn}
           initial="initial"
