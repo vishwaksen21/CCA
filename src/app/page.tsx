@@ -4,38 +4,44 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
-import { Award, Shield, TrendingUp, BookOpen } from 'lucide-react';
+import { Award, Shield, TrendingUp, BookOpen } from 'lucide-react'; // ✅ only needed icons
 import SplashScreen from '@/components/shared/splash-screen';
+
+// 🔹 Fade-up animation variants
+const fadeUp = {
+  initial: { opacity: 0, y: 40 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+};
 
 const featureCards = [
   {
     icon: Award,
     title: 'Placement Preparation',
     description:
-      'Sharpen your skills with our resume building, group discussion, and interview preparation sessions.',
+      'Sharpen your skills with resume building, group discussions, and interview prep sessions.',
     color: 'text-accent',
   },
   {
     icon: BookOpen,
     title: 'Higher Studies Guidance',
     description:
-      'Gain insights into global education opportunities with exclusive workshops on admissions, scholarships, and career pathways.',
+      'Get clarity on admissions, scholarships, and career pathways in India and abroad.',
     color: 'text-accent',
   },
   {
     icon: Shield,
     title: 'Defense Awareness',
     description:
-      'Gain insights into the defense sector with exclusive workshops and seminars from industry experts.',
+      'Explore NDA, CDS, and other defense career opportunities with expert sessions.',
     color: 'text-accent',
   },
   {
     icon: TrendingUp,
     title: 'Personality Development',
     description:
-      'Enhance your soft skills, leadership qualities, and professional etiquette to stand out.',
+      'Enhance soft skills, leadership, and professional etiquette to stand out.',
     color: 'text-green-500',
   },
 ];
@@ -85,9 +91,9 @@ export default function Home() {
         <Image src="/display2.png" alt="Hero Image" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/60" />
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          initial="initial"
+          animate="animate"
+          variants={fadeUp}
           className="relative z-10 flex flex-col justify-center items-center h-full text-center p-4"
         >
           <motion.h1
@@ -149,6 +155,7 @@ export default function Home() {
       <div className="container mx-auto px-4 md:px-6">
         {/* Features */}
         <motion.section
+          variants={fadeUp}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, amount: 0.2 }}
@@ -159,6 +166,7 @@ export default function Home() {
             {featureCards.map((feature, index) => (
               <motion.div
                 key={index}
+                variants={fadeUp}
                 whileHover={{
                   y: -10,
                   boxShadow:
@@ -180,6 +188,7 @@ export default function Home() {
 
         {/* Workshops */}
         <motion.section
+          variants={fadeUp}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, amount: 0.2 }}
@@ -193,6 +202,7 @@ export default function Home() {
             {upcomingWorkshops.map((workshop, index) => (
               <motion.div
                 key={index}
+                variants={fadeUp}
                 whileHover={{ y: -5, scale: 1.03 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
@@ -204,7 +214,7 @@ export default function Home() {
                     height={400}
                     className="rounded-lg w-full h-[200px] object-cover mb-4"
                   />
-                  <CardTitle className="font-headline text-xl mb-1">{workshop.title}</CardTitle>
+                  <h3 className="font-headline text-xl mb-1">{workshop.title}</h3>
                   <p className="text-sm text-muted-foreground mb-2">{workshop.date}</p>
                   <p className="text-base text-foreground">{workshop.description}</p>
                 </Card>
@@ -218,17 +228,20 @@ export default function Home() {
           <div className="w-24 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent rounded-full" />
         </div>
 
-        {/* Achievers - descending year order */}
+        {/* Achievers */}
         {Object.entries(winnersData)
-          .sort((a, b) => b[0] - a[0])
+          .sort((a, b) => Number(b[0]) - Number(a[0])) // ✅ Sorted
           .map(([year, winners], idx) => (
             <motion.div
               key={year}
+              variants={fadeUp}
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, amount: 0.2 }}
               id={`winners-${year}`}
-              className={`w-full py-12 md:py-16 bg-card/50 rounded-lg ${idx === 0 ? 'mt-0' : 'mt-12'}`}
+              className={`w-full py-12 md:py-16 bg-card/50 rounded-lg ${
+                idx === 0 ? 'mt-0' : 'mt-12'
+              }`}
             >
               <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline">
                 🎓 {year} Achievers
