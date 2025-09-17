@@ -214,27 +214,54 @@ export const leaderboard: { rank: number; name: string; points: number; badges: 
 
 export const faqs = [
   {
-    question: 'What is the Placement & Defense Careers Club (CCA)?',
+    question: 'What is the Centre for Cognitive Activities (CCA)?',
     answer:
-      'The Centre for Cognitive Activities (CCA) is a student-run club focused on holistic development. We provide resources and opportunities for careers in the defense sector, tech, and beyond, focusing on defense awareness, placement preparation, and personality development.',
+      'CCA is a student club at CMRIT dedicated to enhancing students’ aptitude, mental ability, personality, and critical thinking, ultimately supporting placement and career preparation.',
   },
   {
-    question: 'How can I join the CCA?',
+    question: 'Who can join the CCA?',
     answer:
-      'Membership drives are held at the beginning of each academic year. Keep an eye on our website and social media channels for announcements regarding the application process and deadlines.',
+      'Any student from any branch or year at CMRIT is welcome to join and participate in CCA activities.',
   },
   {
-    question: 'What are CAP Points?',
+    question: 'What activities does CCA organize?',
     answer:
-      'CAP (Career and Achievement Points) is our internal rewards system. Members earn points by participating in workshops, volunteering for events, winning competitions, and contributing to the club. These points determine your rank on the leaderboard.',
+      'CCA conducts workshops, aptitude competitions, personality development sessions, and placement training events to help students prepare for placements and exams.',
   },
   {
-    question: 'How often is the leaderboard updated?',
-    answer: 'The leaderboard is updated at the end of every week to reflect the latest point totals and rankings.',
+    question: 'How do I join?',
+    answer:
+      'Watch for CCA membership drives at the start of the academic year. Apply through announcements posted on the club website and social media.',
   },
-    {
-    question: 'Do I need a specific academic background to join?',
-    answer: 'Not at all! We welcome students from all academic disciplines. Our goal is to foster a diverse community of driven individuals. A passion for learning and professional growth is all you need.',
+  {
+    question: 'Is there a rewards system in CCA?',
+    answer:
+      'Yes, members earn points for participating in events, volunteering, and winning competitions. The leaderboard is updated weekly based on these points.',
+  },
+  {
+    question: 'Are students from all backgrounds and years welcome?',
+    answer:
+      'Absolutely! CCA encourages diversity and welcomes students from all academic disciplines and years.',
+  },
+  {
+    question: 'Who manages CCA activities?',
+    answer:
+      'CCA is run by faculty and student coordinators representing various departments at CMRIT, ensuring activities are well-organized and inclusive.',
+  },
+  {
+    question: 'What are the benefits of being a CCA member?',
+    answer:
+      'Members develop important skills, boost their placement chances, receive certificates, and connect with a supportive student community.',
+  },
+  {
+    question: 'Where can I find updates about CCA events?',
+    answer:
+      'All updates and announcements are shared on the club’s official website and social media handles.',
+  },
+  {
+    question: 'What kind of support does CCA offer for placements?',
+    answer:
+      'CCA offers training, guidance, and resources to help members improve their aptitude, interview performance, and overall employability.',
   },
 ];
 
