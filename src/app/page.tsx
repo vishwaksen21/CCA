@@ -110,8 +110,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-4 max-w-2xl text-lg text-gray-200"
           >
-            Your premier resource for launching a successful career in the defense and technology
-            sectors.
+            Empowering CMRIT students through aptitude training, personality development, and skill-building for career and placement success.
           </motion.p>
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
