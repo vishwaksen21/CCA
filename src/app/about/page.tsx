@@ -118,7 +118,7 @@ export default function AboutPage() {
                 className="flex items-start gap-6"
               >
                 <div className="flex-shrink-0 mt-1">
-                  <div className="bg-[#E6F0FF] p-3 rounded-lg">
+                  <div>
                     <img
                       src={milestone.image}
                       alt={milestone.event + ' icon'}
