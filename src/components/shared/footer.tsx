@@ -10,12 +10,13 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
           {/* College Logo */}
           <img
-            src="/cmrit-logo.png"
-            alt="CMRIT Logo"
-            width={96}
-            height={96}
-            className="w-24 h-24 mb-2"
-          />
+  src="/cmrit-logo.jpg"
+  alt="CMRIT Logo"
+  width={220}
+  height={0}              // Or just leave out the height for natural aspect ratio
+  className="mx-auto mb-2 w-[220px] h-auto" // Or use w-56 h-auto for Tailwind only
+  style={{ maxWidth: "220px", height: "auto" }} // Optional, for additional safety
+/>
           <p className="text-center text-sm leading-loose text-gray-500 md:text-left">
             © {new Date().getFullYear()} CCA. All Rights Reserved.
           </p>
