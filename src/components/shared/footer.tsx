@@ -17,7 +17,7 @@ export function Footer() {
           <img
             src="/logo2-.png"
             alt="Right Logo"
-            width={80}
+            width={70}
             className="w-[80px] h-auto"
           />
         </div>
