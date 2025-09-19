@@ -2,26 +2,23 @@
 import Link from 'next/link';
 import { Instagram, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
-
 export function Footer() {
   return (
     <footer className="bg-gray-50 border-t">
       <div className="container flex flex-col gap-4 py-8">
-        {/* Top row: Left and right images */}
-        <div className="flex w-full items-center justify-between">
-          {/* Left: College Logo */}
+        {/* Top row: Two images close together */}
+        <div className="flex items-center justify-center gap-x-6">
           <img
             src="/cmrit-logo.png"
             alt="CMRIT Logo"
-            width={100}
-            className="w-[100px] h-auto"
+            width={80}
+            className="w-[80px] h-auto"
           />
-          {/* Right: Another image (replace with your image) */}
           <img
-            src="/logo2-.png" // Change to your actual image filename
+            src="/logo2-.png"
             alt="Right Logo"
-            width={100}
-            className="w-[100px] h-auto"
+            width={80}
+            className="w-[80px] h-auto"
           />
         </div>
         {/* Center: Copyright */}
