@@ -10,7 +10,7 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
           {/* College Logo */}
           <img
-  src="/cmrit-logo.jpg"
+  src="/cmrit-logo.png"
   alt="CMRIT Logo"
   width={220}
   height={0}              // Or just leave out the height for natural aspect ratio
