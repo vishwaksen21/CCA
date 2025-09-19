@@ -12,9 +12,9 @@ export function Footer() {
           <img
             src="/cmrit-logo.png"
             alt="CMRIT Logo"
-            width={32}
-            height={32}
-            className="mr-2"
+            width={48}
+            height={48}
+            className="mr-2 w-12 h-12"
           />
           <p className="text-center text-sm leading-loose text-gray-500 md:text-left">
             © {new Date().getFullYear()} CCA. All Rights Reserved.
