@@ -18,7 +18,7 @@ export function Footer() {
             src="/logo2-.png"
             alt="Right Logo"
             width={70}
-            className="w-[80px] h-auto"
+            className="w-[70px] h-auto"
           />
         </div>
         {/* Center: Copyright */}
