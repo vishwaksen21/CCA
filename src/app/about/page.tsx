@@ -122,9 +122,9 @@ export default function AboutPage() {
                     <img
                       src={milestone.image}
                       alt={milestone.event + ' icon'}
-                      width={48}
-                      height={48}
-                      className="h-12 w-12 object-contain"
+                      width={32}
+                      height={32}
+                      className="h-8 w-8 object-contain"
                     />
                   </div>
                 </div>
