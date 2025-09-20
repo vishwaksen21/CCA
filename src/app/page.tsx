@@ -157,8 +157,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-4 max-w-2xl text-lg text-gray-200"
           >
-            Empowering CMRIT students through aptitude training, personality
-            development, and skill-building for career and placement success.
+            Building brighter careers at CMRIT through aptitude, personality and skill development.
           </motion.p>
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
