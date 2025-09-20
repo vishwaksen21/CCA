@@ -6,14 +6,46 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
-import { Award, Shield, TrendingUp, BookOpen } from 'lucide-react'; // ✅ only needed icons
+import { Award, Shield, TrendingUp, BookOpen } from 'lucide-react';
 import SplashScreen from '@/components/shared/splash-screen';
 
 // 🔹 Fade-up animation variants
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  animate: { opacity: 1, y: 0, transition: { duration: 1.0, ease: 'easeOut' } },
 };
+
+// 🔹 Hero images for slideshow
+const heroImages = ['/slide1.png', '/slide2.png', '/slide3.png', '/slide4.png', '/slide5.png'];
+
+// 🔹 Slideshow Component (Fixed)
+function HeroSlideshow({ images }: { images: string[] }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 2000); // ⏱️ change every 2 sec
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div className="absolute inset-0">
+      {images.map((src, index) => (
+        <Image
+          key={index}
+          src={src}
+          alt="Hero Image"
+          fill
+          priority={index === 0}
+          className={`object-cover transition-opacity duration-1000 ${
+            index === currentIndex ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
 
 const featureCards = [
   {
@@ -63,11 +95,19 @@ const winnersData = {
   },
   2023: {
     groupImage: 'https://placehold.co/600x400.png',
-    names: ['Achiever Name 1 (2023)', 'Achiever Name 2 (2023)', 'Achiever Name 3 (2023)'],
+    names: [
+      'Achiever Name 1 (2023)',
+      'Achiever Name 2 (2023)',
+      'Achiever Name 3 (2023)',
+    ],
   },
   2022: {
     groupImage: 'https://placehold.co/600x400.png',
-    names: ['Achiever Name 1 (2022)', 'Achiever Name 2 (2022)', 'Achiever Name 3 (2022)'],
+    names: [
+      'Achiever Name 1 (2022)',
+      'Achiever Name 2 (2022)',
+      'Achiever Name 3 (2022)',
+    ],
   },
 };
 
@@ -87,9 +127,11 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       {/* Hero Section */}
-      <section className="relative w-full h-[80vh] text-white">
-        <Image src="/display2.png" alt="Hero Image" fill className="object-cover" priority />
+      <section className="relative w-full h-[80vh] text-white overflow-hidden">
+        {/* 🔹 Fixed Slideshow */}
+        <HeroSlideshow images={heroImages} />
         <div className="absolute inset-0 bg-black/60" />
+
         <motion.div
           initial="initial"
           animate="animate"
@@ -99,7 +141,12 @@ export default function Home() {
           <motion.h1
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, type: 'spring', stiffness: 100 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              type: 'spring',
+              stiffness: 100,
+            }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter font-headline"
           >
             Centre for Cognitive Activities
@@ -110,42 +157,27 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-4 max-w-2xl text-lg text-gray-200"
           >
-            Empowering CMRIT students through aptitude training, personality development, and skill-building for career and placement success.
+            Empowering CMRIT students through aptitude training, personality
+            development, and skill-building for career and placement success.
           </motion.p>
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6, type: 'spring', stiffness: 120 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.6,
+              type: 'spring',
+              stiffness: 120,
+            }}
             className="mt-8"
           >
             <Link href="/about">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                animate={{
-                  scale: [1, 1.02, 1],
-                  boxShadow: [
-                    '0 0 0 0px rgba(255, 193, 7, 0.7)',
-                    '0 0 0 10px rgba(255, 193, 7, 0)',
-                    '0 0 0 0px rgba(255, 193, 7, 0)',
-                  ],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: 'loop',
-                  ease: 'easeInOut',
-                  delay: 1,
-                }}
-                className="rounded-full"
+              <Button
+                size="lg"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-8 py-5 text-base md:px-10 md:py-6 md:text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                <Button
-                  size="lg"
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-8 py-5 text-base md:px-10 md:py-6 md:text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  Learn More
-                </Button>
-              </motion.div>
+                Learn More
+              </Button>
             </Link>
           </motion.div>
         </motion.div>
@@ -177,7 +209,9 @@ export default function Home() {
                   <motion.div className="inline-block mb-4">
                     <feature.icon className={`w-16 h-16 ${feature.color}`} />
                   </motion.div>
-                  <h3 className="text-2xl font-bold font-headline mt-8">{feature.title}</h3>
+                  <h3 className="text-2xl font-bold font-headline mt-8">
+                    {feature.title}
+                  </h3>
                   <p className="text-foreground/80">{feature.description}</p>
                 </Card>
               </motion.div>
@@ -214,22 +248,26 @@ export default function Home() {
                     className="rounded-lg w-full h-[200px] object-cover mb-4"
                   />
                   <h3 className="font-headline text-xl mb-1">{workshop.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-2">{workshop.date}</p>
-                  <p className="text-base text-foreground">{workshop.description}</p>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    {workshop.date}
+                  </p>
+                  <p className="text-base text-foreground">
+                    {workshop.description}
+                  </p>
                 </Card>
               </motion.div>
             ))}
           </div>
         </motion.section>
 
-        {/* Section Divider */}
+        {/* Divider */}
         <div className="relative w-full flex justify-center my-8">
           <div className="w-24 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent rounded-full" />
         </div>
 
         {/* Achievers */}
         {Object.entries(winnersData)
-          .sort((a, b) => Number(b[0]) - Number(a[0])) // ✅ Sorted
+          .sort((a, b) => Number(b[0]) - Number(a[0]))
           .map(([year, winners], idx) => (
             <motion.div
               key={year}
@@ -257,7 +295,10 @@ export default function Home() {
                   />
                   <CardContent className="text-center">
                     {winners.names.map((name, index) => (
-                      <p key={index} className="text-lg font-semibold text-foreground">
+                      <p
+                        key={index}
+                        className="text-lg font-semibold text-foreground"
+                      >
                         {name}
                       </p>
                     ))}
