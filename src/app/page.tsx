@@ -192,7 +192,7 @@ export default function Home() {
           id="features"
           className="w-full mt-16 md:mt-24"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 justify-items-center">
             {featureCards.map((feature, index) => (
               <motion.div
                 key={index}
@@ -203,15 +203,18 @@ export default function Home() {
                     '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
                 }}
                 transition={{ type: 'spring', stiffness: 300 }}
+                className="w-full"
               >
-                <Card className="text-center p-8 h-full shadow-lg border-t-4 border-accent">
-                  <motion.div className="inline-block mb-4">
-                    <feature.icon className={`w-16 h-16 ${feature.color}`} />
+                <Card className="text-center p-4 sm:p-6 md:p-8 h-full shadow-lg border-t-4 border-accent">
+                  <motion.div className="inline-block mb-3 sm:mb-4">
+                    <feature.icon className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 text-accent" />
                   </motion.div>
-                  <h3 className="text-2xl font-bold font-headline mt-8">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold font-headline mt-4 sm:mt-6 md:mt-8">
                     {feature.title}
                   </h3>
-                  <p className="text-foreground/80">{feature.description}</p>
+                  <p className="text-sm sm:text-base text-foreground/80">
+                    {feature.description}
+                  </p>
                 </Card>
               </motion.div>
             ))}
