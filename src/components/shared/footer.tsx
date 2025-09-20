@@ -6,28 +6,28 @@ import { motion } from 'framer-motion';
 export function Footer() {
   return (
     <footer className="bg-gray-50 border-t">
-      <div className="container flex flex-col gap-4 py-8 px-4 sm:px-6 md:px-8">
+      <div className="container flex flex-col gap-2 py-4 px-3 sm:gap-3 sm:py-6 sm:px-6 md:gap-4 md:py-8 md:px-8">
         {/* Top row: Two images close together */}
-        <div className="flex items-center justify-center gap-x-3 sm:gap-x-4 md:gap-x-6">
+        <div className="flex items-center justify-center gap-x-2 sm:gap-x-4 md:gap-x-6">
           <img
             src="/cmrit-logo.png"
             alt="CMRIT Logo"
-            className="w-16 sm:w-20 md:w-20 h-auto"
+            className="w-14 sm:w-16 md:w-20 h-auto"
           />
           <img
             src="/logo2-.png"
             alt="Right Logo"
-            className="w-14 sm:w-16 md:w-16 h-auto"
+            className="w-12 sm:w-14 md:w-16 h-auto"
           />
         </div>
 
         {/* Center: Copyright */}
-        <p className="text-center text-sm leading-loose text-gray-500 md:text-left">
+        <p className="text-center text-xs sm:text-sm leading-snug text-gray-500 md:text-left">
           © {new Date().getFullYear()} CCA. All Rights Reserved.
         </p>
 
         {/* Social Links */}
-        <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5 mt-2">
+        <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5">
           <motion.div whileHover={{ scale: 1.2, rotate: 5 }} whileTap={{ scale: 0.9 }}>
             <Link
               href="https://www.instagram.com/cca_cmrit"
