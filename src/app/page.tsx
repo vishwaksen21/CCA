@@ -136,22 +136,52 @@ export default function Home() {
           <div className="w-24 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent rounded-full" />
         </div>
 
-        {/* Achievers */}
-        {Object.entries(winnersData).sort((a,b) => Number(b[0])-Number(a[0])).map(([year,winners], idx) => (
-          <motion.div key={year} variants={fadeUp} initial="initial" whileInView="animate" viewport={{ once:true, amount:0.2 }} id={`winners-${year}`} className={`w-full py-8 md:py-12 bg-card/50 rounded-lg ${idx===0?'mt-0':'mt-12'}`}>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-center mb-6 md:mb-8 font-headline">🎓 {year} Achievers</h2>
-            <div className="px-2 sm:px-4 md:px-6 flex justify-center">
-              <Card className="p-3 sm:p-4 md:p-6 shadow-lg w-full max-w-3xl">
-                <Image src={winners.groupImage} alt={`${year} Achievers Group Photo`} width={800} height={400} unoptimized className="rounded-lg object-cover w-full h-[150px] sm:h-[200px] md:h-[300px] mb-4" />
-                <CardContent className="text-center">
-                  {winners.names.map((name,index)=>(
-                    <p key={index} className="text-sm sm:text-base md:text-lg font-semibold text-foreground">{name}</p>
-                  ))}
-                </CardContent>
-              </Card>
-            </div>
-          </motion.div>
-        ))}
+       {/* Achievers */}
+{Object.entries(winnersData)
+  .sort((a, b) => Number(b[0]) - Number(a[0]))
+  .map(([year, winners], idx) => (
+    <motion.div
+      key={year}
+      variants={fadeUp}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, amount: 0.2 }}
+      id={`winners-${year}`}
+      className={`w-full py-8 md:py-12 bg-card/50 rounded-lg ${
+        idx === 0 ? 'mt-0' : 'mt-12'
+      }`}
+    >
+      <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-center mb-6 md:mb-8 font-headline">
+        🎓 {year} Achievers
+      </h2>
+
+      {/* Horizontal scroll for mobile */}
+      <div className="px-2 sm:px-4 md:px-6 overflow-x-auto">
+        <div className="flex gap-4 md:gap-6 snap-x snap-mandatory">
+          <Card className="flex-shrink-0 w-72 sm:w-80 md:w-full snap-start p-4 sm:p-5 md:p-6 shadow-lg">
+            <Image
+              src={winners.groupImage}
+              alt={`${year} Achievers Group Photo`}
+              width={800}
+              height={400}
+              unoptimized
+              className="rounded-lg object-cover w-full h-[180px] sm:h-[200px] md:h-[300px] mb-4"
+            />
+            <CardContent className="text-center">
+              {winners.names.map((name, index) => (
+                <p
+                  key={index}
+                  className="text-sm sm:text-base md:text-lg font-semibold text-foreground mb-1"
+                >
+                  {name}
+                </p>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </motion.div>
+))}
       </div>
     </div>
   );
