@@ -55,7 +55,7 @@ const featureCards = [
 ];
 
 const upcomingWorkshops = [
-  { title: 'CCA Freshers’ Orientation 2025', date: '23rd September 2025', description: 'Kickstarting your journey towards success with CCA’s guidance and opportunities.', image: '/orientation2.png' },
+  { title: 'CCA Freshers’ Orientation 2025', date: '23rd & 27th September 2025', description: 'Kickstarting your journey towards success with CCA’s guidance and opportunities.', image: '/orientation2.png' },
 ];
 
 const winnersData = {
