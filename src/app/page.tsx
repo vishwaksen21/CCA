@@ -77,7 +77,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/60" />
         <motion.div initial="initial" animate="animate" variants={fadeUp} className="relative z-10 flex flex-col justify-center items-center h-full text-center p-4">
           <motion.h1 initial={{ y: -50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 0.2, type: 'spring', stiffness: 100 }} className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter font-headline">
-            Centre for Cognitive Activities
+            Center for Cognitive Activities
           </motion.h1>
           <motion.p initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }} className="mt-4 max-w-2xl text-lg text-gray-200">
             Building brighter careers at CMRIT through aptitude, personality and skill development.
