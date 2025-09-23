@@ -45,7 +45,7 @@ export function Header() {
           <Image src="/logo2-.png" alt="CCA Logo" width={64} height={64} className="h-16 w-16" priority />
           <div className='flex flex-col'>
             <span className="font-bold font-headline text-xl leading-tight">CCA</span>
-            <span className="text-xs text-muted-foreground leading-tight -mt-1">Centre for Cognitive Activities</span>
+            <span className="text-xs text-muted-foreground leading-tight -mt-1">Center for Cognitive Activities</span>
           </div>
         </Link>
 
@@ -74,7 +74,7 @@ export function Header() {
                     <Image src="/logo2-.png" alt="CCA Logo" width={64} height={64} className="h-16 w-16" />
                      <div className='flex flex-col'>
                         <span className="font-bold font-headline text-xl leading-tight">CCA</span>
-                        <span className="text-xs text-muted-foreground leading-tight -mt-1">Centre for Cognitive Activities</span>
+                        <span className="text-xs text-muted-foreground leading-tight -mt-1">Center for Cognitive Activities</span>
                     </div>
                 </Link>
                 <nav className="grid gap-6">
