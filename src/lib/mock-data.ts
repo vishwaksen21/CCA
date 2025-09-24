@@ -89,6 +89,17 @@ export const upcomingEvents: {
     registrations: [],
     registrationUrl: 'https://forms.gle/zUjUTVHb8cQFqBh36',
   },
+  {
+    id: 'evt5',
+    title: 'Skill Craft',
+    date: '2025-10-09',
+    time: '2:00 PM - 4:00 PM',
+    location: 'AV HALL ',
+    description: 'Unlock new opportunities and practical skills through engaging hands-on activities at Skill Craft.',
+ imageUrl: '/event5.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://tinyurl.com/3s2sdrph',
+  },
 ];
 
 export const teamMembers = [
