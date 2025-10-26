@@ -221,6 +221,24 @@ export const teamMembers = [
     imageUrl: '/Irene.png',
     dataAiHint: 'woman portrait',
   },
+  {
+    name: 'Vaishnavi',
+    role: 'Co-ordinator',
+    imageUrl: 'https://via.placeholder.com/150',
+    dataAiHint: 'woman portrait',
+  },
+  {
+    name: 'Amil',
+    role: 'Co-ordinator',
+    imageUrl: 'https://via.placeholder.com/150',
+    dataAiHint: 'woman portrait',
+  },
+  {
+    name: 'Bhavana',
+    role: 'Co-ordinator',
+    imageUrl: 'https://via.placeholder.com/150',
+    dataAiHint: 'woman portrait',
+  },
 ];
 
 export const milestones = [
