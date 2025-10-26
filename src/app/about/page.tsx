@@ -9,21 +9,21 @@ const milestones = [
     year: "2021",
     event: "Club Founded",
     description:
-      "The Centre for Cognitive Activities (CCA) was founded at CMRIT to foster holistic student development. The club focuses on aptitude, mental ability, personality development, and critical thinking, enabling students to prepare effectively for placements, interviews, and competitive exams.",
+      "CCA was started at CMRIT by Anirudh, Aditya, Abhay, and Harshith with guidance from faculty Sachin Gudimani.",
     image: "/club_founded.png",
   },
   {
     event: "Skill Development Initiatives",
     year: "",
     description:
-      "CCA has organized unique aptitude events, practical workshops, and training sessions targeting key skills needed for placements, defense, civil services, and higher studies.",
+      "Strengthened student skills in aptitude, personality development, and critical thinking for placements and exams.",
     image: "/aptitude_event.png",
   },
   {
-    event: "Placement & Exam Readiness",
+    event: "Student Support & Growth'",
     year: "",
     description:
-      "Students receive mentorship for interviews, soft skills, and exam preparation including GATE (all branches), SSB, NDA, SSC, and more, ensuring readiness for a variety of career pathways.",
+      "Guided students in placements, interviews, competitive exams, and soft skills through club events and mentorship.",
     image: "/placement_guidance.png",
   },
   {
