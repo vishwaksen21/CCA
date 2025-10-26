@@ -115,7 +115,7 @@ export default function Home() {
 
         {/* Workshops */}
         <motion.section variants={fadeUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }} id="workshops" className="w-full py-20">
-          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">📅 Upcoming Workshops</h2>
+          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">📅 Cognitive Boosters</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {upcomingWorkshops.map((workshop, index) => (
               <motion.div key={index} variants={fadeUp} whileHover={{ y: -5, scale: 1.03 }} transition={{ type: 'spring', stiffness: 300 }}>
