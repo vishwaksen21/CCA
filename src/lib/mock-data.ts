@@ -230,7 +230,7 @@ export const teamMembers = [
   {
     name: 'Bhavana',
     role: 'Co-ordinator',
-    imageUrl: 'https://api.dicebear.com/9.x/avataaars/svg?seed=John',
+    imageUrl: 'bhavana.png',
     dataAiHint: 'woman portrait',
   },
 ];
