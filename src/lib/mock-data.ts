@@ -242,16 +242,19 @@ export const milestones = [
     description: 'CCA was started at CMRIT by Anirudh, Aditya, Abhay, and Harshith with guidance from faculty Sachin Gudimani.'
   },
   {
-    event: 'Unique Aptitude Events',
+    year: '2021',
+    event: 'Mission & Activities',
     description: 'Strengthened student skills in aptitude, personality development, and critical thinking for placements and exams.'
   },
   {
-    event: 'Placement & Career Guidance',
-    description: 'Conducted mock drives in real company formats, soft-skill sessions, and offered mentorship for GATE (all branches), higher studies, and defense exams such as SSB, NDA, and SSC.'
+    year: '2022',
+    event: 'Team Growth',
+    description: 'Expanded to include coordinators from EEE, MECH, CIVIL, ISE, CSE, ECE, Design, and Higher Studies.'
   },
   {
-    event: 'National Recognition',
-    description: 'Earned recognition for innovative aptitude-driven events and holistic student development initiatives.'
+    year: '2023',
+    event: 'Faculty Guidance',
+    description: 'Faculty provided direction and support in professional and personal development.'
   }
 ];
 
