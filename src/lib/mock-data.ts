@@ -239,11 +239,11 @@ export const milestones = [
   {
     year: '2021',
     event: 'Club Founded',
-    description: 'CCA was founded by Anirudh, Harshith, and Abhay to empower engineering students for placements, higher studies, defense, and civil services, under the guidance of faculty Sachin Gudimani and Mohd Yasin.'
+    description: 'CCA was started at CMRIT by Anirudh, Aditya, Abhay, and Harshith with guidance from faculty Sachin Gudimani.'
   },
   {
     event: 'Unique Aptitude Events',
-    description: 'Pioneered India’s first aptitude-based competitions including Treasure Hunt, Hackathon, Marathon, and Relay, attracting 120+ teams and 350+ individual participants.'
+    description: 'Strengthened student skills in aptitude, personality development, and critical thinking for placements and exams.'
   },
   {
     event: 'Placement & Career Guidance',
