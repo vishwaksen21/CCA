@@ -218,7 +218,7 @@ export const teamMembers = [
   {
     name: 'Irene',
     role: 'Co-ordinator',
-    imageUrl: '/Irene.png',
+    imageUrl: '/Irene1.png',
     dataAiHint: 'woman portrait',
   },
   {
