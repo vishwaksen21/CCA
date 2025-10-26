@@ -224,19 +224,19 @@ export const teamMembers = [
   {
     name: 'Vaishnavi',
     role: 'Co-ordinator',
-    imageUrl: 'https://randomuser.me/api/portraits/women/44.jpg',
+    imageUrl: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Emma',
     dataAiHint: 'woman portrait',
   },
   {
     name: 'Amil',
     role: 'Co-ordinator',
-    imageUrl: 'https://randomuser.me/api/portraits/men/75.jpg',
+    imageUrl: 'https://api.dicebear.com/9.x/adventurer/svg?seed=John',
     dataAiHint: 'woman portrait',
   },
   {
     name: 'Bhavana',
     role: 'Co-ordinator',
-    imageUrl: 'https://randomuser.me/api/portraits/women/44.jpg',
+    imageUrl: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Emma',
     dataAiHint: 'woman portrait',
   },
 ];
