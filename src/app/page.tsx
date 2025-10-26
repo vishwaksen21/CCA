@@ -16,7 +16,7 @@ const fadeUp = {
 };
 
 // 🔹 Hero images for slideshow
-const heroImages = ['/slide1.png', '/slide2.png', '/slide3.png', '/slide4.png', '/slide5.png'];
+const heroImages = ['/slide1.png', '/slide2.png', '/slide3.png', '/slide4.png', '/slide5.png', '/slide6.png'];
 
 // 🔹 Slideshow Component
 function HeroSlideshow({ images }: { images: string[] }) {
