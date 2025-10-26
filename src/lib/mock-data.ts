@@ -186,12 +186,6 @@ export const teamMembers = [
     dataAiHint: 'man portrait',
   },
   {
-    name: 'Ritheesha',
-    role: 'Co-ordinator',
-    imageUrl: '/rit.png',
-    dataAiHint: 'woman portrait',
-  },
-  {
     name: 'Likitha',
     role: 'Co-ordinator',
     imageUrl: '/likitha.png',
