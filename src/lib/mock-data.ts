@@ -100,6 +100,28 @@ export const upcomingEvents: {
     registrations: [],
     registrationUrl: 'https://tinyurl.com/3s2sdrph',
   },
+  {
+    id: 'evt6',
+    title: 'The Scholars Knight',
+    date: '2025-10-23',
+    time: '2:00 PM - 4:00 PM',
+    location: 'AV HALL',
+    description: 'The Scholars Knight, an event dedicated to guiding aspiring scholars towards global opportunities.',
+ imageUrl: '/event6.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://forms.gle/tLqw9JTJtKCp3sbb8',
+  },
+  {
+    id: 'evt7',
+    title: 'Escape Room 2.0',
+    date: '2025-10-29',
+    time: '2:00 PM - 4:00 PM',
+    location: 'CV 403',
+    description: 'Test your wit and teamwork in Escape Room 2.0 — where every clue counts and every second matters!',
+ imageUrl: '/event7.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://tinyurl.com/44t5664c',
+  },
 ];
 
 export const teamMembers = [
