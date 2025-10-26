@@ -181,6 +181,18 @@ export const teamMembers = [
     imageUrl: '/ash.png',
     dataAiHint: 'woman portrait',
   },
+  {
+    name: 'Darshan',
+    role: 'Co-ordinator',
+    imageUrl: '/Darshan.png',
+    dataAiHint: 'woman portrait',
+  },
+  {
+    name: 'Irene',
+    role: 'Co-ordinator',
+    imageUrl: '/Irene.png',
+    dataAiHint: 'woman portrait',
+  },
 ];
 
 export const milestones = [
