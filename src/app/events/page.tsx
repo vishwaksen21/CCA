@@ -1,13 +1,12 @@
-
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
-import { Calendar, Clock, MapPin, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { upcomingEvents as initialEventsData } from '@/lib/mock-data';
+import { upcomingEvents as allEvents } from '@/lib/mock-data';
 import { useToast } from '@/hooks/use-toast';
 
 const fadeIn = {
@@ -21,114 +20,133 @@ const cardVariants = {
   animate: { opacity: 1, y: 0 },
 };
 
-export default function Page() {
-  // Use a different name to avoid confusion with the global mock data
-  const [pageEvents, setPageEvents] = useState(initialEventsData.map(event => ({ ...event, isRegistered: false })));
+export default function EventsPage() {
+  const [events, setEvents] = useState(allEvents.map(e => ({ ...e, isRegistered: false })));
   const { toast } = useToast();
 
+  // Divide events into past and upcoming
+  const today = new Date();
+  const { upcoming, past } = useMemo(() => {
+    const upcoming = events.filter(e => new Date(e.date) >= today);
+    const past = events.filter(e => new Date(e.date) < today);
+    return { upcoming, past };
+  }, [events]);
+
   const handleRegister = (eventId: string) => {
-    setPageEvents(currentEvents => 
-      currentEvents.map(event => {
+    setEvents(curr =>
+      curr.map(event => {
         if (event.id === eventId && !event.isRegistered) {
-          // In a real app, you would send a request to your backend to register the user.
-          // For this prototype, we'll just simulate it on the client-side.
-          // Let's also add a mock user to the registrations list in the original mock data.
-          const eventInData = initialEventsData.find(e => e.id === eventId);
-          if (eventInData) {
-            eventInData.registrations.push('New User'); // Example user
-          }
-          
-          // The toast should only be called here, inside the event handler
           toast({
             title: 'Registration Successful!',
             description: `You are now registered for "${event.title}".`,
           });
           return { ...event, isRegistered: true };
-        }// hi heelo
+        }
         return event;
       })
     );
   };
 
+  const renderEventCard = (event, index) => (
+    <motion.div
+      key={event.id}
+      variants={cardVariants}
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+        <CardHeader>
+          {event.imageUrl && (
+            <div className="w-full max-w-sm mx-auto mb-4">
+              <Image
+                src={event.imageUrl}
+                alt="Event Image"
+                width={400}
+                height={400}
+                className="rounded-lg object-cover w-full h-[250px]"
+              />
+            </div>
+          )}
+          <CardTitle className="font-headline text-xl text-primary">{event.title}</CardTitle>
+          <CardDescription>{event.description}</CardDescription>
+        </CardHeader>
+        <CardContent className="flex-grow space-y-3">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Calendar className="h-4 w-4" />
+            <span>{new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Clock className="h-4 w-4" />
+            <span>{event.time}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <MapPin className="h-4 w-4" />
+            <span>{event.location}</span>
+          </div>
+        </CardContent>
+        <CardFooter>
+          {new Date(event.date) >= today ? (
+            <Button
+              className="w-full"
+              onClick={() => {
+                if (event.registrationUrl) {
+                  window.open(event.registrationUrl, '_blank');
+                } else {
+                  handleRegister(event.id);
+                }
+              }}
+            >
+              {event.isRegistered ? 'Registered ✅' : 'Register Now'}
+            </Button>
+          ) : (
+            <Button className="w-full bg-gray-300 text-gray-700 cursor-not-allowed" disabled>
+              Event Ended
+            </Button>
+          )}
+        </CardFooter>
+      </Card>
+    </motion.div>
+  );
+
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
-      <motion.div
-        variants={fadeIn}
-        initial="initial"
-        animate="animate"
-        className="text-center mb-12"
-      >
-        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl font-headline text-primary">
+      {/* Upcoming Events */}
+      <motion.div variants={fadeIn} initial="initial" animate="animate" className="text-center mb-12">
+        <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl font-headline text-primary mb-2">
           Upcoming Events
         </h1>
-        <p className="mx-auto max-w-[700px] text-foreground/80 md:text-xl mt-4">
-          Join our workshops, seminars, and networking sessions.
+        <p className="mx-auto max-w-[700px] text-foreground/80 md:text-xl">
+          Join our exciting upcoming sessions and activities.
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {pageEvents.map((event, index) => (
-          <motion.div
-            key={event.id}
-            variants={cardVariants}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-              {event.imageUrl && (
-  <div className="w-full max-w-sm mx-auto mb-4">
-    <Image
-      src={event.imageUrl}
-      alt="Event Image"
-      width={400} // or adjust as needed
-      height={500} // to maintain 4:5 aspect ratio
-      objectFit="cover"
-      className="rounded-lg"
-    />
-  </div>
-)}
+      {upcoming.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {upcoming.map(renderEventCard)}
+        </div>
+      ) : (
+        <p className="text-center text-muted-foreground mb-16">No upcoming events 🎉</p>
+      )}
 
+      {/* Past Events */}
+      <motion.div variants={fadeIn} initial="initial" animate="animate" className="text-center mb-12">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-headline text-gray-800 mb-2">
+          Past Events
+        </h2>
+        <p className="mx-auto max-w-[700px] text-foreground/70 md:text-lg">
+          Take a look back at our completed events and achievements.
+        </p>
+      </motion.div>
 
-
-                <CardTitle className="font-headline text-xl">{event.title}</CardTitle>
-                <CardDescription>{event.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow space-y-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Calendar className="h-4 w-4" />
-                  <span>{new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Clock className="h-4 w-4" />
-                  <span>{event.time}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <MapPin className="h-4 w-4" />
-                  <span>{event.location}</span>
-                </div>
-              </CardContent>
-              <CardFooter>
-              <Button
-      className="w-full"
-      onClick={() => {
-        if (event.registrationUrl) {
-          window.open(event.registrationUrl, '_blank'); // Opens in a new tab
-          // If you want to redirect in the same tab, use:
-          // window.location.href = event.registrationUrl;
-        }
-      }}
-    >
-      Register Now
-    </Button>
-
-              </CardFooter>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
+      {past.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-90">
+          {past.map(renderEventCard)}
+        </div>
+      ) : (
+        <p className="text-center text-muted-foreground">No past events yet.</p>
+      )}
     </div>
   );
 }
