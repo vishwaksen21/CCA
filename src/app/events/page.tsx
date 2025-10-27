@@ -59,12 +59,12 @@ export default function EventsPage() {
       <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300 border border-gray-200">
         <CardHeader>
           {event.imageUrl && (
-  <div className="relative w-full aspect-[4/5] overflow-hidden rounded-lg mb-4">
+  <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl shadow-md mb-4 bg-white">
     <Image
       src={event.imageUrl}
       alt={`${event.title} poster`}
       fill
-      className="object-contain p-2 bg-white"
+      className="object-contain p-2 transition-transform duration-300 hover:scale-[1.02]"
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       priority={index === 0}
     />
