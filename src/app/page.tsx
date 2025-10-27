@@ -250,7 +250,7 @@ export default function Home() {
           className="w-full py-20"
         >
           <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">
-            📅 Upcoming Workshops
+            📅 Cognitive Boosters
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {upcomingWorkshops.map((workshop, index) => (
