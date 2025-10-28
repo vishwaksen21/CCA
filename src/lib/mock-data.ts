@@ -218,19 +218,19 @@ export const teamMembers = [
   {
     name: 'Vaishnavi',
     role: 'Co-ordinator',
-    imageUrl: 'vaish.png',
+    imageUrl: '/vaish.png',
     dataAiHint: 'woman portrait',
   },
   {
     name: 'Amil',
     role: 'Co-ordinator',
-    imageUrl: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Emma',
+    imageUrl: '/amil.png',
     dataAiHint: 'woman portrait',
   },
   {
     name: 'Bhavana',
     role: 'Co-ordinator',
-    imageUrl: 'bhavana.png',
+    imageUrl: '/bhavana.png',
     dataAiHint: 'woman portrait',
   },
 ];
