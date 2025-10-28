@@ -12,7 +12,6 @@ import { ThemeToggle } from './theme-toggle';
 
 const navLinks = [
   { href: '/about', label: 'About Us' },
-  { href: '/updates', label: 'Updates' },
   { href: '/events', label: 'Events' },
   { href: '/leaderboard', label: 'Leaderboard' },
   { href: '/partners', label: 'Our Partners' },
