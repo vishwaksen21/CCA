@@ -19,6 +19,8 @@ import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
 import { contactSubmissions } from '@/lib/mock-data';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -45,12 +47,6 @@ export default function ContactPage() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // In a real app, you'd send this to a server.
-    // For this prototype, we'll simulate sending an email and add to mock data.
-
-    // Simulate sending email
-    // This is a simplified approach. In a real application, you would use a backend service
-    // to send the email to prevent exposing the email address and for better security.
     window.location.href = `mailto:cmritcca@gmail.com?subject=Contact Form Submission&body=Name: ${values.name}%0D%0AEmail: ${values.email}%0D%0AMessage: ${values.message}`;
 
     console.log('Contact form submitted with values:', values);
@@ -69,6 +65,19 @@ export default function ContactPage() {
     transition: { duration: 0.5 },
   };
 
+  const socialLinks = [
+    {
+      name: 'WhatsApp',
+      icon: <Image src="/whatsapp1.png" alt="WhatsApp" width={64} height={64} className="mx-auto" />,
+      href: 'https://chat.whatsapp.com/FUYiGlm7jFG9iNJrFOnKNE',
+    },
+    {
+      name: 'Instagram',
+      icon: <Image src="/instagram.png" alt="Instagram" width={64} height={64} className="mx-auto" />,
+      href: 'https://www.instagram.com/cca_cmrit/',
+    },
+  ];
+
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <motion.div
@@ -78,8 +87,39 @@ export default function ContactPage() {
         className="text-center mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl font-headline text-primary">
-          Get in Touch
+          Connect With Us
         </h1>
+        <p className="text-lg text-foreground/80 mt-4 mb-8">
+          Join us on our social media to get the latest updates!
+        </p>
+        <div className="flex justify-center gap-8 md:gap-12">
+          {socialLinks.map((social) => (
+            <motion.div
+              key={social.name}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex flex-col items-center gap-4"
+            >
+              <Link href={social.href} target="_blank" rel="noopener noreferrer">
+                {social.icon}
+              </Link>
+              <Link href={social.href} target="_blank" rel="noopener noreferrer">
+                <Button>Click to Connect</Button>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div
+        variants={fadeIn}
+        initial="initial"
+        animate="animate"
+        className="text-center mt-20 mb-12"
+      >
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline text-primary">
+          Send us an Email
+        </h2>
         <p className="mx-auto max-w-[700px] text-foreground/80 md:text-xl mt-4">
           Have a question, a suggestion, or want to partner with us? We'd love to hear from you.
         </p>
@@ -125,7 +165,7 @@ export default function ContactPage() {
               control={form.control}
               name="message"
               render={({ field }) => (
-                <FormItem>
+                  <FormItem>
                   <FormLabel>Your Message</FormLabel>
                   <FormControl>
                     <Textarea
