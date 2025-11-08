@@ -179,45 +179,45 @@ export default function Home() {
         </motion.div>
       </section>
 
-    <main className="flex-1 bg-[#FDFBF2]">
-      <div className="container mx-auto px-4 md:px-6">
-
-        {/* ------------------ FEATURES ------------------ */}
-        <motion.section
-          variants={fadeUp}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.2 }}
-          id="features"
-          className="w-full pt-16"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {featureCards.map((feature, index) => (
-              <motion.div
-                key={index}
-                variants={fadeUp}
-                whileHover={{ y: -10 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-                className="w-full"
-              >
-                <Card
-                  className="relative text-center p-8 h-full shadow-lg border-t-4 border-black overflow-hidden group min-h-[250px]"
+      <main className="flex-1 bg-[#FDFBF2]">
+        <div className="container mx-auto px-4 md:px-6">
+          {/* ------------------ FEATURES ------------------ */}
+          <motion.section
+            variants={fadeUp}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.2 }}
+            id="features"
+            className="w-full pt-16"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              {featureCards.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeUp}
+                  whileHover={{ y: -10 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  className="w-full"
                 >
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110"
-                    style={{ backgroundImage: `url(${feature.image})` }}
-                  />
-                  <div className="absolute inset-0 bg-black/70" />
-                  <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                    <feature.icon className="w-16 h-16 text-white mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold font-headline mt-4 text-white">{feature.title}</h3>
-                    <p className="text-base text-white/80 mt-2">{feature.description}</p>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+                  <Card
+                    className="relative text-center p-8 h-full shadow-lg border-t-4 border-black overflow-hidden group min-h-[250px]"
+                  >
+                    <div
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110"
+                      style={{ backgroundImage: `url(${feature.image})` }}
+                    />
+                    <div className="absolute inset-0 bg-black/70" />
+                    <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                      <feature.icon className="w-16 h-16 text-white mx-auto mb-4" />
+                      <h3 className="text-2xl font-bold font-headline mt-4 text-white">{feature.title}</h3>
+                      <p className="text-base text-white/80 mt-2">{feature.description}</p>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+        </div>
         
         {/* ------------------ WHAT IS CCA? ------------------ */}
         <motion.section
@@ -227,7 +227,7 @@ export default function Home() {
           viewport={{ once: true, amount: 0.2 }}
           className="w-full py-16 mt-8"
         >
-          <div className="text-center">
+          <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="text-3xl font-bold tracking-tighter mb-6 font-headline uppercase text-accent">
               WHAT IS CCA?
             </h2>
@@ -235,7 +235,7 @@ export default function Home() {
               The Center for Cognitive Activities (CCA) drives student growth through dynamic workshops, speaker sessions, and innovative initiatives. We empower students by helping them develop crucial skills, boost their career prospects, and connect with a strong professional network.
             </p>
           </div>
-          <div className="relative mt-12 rounded-lg overflow-hidden shadow-lg">
+          <div className="relative mt-12">
             <div className="absolute inset-0">
                 <Image
                     src="/slide2.png"
@@ -245,133 +245,136 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-black/60" />
             </div>
-            <div className="relative grid grid-cols-3 gap-4 text-white text-center py-16">
-                <div className="flex flex-col items-center">
-                    <GraduationCap className="h-10 w-10 md:h-16 md:w-16 mb-4" />
-                    <h3 className="text-2xl md:text-4xl font-bold">1000+</h3>
-                    <p className="text-sm md:text-lg font-semibold">Students</p>
-                </div>
-                <div className="flex flex-col items-center">
-                    <Lightbulb className="h-10 w-10 md:h-16 md:w-16 mb-4" />
-                    <h3 className="text-2xl md:text-4xl font-bold">50+</h3>
-                    <p className="text-sm md:text-lg font-semibold">Events</p>
-                </div>
-                <div className="flex flex-col items-center">
-                    <Building className="h-10 w-10 md:h-16 md:w-16 mb-4" />
-                    <h3 className="text-2xl md:text-4xl font-bold">4</h3>
-                    <p className="text-sm md:text-lg font-semibold">Domains</p>
-                </div>
+            <div className="container mx-auto px-4 md:px-6">
+              <div className="relative grid grid-cols-3 gap-4 text-white text-center py-16">
+                  <div className="flex flex-col items-center">
+                      <GraduationCap className="h-10 w-10 md:h-16 md:w-16 mb-4" />
+                      <h3 className="text-2xl md:text-4xl font-bold">1000+</h3>
+                      <p className="text-sm md:text-lg font-semibold">Students</p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                      <Lightbulb className="h-10 w-10 md:h-16 md:w-16 mb-4" />
+                      <h3 className="text-2xl md:text-4xl font-bold">50+</h3>
+                      <p className="text-sm md:text-lg font-semibold">Events</p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                      <Building className="h-10 w-10 md:h-16 md:w-16 mb-4" />
+                      <h3 className="text-2xl md:text-4xl font-bold">4</h3>
+                      <p className="text-sm md:text-lg font-semibold">Domains</p>
+                  </div>
+              </div>
             </div>
         </div>
         </motion.section>
 
-        {/* ------------------ OUR COGNITIVE BOOSTERS ------------------ */}
-        <motion.section
-          variants={fadeUp}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.2 }}
-          id="cognitive-boosters"
-          className="w-full py-12"
-        >
-          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline uppercase text-yellow-500">
-            OUR COGNITIVE BOOSTERS
-          </h2>
+        <div className="container mx-auto px-4 md:px-6">
+          {/* ------------------ OUR COGNITIVE BOOSTERS ------------------ */}
+          <motion.section
+            variants={fadeUp}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.2 }}
+            id="cognitive-boosters"
+            className="w-full py-12"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline uppercase text-yellow-500">
+              OUR COGNITIVE BOOSTERS
+            </h2>
 
-          <div className="flex flex-col lg:flex-row h-[500px] w-full border-2 border-black divide-y-2 lg:divide-y-0 lg:divide-x-2 divide-black rounded-md overflow-hidden">
-            {cognitiveBoosters.map((booster, index) => (
+            <div className="flex flex-col lg:flex-row h-[500px] w-full border-2 border-black divide-y-2 lg:divide-y-0 lg:divide-x-2 divide-black rounded-md overflow-hidden">
+              {cognitiveBoosters.map((booster, index) => (
+                <motion.div
+                  key={index}
+                  className="relative overflow-hidden cursor-pointer group h-full"
+                  onClick={() => setActiveCard(activeCard === index ? null : index)}
+                  animate={{
+                    flex: activeCard === index ? 3 : 1,
+                  }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                >
+                  <Image
+                    src={booster.image}
+                    alt={booster.title}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/60 transition-all duration-300 group-hover:bg-black/70" />
+
+                  <div className="relative z-10 flex flex-col justify-center items-center h-full text-white p-6 text-center">
+                    <AnimatePresence>
+                      {activeCard === index ? (
+                        <motion.div
+                          key="expanded"
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -30 }}
+                          transition={{ duration: 0.4 }}
+                          className="w-full"
+                        >
+                          <h3 className="text-2xl lg:text-4xl font-bold font-headline text-yellow-400 mb-4">{booster.title}</h3>
+                          <p className="text-base lg:text-lg max-w-md mx-auto">{booster.description}</p>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="collapsed"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="flex items-center justify-center w-full h-full"
+                        >
+                          <h3 className="text-2xl font-bold font-headline tracking-wider text-center">
+                            {booster.title}
+                          </h3>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+
+          {/* ------------------ ACHIEVERS ------------------ */}
+          {Object.entries(winnersData)
+            .sort((a, b) => Number(b[0]) - Number(a[0]))
+            .map(([year, winners], idx) => (
               <motion.div
-                key={index}
-                className="relative overflow-hidden cursor-pointer group h-full"
-                onClick={() => setActiveCard(activeCard === index ? null : index)}
-                animate={{
-                  flex: activeCard === index ? 3 : 1,
-                }}
-                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                key={year}
+                variants={fadeUp}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true, amount: 0.2 }}
+                id={`winners-${year}`}
+                className={`w-full py-12 ${ idx !== 0 ? 'mt-12' : ''}`}
               >
-                <Image
-                  src={booster.image}
-                  alt={booster.title}
-                  fill
-                  className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/60 transition-all duration-300 group-hover:bg-black/70" />
-
-                <div className="relative z-10 flex flex-col justify-center items-center h-full text-white p-6 text-center">
-                  <AnimatePresence>
-                    {activeCard === index ? (
-                      <motion.div
-                        key="expanded"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -30 }}
-                        transition={{ duration: 0.4 }}
-                        className="w-full"
-                      >
-                        <h3 className="text-2xl lg:text-4xl font-bold font-headline text-yellow-400 mb-4">{booster.title}</h3>
-                        <p className="text-base lg:text-lg max-w-md mx-auto">{booster.description}</p>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="collapsed"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="flex items-center justify-center w-full h-full"
-                      >
-                        <h3 className="text-2xl font-bold font-headline tracking-wider text-center">
-                          {booster.title}
-                        </h3>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline">
+                  <GraduationCap className="inline-block mb-1 mr-2 h-8 w-8" />{year} Achievers
+                </h2>
+                <div className="flex justify-center">
+                  <Card className="p-6 shadow-lg w-full max-w-4xl bg-background">
+                    <Image
+                      src={winners.groupImage}
+                      alt={`${year} Achievers`}
+                      width={800}
+                      height={400}
+                      unoptimized
+                      className="rounded-lg object-cover w-full h-auto mb-6"
+                    />
+                    <CardContent className="text-center p-0">
+                      <div className="flex justify-center items-center gap-x-8 gap-y-2 flex-wrap">
+                      {winners.names.map((name, index) => (
+                        <p key={index} className="text-lg font-semibold text-foreground">
+                          {name}
+                        </p>
+                      ))}
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </motion.div>
             ))}
-          </div>
-        </motion.section>
-
-        {/* ------------------ ACHIEVERS ------------------ */}
-        {Object.entries(winnersData)
-          .sort((a, b) => Number(b[0]) - Number(a[0]))
-          .map(([year, winners], idx) => (
-            <motion.div
-              key={year}
-              variants={fadeUp}
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true, amount: 0.2 }}
-              id={`winners-${year}`}
-              className={`w-full py-12 ${ idx !== 0 ? 'mt-12' : ''}`}
-            >
-              <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline">
-                <GraduationCap className="inline-block mb-1 mr-2 h-8 w-8" />{year} Achievers
-              </h2>
-              <div className="flex justify-center">
-                <Card className="p-6 shadow-lg w-full max-w-4xl bg-background">
-                  <Image
-                    src={winners.groupImage}
-                    alt={`${year} Achievers`}
-                    width={800}
-                    height={400}
-                    unoptimized
-                    className="rounded-lg object-cover w-full h-auto mb-6"
-                  />
-                  <CardContent className="text-center p-0">
-                    <div className="flex justify-center items-center gap-x-8 gap-y-2 flex-wrap">
-                    {winners.names.map((name, index) => (
-                      <p key={index} className="text-lg font-semibold text-foreground">
-                        {name}
-                      </p>
-                    ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </motion.div>
-          ))}
-      </div>
-    </main>
+        </div>
+      </main>
     </div>
   );
 }
