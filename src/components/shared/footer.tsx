@@ -1,65 +1,170 @@
 'use client';
 import Link from 'next/link';
-import { Instagram, Linkedin, Mail } from 'lucide-react';
-import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import {
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  ArrowRight,
+} from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa'; // ✅ WhatsApp icon
+
+const socialLinks = [
+  { href: 'https://www.linkedin.com', icon: Linkedin },
+  { href: 'https://www.instagram.com/cca_cmrit', icon: Instagram },
+  {
+    href: 'https://chat.whatsapp.com/FUYiGlm7jFG9iNJrFOnKNE?embedded=0',
+    icon: FaWhatsapp,
+  },
+];
+
+const initiatives = [
+  { name: 'Placement Prep', href: '#features' },
+  { name: 'Higher Studies', href: '#features' },
+  { name: 'Defense Awareness', href: '#features' },
+  { name: 'Personality Development', href: '#features' },
+];
+
+const usefulLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'About Us', href: '/about' },
+  { name: 'Events', href: '#cognitive-boosters' },
+  { name: 'Gallery', href: '/gallery' },
+  { name: 'Contact Us', href: '/contact' },
+];
 
 export function Footer() {
   return (
-    <footer className="bg-gray-50 border-t">
-      <div className="container flex flex-col gap-2 py-4 px-3 sm:gap-3 sm:py-6 sm:px-6 md:gap-4 md:py-8 md:px-8">
-        {/* Top row: Two images close together */}
-        <div className="flex items-center justify-center gap-x-2 sm:gap-x-4 md:gap-x-6">
-          <img
-            src="/cmrit-logo.png"
-            alt="CMRIT Logo"
-            className="w-14 sm:w-16 md:w-20 h-auto"
-          />
-          <img
-            src="/logo2-.png"
-            alt="Right Logo"
-            className="w-12 sm:w-14 md:w-16 h-auto"
-          />
-        </div>
+    <footer className="bg-[#212738] text-gray-300">
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          
+          {/* Column 1: Logo, Subscription, Socials */}
+          <div>
+            <Image
+              src="/logo2-.png"
+              alt="CCA Logo"
+              width={80}
+              height={80}
+              className="mb-4 rounded-full"
+            />
+            <h3 className="text-lg font-semibold text-white mb-2">
+              Want to message us?
+            </h3>
 
-        {/* Center: Copyright */}
-        <p className="text-center text-xs sm:text-sm leading-snug text-gray-500 md:text-left">
-          © {new Date().getFullYear()} CCA. All Rights Reserved.
+            {/* ✅ Email form that opens mail to ccacmrit@gmail.com */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const email = e.currentTarget.email.value.trim();
+                if (email) {
+                  const mailto = `mailto:ccacmrit@gmail.com?subject=Message from ${email}&body=Hello, I would like to get in touch.`;
+                  window.location.href = mailto;
+                }
+              }}
+              className="flex mb-4"
+            >
+              <Input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                className="bg-gray-700 border-gray-600 text-white rounded-r-none"
+              />
+              <Button
+                type="submit"
+                className="bg-yellow-500 hover:bg-yellow-600 rounded-l-none px-3"
+              >
+                <ArrowRight className="h-5 w-5" />
+              </Button>
+            </form>
+
+            <h3 className="text-lg font-semibold text-white mb-2">
+              Connect with us
+            </h3>
+            <div className="flex space-x-4">
+              {socialLinks.map((social) => (
+                <Link
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-yellow-400 transition-colors"
+                >
+                  <social.icon className="h-6 w-6" />
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: Our Initiatives */}
+          <div>
+            <h3 className="text-lg font-bold text-yellow-400 uppercase tracking-wider mb-4">
+              Our Initiatives
+            </h3>
+            <ul className="space-y-2">
+              {initiatives.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-yellow-400 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Useful Links */}
+          <div>
+            <h3 className="text-lg font-bold text-yellow-400 uppercase tracking-wider mb-4">
+              Useful Links
+            </h3>
+            <ul className="space-y-2">
+              {usefulLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-yellow-400 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Contact */}
+          <div>
+            <h3 className="text-lg font-bold text-yellow-400 uppercase tracking-wider mb-4">
+              Contact
+            </h3>
+            <div className="flex items-start space-x-3 mb-3">
+              <MapPin className="h-5 w-5 mt-1 flex-shrink-0" />
+              <span>CMR Institute of Technology, Bengaluru, India</span>
+            </div>
+            <div className="flex items-center space-x-3">
+              <Mail className="h-5 w-5" />
+              <a
+                href="mailto:cmritcca@gmail.com"
+                className="hover:text-yellow-400 transition-colors"
+              >
+                cmritcca@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-700 py-4">
+        <p className="text-center text-sm text-gray-400">
+          &copy; {new Date().getFullYear()} Center for Cognitive Activities. All Rights Reserved.
         </p>
-
-        {/* Social Links */}
-        <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-5">
-          <motion.div whileHover={{ scale: 1.2, rotate: 5 }} whileTap={{ scale: 0.9 }}>
-            <Link
-              href="https://www.instagram.com/cca_cmrit"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 hover:text-primary transition-colors"
-            >
-              <Instagram className="h-4 w-4 sm:h-5 sm:w-5 md:h-5 md:w-5" />
-              <span className="sr-only">Instagram</span>
-            </Link>
-          </motion.div>
-
-          <motion.div whileHover={{ scale: 1.2, rotate: 5 }} whileTap={{ scale: 0.9 }}>
-            <Link
-              href="mailto:cmritcca@gmail.com"
-              className="text-gray-500 hover:text-primary transition-colors"
-            >
-              <Mail className="h-4 w-4 sm:h-5 sm:w-5 md:h-5 md:w-5" />
-              <span className="sr-only">Gmail</span>
-            </Link>
-          </motion.div>
-
-          <motion.div whileHover={{ scale: 1.2, rotate: 5 }} whileTap={{ scale: 0.9 }}>
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-primary transition-colors"
-            >
-              <Linkedin className="h-4 w-4 sm:h-5 sm:w-5 md:h-5 md:w-5" />
-              <span className="sr-only">LinkedIn</span>
-            </Link>
-          </motion.div>
-        </div>
       </div>
     </footer>
   );
