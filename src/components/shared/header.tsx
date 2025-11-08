@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, User, Trophy } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { ThemeToggle } from './theme-toggle';
 
 const navLinks = [
+  { href: '/', label: 'Home' },
   { href: '/about', label: 'About Us' },
   { href: '/events', label: 'Events' },
   { href: '/leaderboard', label: 'Leaderboard' },
@@ -23,13 +24,21 @@ export function Header() {
   const pathname = usePathname();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const NavLink = ({ href, label, isMobile = false }: { href: string; label: string; isMobile?: boolean }) => (
+  const NavLink = ({
+    href,
+    label,
+    isMobile = false,
+  }: {
+    href: string;
+    label: string;
+    isMobile?: boolean;
+  }) => (
     <Link
       href={href}
       className={cn(
-        'text-sm font-medium transition-colors hover:text-primary',
-        pathname === href ? 'text-primary' : 'text-gray-600',
-        isMobile && 'text-lg text-gray-700 hover:text-primary'
+        'font-medium transition-colors hover:text-primary',
+        isMobile ? 'text-lg' : 'text-sm',
+        pathname === href ? 'text-primary' : 'text-muted-foreground'
       )}
       onClick={() => setIsSheetOpen(false)}
     >
@@ -42,12 +51,15 @@ export function Header() {
       <div className="container flex h-20 items-center">
         <Link href="/" className="mr-6 flex items-center gap-3">
           <Image src="/logo2-.png" alt="CCA Logo" width={64} height={64} className="h-16 w-16" priority />
-          <div className='flex flex-col'>
+          <div className="flex flex-col">
             <span className="font-bold font-headline text-xl leading-tight">CCA</span>
-            <span className="text-xs text-muted-foreground leading-tight -mt-1">Center for Cognitive Activities</span>
+            <span className="text-xs text-muted-foreground leading-tight -mt-1">
+              Center for Cognitive Activities
+            </span>
           </div>
         </Link>
 
+        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-6 md:flex ml-auto">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
@@ -55,6 +67,7 @@ export function Header() {
           <ThemeToggle />
         </nav>
 
+        {/* Mobile Navigation */}
         <div className="flex flex-1 items-center justify-end gap-2 md:hidden">
           <ThemeToggle />
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -68,13 +81,15 @@ export function Header() {
               <SheetHeader>
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               </SheetHeader>
-               <div className="p-4 pt-8">
-                 <Link href="/" className="mb-10 flex items-center gap-3" onClick={() => setIsSheetOpen(false)}>
-                    <Image src="/logo2-.png" alt="CCA Logo" width={64} height={64} className="h-16 w-16" />
-                     <div className='flex flex-col'>
-                        <span className="font-bold font-headline text-xl leading-tight">CCA</span>
-                        <span className="text-xs text-muted-foreground leading-tight -mt-1">Center for Cognitive Activities</span>
-                    </div>
+              <div className="p-4 pt-8">
+                <Link href="/" className="mb-10 flex items-center gap-3" onClick={() => setIsSheetOpen(false)}>
+                  <Image src="/logo2-.png" alt="CCA Logo" width={64} height={64} className="h-16 w-16" />
+                  <div className="flex flex-col">
+                    <span className="font-bold font-headline text-xl leading-tight">CCA</span>
+                    <span className="text-xs text-muted-foreground leading-tight -mt-1">
+                      Center for Cognitive Activities
+                    </span>
+                  </div>
                 </Link>
                 <nav className="grid gap-6">
                   {navLinks.map((link) => (
