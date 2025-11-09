@@ -68,15 +68,15 @@ export const upcomingEvents: {
     registrationUrl: 'https://forms.gle/QzJLs6K4BYLsZmPL7',
   },
   {
-    id: 'evt3', // Give it a unique ID
-    title: 'Load Up & Lock In', // New event title
-    date: '2025-09-10', // New date
-    time: '2:00 PM - 4:00 PM', // New time
-    location: '4th floor,CV 403-D block', // New location
-    description: 'This event prepares you to navigate the path and excel in a career with the defense sector.', // New description
-    registrations: [], // Start with an empty registrations array
-    imageUrl: '/event3.png', // Optional image URL
-    registrationUrl: 'https://forms.gle/ro3ePuquCweufAbP9', // Optional registration URL
+    id: 'evt3',
+    title: 'Load Up & Lock In',
+    date: '2025-09-10',
+    time: '2:00 PM - 4:00 PM',
+    location: '4th floor,CV 403-D block',
+    description: 'This event prepares you to navigate the path and excel in a career with the defense sector.',
+    registrations: [],
+    imageUrl: '/event3.png',
+    registrationUrl: 'https://forms.gle/ro3ePuquCweufAbP9',
   },
     {
     id: 'evt4',
@@ -129,109 +129,103 @@ export const teamMembers = [
     name: 'Yuktha',
     role: 'President',
     imageUrl: '/yuktha.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/yuktha-suresh-65b208302',
   },
   {
     name: 'Swara',
     role: 'Vice-President',
     imageUrl: '/swara.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/swarakulkarni',
   },
   {
     name: 'Prithika',
     role: 'Creative Head',
     imageUrl: '/prithika.png',
-    dataAiHint: 'woman portrait creative',
+    linkedin: 'https://www.linkedin.com/in/prithika-senthil-310b25315',
   },
   {
     name: 'Aparnaa',
     role: 'Cash Capzz',
     imageUrl: '/aparnaa.png',
-    dataAiHint: 'woman portrait professional',
+    linkedin: 'https://www.linkedin.com/in/aparnaa-a-s',
   },
   {
     name: 'Vishwak',
     role: 'Co-ordinator',
     imageUrl: '/vishwak3.png',
-    dataAiHint: 'man portrait',
+    linkedin: 'https://www.linkedin.com/in/c-vishwak-sena-b61212286/',
   },
   {
     name: 'Divyanshi',
     role: 'Co-ordinator',
     imageUrl: '/divyanshi.png',
-    dataAiHint: 'woman portrait',
+    linkedin: '',
   },
   {
     name: 'Jaithra',
     role: 'Co-ordinator',
     imageUrl: '/jaithra.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/jaithra-guttikonda-6b0a71337',
   },
   {
     name: 'Barath',
     role: 'Co-ordinator',
     imageUrl: '/barath.png',
-    dataAiHint: 'man portrait',
+    linkedin: 'https://www.linkedin.com/in/barath-s05',
   },
   {
     name: 'Deeksha',
     role: 'Co-ordinator',
     imageUrl: '/deeksha.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/deeksha-pandu-29b09732a',
   },
   {
     name: 'Kovidh',
     role: 'Co-ordinator',
     imageUrl: '/kovidh.png',
-    dataAiHint: 'man portrait',
+    linkedin: 'https://www.linkedin.com/in/kovidh-chodankar',
   },
   {
     name: 'Likitha',
     role: 'Co-ordinator',
     imageUrl: '/likitha.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/likitha-n-844ba1330',
   },
   {
     name: 'Ashmitha',
     role: 'Co-ordinator',
     imageUrl: '/ash.png',
-    dataAiHint: 'woman portrait',
+    linkedin: '', // No LinkedIn provided
   },
   {
     name: 'Srinikesh',
     role: 'Co-ordinator',
     imageUrl: '/sri.png',
-    dataAiHint: 'woman portrait',
-  },
-  {
-    name: 'Darshan',
-    role: 'Co-ordinator',
-    imageUrl: '/Darshan.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/srinikesh-peratla-287452379',
   },
   {
     name: 'Irene',
     role: 'Co-ordinator',
     imageUrl: '/Irene1.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/irene-maria-vinod-916725391',
   },
   {
     name: 'Vaishnavi',
     role: 'Co-ordinator',
     imageUrl: '/vaish.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/vaishnavi-patil-077021328/',
   },
   {
     name: 'Amil',
     role: 'Co-ordinator',
     imageUrl: '/amil.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/amil-prabakar-838750334',
   },
   {
     name: 'Bhavana',
     role: 'Co-ordinator',
     imageUrl: '/bhavana.png',
-    dataAiHint: 'woman portrait',
+    linkedin: 'https://www.linkedin.com/in/bhavana-k-087775359',
   },
 ];
 
@@ -344,8 +338,6 @@ export type ContactSubmission = {
   date: string;
 };
 
-// We will use this as a temporary in-memory "database" for contact submissions.
-// In a real app, this would be a database.
 export let contactSubmissions: ContactSubmission[] = [
     {
         id: 'sub1',

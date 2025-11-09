@@ -32,7 +32,7 @@ const usefulLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Events', href: '#cognitive-boosters' },
-  { name: 'Gallery', href: '/gallery' },
+  { name: 'Our Partners', href: '/partners' },
   { name: 'Contact Us', href: '/contact' },
 ];
 
