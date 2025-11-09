@@ -94,6 +94,11 @@ const cognitiveBoosters = [
     image: '/recu.png',
     description: 'Join forces with peers and mentors to bring ambitious projects to life through teamwork.',
   },
+  {
+    title: 'Student Club Expo',
+    image: '/ori.png',
+    description: 'Join forces with peers and mentors to bring ambitious projects to life through teamwork.',
+  },
 ];
 
 // 🔹 Previous Year Achievers
@@ -180,7 +185,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-    <main className="flex-1 bg-[#FDFBF2]">
+    <main className="flex-1 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         {/* ------------------ FEATURES ------------------ */}
         <motion.section

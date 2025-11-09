@@ -121,7 +121,7 @@ export default function AboutPage() {
                 <div className="w-5 h-5 rounded-full bg-gray-700 border-2 border-primary flex-shrink-0 z-10"></div>
                 <div>
                   <div className="flex items-center gap-3 mb-1 flex-wrap">
-                    <span className="bg-primary text-white px-2 py-0.5 rounded text-xs font-semibold">
+                    <span className="bg-primary text-primary-foreground px-2 py-0.5 rounded text-xs font-semibold">
                       {milestone.year}
                     </span>
                     <h3 className="text-base font-semibold">{milestone.event}</h3>
@@ -198,7 +198,7 @@ export default function AboutPage() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             href="/contact"
-            className="px-7 py-2.5 bg-gradient-to-r from-primary to-primary/80 text-white rounded-lg shadow-md font-semibold text-sm sm:text-base hover:shadow-lg transition-all"
+            className="px-7 py-2.5 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-lg shadow-md font-semibold text-sm sm:text-base hover:shadow-lg transition-all"
           >
             Ready to Connect?
           </motion.a>

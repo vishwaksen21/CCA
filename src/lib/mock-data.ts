@@ -153,7 +153,7 @@ export const teamMembers = [
     name: 'Divyanshi',
     role: 'Co-ordinator',
     imageUrl: '/divyanshi.png',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/divyanshi-tiwari-36986b337',
   },
   {
     name: 'Vishwak',
@@ -195,7 +195,7 @@ export const teamMembers = [
     name: 'Ashmitha',
     role: 'Co-ordinator',
     imageUrl: '/ash.png',
-    linkedin: '', // No LinkedIn provided
+    linkedin: 'https://www.linkedin.com/in/ashmitha-rashmi-raju-a84053396',
   },
   {
     name: 'Srinikesh',
