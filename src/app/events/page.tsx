@@ -20,8 +20,10 @@ const cardVariants = {
   animate: { opacity: 1, y: 0 },
 };
 
+type EventType = (typeof allEvents)[0] & { isRegistered: boolean };
+
 export default function EventsPage() {
-  const [events, setEvents] = useState(allEvents.map(e => ({ ...e, isRegistered: false })));
+  const [events, setEvents] = useState<EventType[]>(allEvents.map(e => ({ ...e, isRegistered: false })));
   const { toast } = useToast();
 
   // Divide events into past and upcoming
@@ -47,7 +49,7 @@ export default function EventsPage() {
     );
   };
 
-  const renderEventCard = (event, index) => (
+  const renderEventCard = (event: EventType, index: number) => (
     <motion.div
       key={event.id}
       variants={cardVariants}
@@ -56,10 +58,10 @@ export default function EventsPage() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300 border border-gray-200">
+      <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
         <CardHeader>
           {event.imageUrl && (
-  <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl shadow-md mb-4 bg-white">
+  <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl shadow-md mb-4">
     <Image
       src={event.imageUrl}
       alt={`${event.title} poster`}
@@ -99,7 +101,7 @@ export default function EventsPage() {
                 }
               }}
             >
-              {event.isRegistered ? 'Registered ✅' : 'Register Now'}
+              {event.isRegistered ? 'Registered' : 'Register Now'}
             </Button>
           ) : (
             <Button className="w-full bg-gray-300 text-gray-700 cursor-not-allowed" disabled>
@@ -128,7 +130,7 @@ export default function EventsPage() {
           {upcoming.map(renderEventCard)}
         </div>
       ) : (
-        <p className="text-center text-muted-foreground mb-16">No upcoming events 🎉</p>
+        <p className="text-center text-muted-foreground mb-16">No upcoming events.</p>
       )}
 
       {/* Past Events */}

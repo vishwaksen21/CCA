@@ -11,16 +11,16 @@ import SplashScreen from '@/components/shared/splash-screen';
 
 
 
-// 🔹 Fade-up animation variants
+//  Fade-up animation variants
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
   animate: { opacity: 1, y: 0, transition: { duration: 1.0, ease: 'easeOut' } },
 };
 
-// 🔹 Hero images for slideshow
+//  Hero images for slideshow
 const heroImages = ['/slide1.png', '/slide2.png', '/slide3.png', '/slide4.png', '/slide5.png', '/slide6.png'];
 
-// 🔹 Slideshow Component
+//  Slideshow Component
 function HeroSlideshow({ images }: { images: string[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -49,7 +49,7 @@ function HeroSlideshow({ images }: { images: string[] }) {
   );
 }
 
-// 🔹 Feature Cards
+//  Feature Cards
 const featureCards = [
   {
     icon: Award,
@@ -77,7 +77,7 @@ const featureCards = [
   },
 ];
 
-// 🔹 Cognitive Boosters
+//  Cognitive Boosters
 const cognitiveBoosters = [
   {
     title: 'Orientation',
@@ -101,7 +101,7 @@ const cognitiveBoosters = [
   },
 ];
 
-// 🔹 Previous Year Achievers
+//  Previous Year Achievers
 const winnersData = {
   2024: {
     groupImage: '/2024winners.png',
@@ -109,7 +109,7 @@ const winnersData = {
   },
 };
 
-// 🔹 Main Page
+//  Main Page
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [activeCard, setActiveCard] = useState<number | null>(null);

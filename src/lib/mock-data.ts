@@ -6,7 +6,7 @@ export const announcements = [
     title: 'CCA Freshers’ Orientation 2025',
     date: '2025-09-23',
     content:
-      'Welcome freshers! 🎉 Discover CCA’s vision, meet the core team, and explore opportunities in placements, higher studies, and defense. Kickstart your journey with insights and fun icebreakers.',
+      'Welcome freshers! Discover CCA’s vision, meet the core team, and explore opportunities in placements, higher studies, and defense. Kickstart your journey with insights and fun icebreakers.',
   },
   {
     title: 'Event: The Placement Pursuit',
@@ -46,26 +46,48 @@ export const upcomingEvents: {
   registrationUrl?: string;
 }[] = [
   {
-    id: 'evt1',
-    title: 'The Placement Pursuit',
-    date: '2025-08-20',
+    id: 'evt7',
+    title: 'Escape Room 2.0',
+    date: '2025-10-29',
     time: '2:00 PM - 4:00 PM',
-    location: 'AV HALL',
-    description: 'This event prepares you to stand out and succeed in competitive campus placements.',
- imageUrl: '/event1.png', // Placeholder image
-    registrations: ['Aarav Sharma', 'Diya Mehta'],
-    registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdo7ehPXc3_45oUN8Zs6Jp4DAjDpsq_kon5V_F4GEZ0haCgAw/viewform', // Add the URL here
+    location: 'CV 403',
+    description: 'Test your wit and teamwork in Escape Room 2.0 — where every clue counts and every second matters!',
+    imageUrl: '/event7.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://tinyurl.com/44t5664c',
   },
   {
-    id: 'evt2',
-    title: 'Express & Impress',
-    date: '2025-09-03',
+    id: 'evt6',
+    title: 'The Scholars Knight',
+    date: '2025-10-23',
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
-    description: 'Strong soft skills set you apart and give you the edge in every placement interview.',
- imageUrl: '/event2.png', // Placeholder image
-    registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
-    registrationUrl: 'https://forms.gle/QzJLs6K4BYLsZmPL7',
+    description: 'The Scholars Knight, an event dedicated to guiding aspiring scholars towards global opportunities.',
+    imageUrl: '/event6.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://forms.gle/tLqw9JTJtKCp3sbb8',
+  },
+  {
+    id: 'evt5',
+    title: 'Skill Craft',
+    date: '2025-10-09',
+    time: '2:00 PM - 4:00 PM',
+    location: 'AV HALL ',
+    description: 'Unlock new opportunities and practical skills through engaging hands-on activities at Skill Craft.',
+    imageUrl: '/event5.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://tinyurl.com/3s2sdrph',
+  },
+  {
+    id: 'evt4',
+    title: 'Edu Voyage',
+    date: '2025-09-17',
+    time: '2:00 PM - 4:00 PM',
+    location: 'AV HALL ',
+    description: 'This event equips you with the guidance and strategies to excel in your journey toward higher studies.',
+    imageUrl: '/event4.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://forms.gle/zUjUTVHb8cQFqBh36',
   },
   {
     id: 'evt3',
@@ -78,50 +100,28 @@ export const upcomingEvents: {
     imageUrl: '/event3.png',
     registrationUrl: 'https://forms.gle/ro3ePuquCweufAbP9',
   },
-    {
-    id: 'evt4',
-    title: 'Edu Voyage',
-    date: '2025-09-17',
-    time: '2:00 PM - 4:00 PM',
-    location: 'AV HALL ',
-    description: 'This event equips you with the guidance and strategies to excel in your journey toward higher studies.',
- imageUrl: '/event4.png', // Placeholder image
-    registrations: [],
-    registrationUrl: 'https://forms.gle/zUjUTVHb8cQFqBh36',
-  },
   {
-    id: 'evt5',
-    title: 'Skill Craft',
-    date: '2025-10-09',
-    time: '2:00 PM - 4:00 PM',
-    location: 'AV HALL ',
-    description: 'Unlock new opportunities and practical skills through engaging hands-on activities at Skill Craft.',
- imageUrl: '/event5.png', // Placeholder image
-    registrations: [],
-    registrationUrl: 'https://tinyurl.com/3s2sdrph',
-  },
-  {
-    id: 'evt6',
-    title: 'The Scholars Knight',
-    date: '2025-10-23',
+    id: 'evt2',
+    title: 'Express & Impress',
+    date: '2025-09-03',
     time: '2:00 PM - 4:00 PM',
     location: 'AV HALL',
-    description: 'The Scholars Knight, an event dedicated to guiding aspiring scholars towards global opportunities.',
- imageUrl: '/event6.png', // Placeholder image
-    registrations: [],
-    registrationUrl: 'https://forms.gle/tLqw9JTJtKCp3sbb8',
+    description: 'Strong soft skills set you apart and give you the edge in every placement interview.',
+    imageUrl: '/event2.png', // Placeholder image
+    registrations: ['Kabir Khan', 'Vivaan Reddy', 'Ishaan Gupta', 'Myra Joshi'],
+    registrationUrl: 'https://forms.gle/QzJLs6K4BYLsZmPL7',
   },
   {
-    id: 'evt7',
-    title: 'Escape Room 2.0',
-    date: '2025-10-29',
+    id: 'evt1',
+    title: 'The Placement Pursuit',
+    date: '2025-08-20',
     time: '2:00 PM - 4:00 PM',
-    location: 'CV 403',
-    description: 'Test your wit and teamwork in Escape Room 2.0 — where every clue counts and every second matters!',
- imageUrl: '/event7.png', // Placeholder image
-    registrations: [],
-    registrationUrl: 'https://tinyurl.com/44t5664c',
-  },
+    location: 'AV HALL',
+    description: 'This event prepares you to stand out and succeed in competitive campus placements.',
+    imageUrl: '/event1.png', // Placeholder image
+    registrations: ['Aarav Sharma', 'Diya Mehta'],
+    registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdo7ehPXc3_45oUN8Zs6Jp4DAjDpsq_kon5V_F4GEZ0haCgAw/viewform', // Add the URL here
+  }
 ];
 
 export const teamMembers = [
