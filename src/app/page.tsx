@@ -85,9 +85,9 @@ const cognitiveBoosters = [
     description: "Fuel your imagination and step into a world where creativity knows no bounds!",
   },
   {
-    title: 'CCA x Bistro',
-    image: '/bistro.png',
-    description:'Mixing creativity and cuisine to serve up fresh ideas.',
+    title: 'Student Club Expo',
+    image: '/ori.png',
+    description: 'Join forces with peers and mentors to bring ambitious projects to life through teamwork.',
   },
   {
     title: 'Recuitment',
