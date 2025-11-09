@@ -81,7 +81,7 @@ const featureCards = [
 const cognitiveBoosters = [
   {
     title: 'Orientation',
-    image: '/ori.png',
+    image: '/orie.png',
     description: "Fuel your imagination and step into a world where creativity knows no bounds!",
   },
   {
