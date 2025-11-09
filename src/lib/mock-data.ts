@@ -150,16 +150,16 @@ export const teamMembers = [
     linkedin: 'https://www.linkedin.com/in/aparnaa-a-s',
   },
   {
-    name: 'Vishwak',
-    role: 'Co-ordinator',
-    imageUrl: '/vishwak3.png',
-    linkedin: 'https://www.linkedin.com/in/c-vishwak-sena-b61212286/',
-  },
-  {
     name: 'Divyanshi',
     role: 'Co-ordinator',
     imageUrl: '/divyanshi.png',
     linkedin: '',
+  },
+  {
+    name: 'Vishwak',
+    role: 'Co-ordinator',
+    imageUrl: '/vishwak3.png',
+    linkedin: 'https://www.linkedin.com/in/c-vishwak-sena-b61212286/',
   },
   {
     name: 'Jaithra',
