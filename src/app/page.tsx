@@ -94,11 +94,6 @@ const cognitiveBoosters = [
     image: '/recu.png',
     description: 'Join forces with peers and mentors to bring ambitious projects to life through teamwork.',
   },
-  {
-    title: 'Student Club Expo',
-    image: '/ori.png',
-    description: 'Join forces with peers and mentors to bring ambitious projects to life through teamwork.',
-  },
 ];
 
 //  Previous Year Achievers
