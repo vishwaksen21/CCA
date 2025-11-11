@@ -17,10 +17,9 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
-import { Mail } from 'lucide-react';
-import { contactSubmissions } from '@/lib/mock-data';
+import { Linkedin, Mail } from 'lucide-react';
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -49,16 +48,13 @@ export default function ContactPage() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     window.location.href = `mailto:cmritcca@gmail.com?subject=Contact Form Submission&body=Name: ${values.name}%0D%0AEmail: ${values.email}%0D%0AMessage: ${values.message}`;
 
-    console.log('Contact form submitted with values:', values);
-    console.log('Updated Submissions:', contactSubmissions);
-
     toast({
       title: 'Message Sent!',
       description: "Thanks for reaching out. We'll get back to you soon.",
     });
     form.reset();
   }
-  
+
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -68,13 +64,18 @@ export default function ContactPage() {
   const socialLinks = [
     {
       name: 'WhatsApp',
-      icon: <Image src="/whatsapp1.png" alt="WhatsApp" width={64} height={64} className="mx-auto" />,
+      icon: <FaWhatsapp className="h-16 w-16" />,
       href: 'https://chat.whatsapp.com/FUYiGlm7jFG9iNJrFOnKNE',
     },
     {
       name: 'Instagram',
-      icon: <Image src="/instagram.png" alt="Instagram" width={64} height={64} className="mx-auto" />,
+      icon: <FaInstagram className="h-16 w-16" />,
       href: 'https://www.instagram.com/cca_cmrit/',
+    },
+    {
+      name: 'LinkedIn',
+      icon: <Linkedin className="h-16 w-16" />,
+      href: 'https://www.linkedin.com/company/cca-cmrit',
     },
   ];
 
