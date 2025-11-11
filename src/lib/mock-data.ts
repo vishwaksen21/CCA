@@ -54,7 +54,7 @@ export const upcomingEvents: {
     description: '"The Defence Grid XXIV" – a thrilling strategy event where participants tackle 25 intense challenges to secure victory and defend the grid!.',
     imageUrl: '/eventx.png', // Placeholder image
     registrations: [],
-    registrationUrl: 'https://forms.gle/AZMtkBaxhd1XNiS7A,
+    registrationUrl: 'https://forms.gle/AZMtkBaxhd1XNiS7A',
   },
   {
     id: 'evt7',
