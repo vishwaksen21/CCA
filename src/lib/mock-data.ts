@@ -51,7 +51,7 @@ export const upcomingEvents: {
     date: '2025-11-19',
     time: '2:00 PM - 4:00 PM',
     location: '4th floor AV HALL D-block',
-    description: '"The Defence Grid XXIV" – a thrilling strategy event where participants tackle 25 intense challenges to secure victory and defend the grid!.',
+    description: '"The Defence Grid XXIV" – a thrilling strategy event where participants tackle intense challenges to secure victory and defend the grid!.',
     imageUrl: '/eventx.png', // Placeholder image
     registrations: [],
     registrationUrl: 'https://forms.gle/AZMtkBaxhd1XNiS7A',
