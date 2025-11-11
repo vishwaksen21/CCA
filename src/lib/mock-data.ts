@@ -318,11 +318,6 @@ export const faqs = [
     answer:
       'All updates and announcements are regularly shared through the club’s official website and social media platforms, including LinkedIn, WhatsApp, and Instagram.',
   },
-  {
-    question: 'What kind of support does CCA offer for placements?',
-    answer:
-      'CCA offers training, guidance, and resources to help members improve their aptitude, interview performance, and overall employability.',
-  },
 ];
 
 export type ContactSubmission = {
