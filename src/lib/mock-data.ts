@@ -46,6 +46,17 @@ export const upcomingEvents: {
   registrationUrl?: string;
 }[] = [
   {
+    id: 'evt8',
+    title: 'The Defense Grid',
+    date: '2025-11-19',
+    time: '2:00 PM - 4:00 PM',
+    location: '4th floor AV HALL D-block',
+    description: '"The Defence Grid XXIV" – a thrilling strategy event where participants tackle 25 intense challenges to secure victory and defend the grid!.',
+    imageUrl: '/eventx.png', // Placeholder image
+    registrations: [],
+    registrationUrl: 'https://forms.gle/AZMtkBaxhd1XNiS7A,
+  },
+  {
     id: 'evt7',
     title: 'Escape Room 2.0',
     date: '2025-10-29',
