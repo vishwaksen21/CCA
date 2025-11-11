@@ -301,17 +301,12 @@ export const faqs = [
   {
     question: 'Is there a rewards system in CCA?',
     answer:
-      'Yes, members earn points for participating in events, volunteering, and winning competitions. The leaderboard is updated weekly based on these points.',
+      'Students will earn CAP points by actively participating in events, volunteering activities, and winning competitions. The leaderboard is updated every week based on the total CAP points earned.',
   },
   {
     question: 'Are students from all backgrounds and years welcome?',
     answer:
       'Absolutely! CCA encourages diversity and welcomes students from all academic disciplines and years.',
-  },
-  {
-    question: 'Who manages CCA activities?',
-    answer:
-      'CCA is run by faculty and student coordinators representing various departments at CMRIT, ensuring activities are well-organized and inclusive.',
   },
   {
     question: 'What are the benefits of being a CCA member?',
@@ -321,7 +316,7 @@ export const faqs = [
   {
     question: 'Where can I find updates about CCA events?',
     answer:
-      'All updates and announcements are shared on the club’s official website and social media handles.',
+      'All updates and announcements are regularly shared through the club’s official website and social media platforms, including LinkedIn, WhatsApp, and Instagram.',
   },
   {
     question: 'What kind of support does CCA offer for placements?',
