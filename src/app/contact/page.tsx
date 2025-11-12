@@ -64,23 +64,23 @@ export default function ContactPage() {
   const socialLinks = [
     {
       name: 'WhatsApp',
-      icon: <FaWhatsapp className="h-16 w-16" />,
+      icon: <FaWhatsapp className="h-12 w-12 sm:h-16 sm:w-16" />,
       href: 'https://chat.whatsapp.com/FUYiGlm7jFG9iNJrFOnKNE',
     },
     {
       name: 'Instagram',
-      icon: <FaInstagram className="h-16 w-16" />,
+      icon: <FaInstagram className="h-12 w-12 sm:h-16 sm:w-16" />,
       href: 'https://www.instagram.com/cca_cmrit/',
     },
     {
       name: 'LinkedIn',
-      icon: <Linkedin className="h-16 w-16" />,
+      icon: <Linkedin className="h-12 w-12 sm:h-16 sm:w-16" />,
       href: 'https://www.linkedin.com/company/cca-cmrit',
     },
   ];
 
   return (
-    <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
+    <div className="container mx-auto px-4 sm:px-6 py-12 md:px-6 lg:py-16">
       <motion.div
         variants={fadeIn}
         initial="initial"
@@ -93,7 +93,7 @@ export default function ContactPage() {
         <p className="text-lg text-foreground/80 mt-4 mb-8">
           Join us on our social media to get the latest updates!
         </p>
-        <div className="flex justify-center gap-8 md:gap-12">
+        <div className="flex flex-wrap justify-center gap-8 md:gap-12">
           {socialLinks.map((social) => (
             <motion.div
               key={social.name}
@@ -105,7 +105,7 @@ export default function ContactPage() {
                 {social.icon}
               </Link>
               <Link href={social.href} target="_blank" rel="noopener noreferrer">
-                <Button>Click to Connect</Button>
+                <Button size="sm">Connect</Button>
               </Link>
             </motion.div>
           ))}
@@ -130,7 +130,7 @@ export default function ContactPage() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="max-w-2xl mx-auto p-8 border rounded-lg shadow-lg bg-card"
+        className="max-w-2xl mx-auto p-4 sm:p-8 border rounded-lg shadow-lg bg-card"
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
