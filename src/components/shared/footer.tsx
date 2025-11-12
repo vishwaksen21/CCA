@@ -22,10 +22,10 @@ const socialLinks = [
 ];
 
 const initiatives = [
-  { name: 'Placement Prep', href: '#features' },
-  { name: 'Higher Studies', href: '#features' },
-  { name: 'Defense Awareness', href: '#features' },
-  { name: 'Personality Development', href: '#features' },
+  'Placement Prep',
+  'Higher Studies',
+  'Defense Awareness',
+  'Personality Development',
 ];
 
 const usefulLinks = [
@@ -106,14 +106,9 @@ export function Footer() {
               Our Initiatives
             </h3>
             <ul className="space-y-2">
-              {initiatives.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-yellow-400 transition-colors"
-                  >
-                    {link.name}
-                  </Link>
+              {initiatives.map((name) => (
+                <li key={name}>
+                  {name}
                 </li>
               ))}
             </ul>
