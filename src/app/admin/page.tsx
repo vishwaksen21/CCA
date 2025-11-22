@@ -70,6 +70,14 @@ export default function Page() {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
 
+  // Push notification state
+  const [notificationTitle, setNotificationTitle] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationUrl, setNotificationUrl] = useState('');
+  const [isSendingNotification, setIsSendingNotification] = useState(false);
+  const [notificationError, setNotificationError] = useState<string | null>(null);
+  const [notificationSuccess, setNotificationSuccess] = useState<string | null>(null);
+
   // Load data from store on mount
   useEffect(() => {
     setAnnouncementsState(dataStore.getAnnouncements());
@@ -592,6 +600,61 @@ export default function Page() {
     setTimeout(() => setUploadSuccess(null), 2000);
   };
 
+  // Handle sending push notification
+  const handleSendNotification = async () => {
+    if (!notificationTitle.trim() || !notificationMessage.trim()) {
+      setNotificationError('Title and message are required');
+      return;
+    }
+
+    setIsSendingNotification(true);
+    setNotificationError(null);
+    setNotificationSuccess(null);
+
+    try {
+      const response = await fetch('/api/send-notification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: notificationTitle,
+          message: notificationMessage,
+          url: notificationUrl || undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.needsConfig) {
+          throw new Error('OneSignal API key not configured. Please add ONESIGNAL_REST_API_KEY to your .env.local file.');
+        }
+        throw new Error(data.error || 'Failed to send notification');
+      }
+
+      setNotificationSuccess(`Notification sent successfully to ${data.recipients || 'all subscribers'}!`);
+      
+      // Clear form
+      setNotificationTitle('');
+      setNotificationMessage('');
+      setNotificationUrl('');
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => setNotificationSuccess(null), 5000);
+    } catch (error) {
+      console.error('Send notification error:', error);
+      setNotificationError(error instanceof Error ? error.message : 'Failed to send notification');
+    } finally {
+      setIsSendingNotification(false);
+    }
+  };
+
+  const useTemplate = (title: string, message: string) => {
+    setNotificationTitle(title);
+    setNotificationMessage(message);
+  };
+
   // Show loading state
   if (authLoading) {
     return (
@@ -947,16 +1010,112 @@ export default function Page() {
                     <div>
                         <CardTitle>Send Push Notifications</CardTitle>
                         <CardDescription>
-                            Send push notifications to all subscribed users
+                            Send push notifications to all subscribed users instantly
                         </CardDescription>
                     </div>
                     <Megaphone className="h-8 w-8 text-primary" />
                 </CardHeader>
                 <CardContent className="space-y-6">
+                    {/* Send Notification Form */}
+                    <div className="space-y-4 border rounded-lg p-4 bg-muted/30">
+                        <h3 className="font-semibold flex items-center gap-2">
+                            <Megaphone className="h-5 w-5" />
+                            Send New Notification
+                        </h3>
+                        
+                        <div className="space-y-4">
+                            <div>
+                                <Label htmlFor="notification-title">Notification Title *</Label>
+                                <Input
+                                    id="notification-title"
+                                    value={notificationTitle}
+                                    onChange={(e) => setNotificationTitle(e.target.value)}
+                                    placeholder="e.g., New Event: Career Workshop"
+                                    maxLength={50}
+                                    className="mt-1"
+                                />
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    {notificationTitle.length}/50 characters
+                                </p>
+                            </div>
+
+                            <div>
+                                <Label htmlFor="notification-message">Notification Message *</Label>
+                                <Textarea
+                                    id="notification-message"
+                                    value={notificationMessage}
+                                    onChange={(e) => setNotificationMessage(e.target.value)}
+                                    placeholder="e.g., Join us for our Career Workshop on Dec 15. Register now!"
+                                    maxLength={200}
+                                    rows={3}
+                                    className="mt-1"
+                                />
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    {notificationMessage.length}/200 characters
+                                </p>
+                            </div>
+
+                            <div>
+                                <Label htmlFor="notification-url">Launch URL (Optional)</Label>
+                                <Input
+                                    id="notification-url"
+                                    value={notificationUrl}
+                                    onChange={(e) => setNotificationUrl(e.target.value)}
+                                    placeholder="https://your-site.com/events (optional)"
+                                    className="mt-1"
+                                />
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    URL to open when notification is clicked
+                                </p>
+                            </div>
+
+                            {/* Success Message */}
+                            {notificationSuccess && (
+                                <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200">
+                                    <CheckCircle className="h-5 w-5 flex-shrink-0" />
+                                    <p className="text-sm font-medium">{notificationSuccess}</p>
+                                </div>
+                            )}
+
+                            {/* Error Message */}
+                            {notificationError && (
+                                <div className="flex items-start gap-2 p-3 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200">
+                                    <X className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                                    <div className="flex-1">
+                                        <p className="text-sm font-medium">{notificationError}</p>
+                                        {notificationError.includes('API key') && (
+                                            <p className="text-xs mt-1">
+                                                Add your OneSignal REST API Key to .env.local: ONESIGNAL_REST_API_KEY=your_key_here
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            <Button
+                                onClick={handleSendNotification}
+                                disabled={isSendingNotification || !notificationTitle.trim() || !notificationMessage.trim()}
+                                className="w-full sm:w-auto"
+                            >
+                                {isSendingNotification ? (
+                                    <>
+                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                        Sending...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Megaphone className="mr-2 h-4 w-4" />
+                                        Send Notification to All Users
+                                    </>
+                                )}
+                            </Button>
+                        </div>
+                    </div>
+
                     {/* OneSignal Info */}
                     <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                         <div className="flex items-start gap-3">
-                            <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+                            <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
                             <div className="text-sm">
                                 <p className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
                                     OneSignal Integration Active
@@ -964,29 +1123,63 @@ export default function Page() {
                                 <p className="text-blue-800 dark:text-blue-200 mb-2">
                                     App ID: <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">4757bad8-5f4b-4b59-b2ef-fdd3de694379</code>
                                 </p>
-                                <p className="text-blue-700 dark:text-blue-300">
-                                    To send push notifications, you have two options:
-                                </p>
-                                <ol className="list-decimal list-inside mt-2 space-y-1 text-blue-700 dark:text-blue-300 ml-2">
-                                    <li>Use the <strong>OneSignal Dashboard</strong> at{' '}
-                                        <a 
-                                            href="https://app.onesignal.com" 
-                                            target="_blank" 
-                                            rel="noopener noreferrer"
-                                            className="underline hover:text-blue-900 dark:hover:text-blue-100"
-                                        >
-                                            app.onesignal.com
-                                        </a>
-                                    </li>
-                                    <li>Use the <strong>OneSignal REST API</strong> from your backend server</li>
-                                </ol>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Notification Templates */}
+                    <div className="space-y-4">
+                        <h3 className="font-semibold">Quick Templates</h3>
+                        <p className="text-sm text-muted-foreground">
+                            Click a template to use it:
+                        </p>
+                        
+                        <div className="grid gap-3 md:grid-cols-2">
+                            <button
+                                onClick={() => useTemplate('New Event: [Event Name]', 'Join us for [Event Name] on [Date]. Register now!')}
+                                className="border rounded-lg p-3 bg-muted/30 text-left hover:bg-muted/50 transition-colors"
+                            >
+                                <h4 className="font-semibold text-sm mb-1">New Event Announcement</h4>
+                                <p className="text-xs text-muted-foreground">
+                                    Template for announcing new events
+                                </p>
+                            </button>
+
+                            <button
+                                onClick={() => useTemplate('Important CCA Update', '[Your update message here]')}
+                                className="border rounded-lg p-3 bg-muted/30 text-left hover:bg-muted/50 transition-colors"
+                            >
+                                <h4 className="font-semibold text-sm mb-1">Important Update</h4>
+                                <p className="text-xs text-muted-foreground">
+                                    Template for general updates
+                                </p>
+                            </button>
+
+                            <button
+                                onClick={() => useTemplate('Reminder: [Event Name] Tomorrow!', 'Don\'t forget about [Event Name] tomorrow at [Time].')}
+                                className="border rounded-lg p-3 bg-muted/30 text-left hover:bg-muted/50 transition-colors"
+                            >
+                                <h4 className="font-semibold text-sm mb-1">Event Reminder</h4>
+                                <p className="text-xs text-muted-foreground">
+                                    Template for event reminders
+                                </p>
+                            </button>
+
+                            <button
+                                onClick={() => useTemplate('Welcome to CCA!', 'Thanks for subscribing to our notifications. Stay tuned for updates!')}
+                                className="border rounded-lg p-3 bg-muted/30 text-left hover:bg-muted/50 transition-colors"
+                            >
+                                <h4 className="font-semibold text-sm mb-1">Welcome Message</h4>
+                                <p className="text-xs text-muted-foreground">
+                                    Template for welcoming new subscribers
+                                </p>
+                            </button>
                         </div>
                     </div>
 
                     {/* Quick Actions */}
                     <div className="space-y-4">
-                        <h3 className="font-semibold">Quick Actions</h3>
+                        <h3 className="font-semibold">Advanced Options</h3>
                         
                         <div className="grid gap-4 md:grid-cols-2">
                             <Button 
@@ -997,7 +1190,7 @@ export default function Page() {
                                 <Megaphone className="h-6 w-6 mb-2 text-primary" />
                                 <h4 className="font-semibold mb-1">Open OneSignal Dashboard</h4>
                                 <p className="text-xs text-muted-foreground">
-                                    Send notifications directly from OneSignal
+                                    Access advanced features and analytics
                                 </p>
                             </Button>
 
@@ -1009,49 +1202,9 @@ export default function Page() {
                                 <Info className="h-6 w-6 mb-2 text-primary" />
                                 <h4 className="font-semibold mb-1">View API Documentation</h4>
                                 <p className="text-xs text-muted-foreground">
-                                    Learn how to send notifications via API
+                                    Learn about advanced API features
                                 </p>
                             </Button>
-                        </div>
-                    </div>
-
-                    {/* Notification Templates */}
-                    <div className="space-y-4">
-                        <h3 className="font-semibold">Notification Templates</h3>
-                        <p className="text-sm text-muted-foreground">
-                            Here are some suggested notification templates you can use:
-                        </p>
-                        
-                        <div className="space-y-3">
-                            <div className="border rounded-lg p-3 bg-muted/30">
-                                <h4 className="font-semibold text-sm mb-1">New Event Announcement</h4>
-                                <p className="text-sm text-muted-foreground mb-2">
-                                    Title: <span className="text-foreground">New Event: [Event Name]</span>
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                    Message: <span className="text-foreground">Join us for [Event Name] on [Date]. Register now!</span>
-                                </p>
-                            </div>
-
-                            <div className="border rounded-lg p-3 bg-muted/30">
-                                <h4 className="font-semibold text-sm mb-1">Important Update</h4>
-                                <p className="text-sm text-muted-foreground mb-2">
-                                    Title: <span className="text-foreground">Important CCA Update</span>
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                    Message: <span className="text-foreground">[Your update message here]</span>
-                                </p>
-                            </div>
-
-                            <div className="border rounded-lg p-3 bg-muted/30">
-                                <h4 className="font-semibold text-sm mb-1">Event Reminder</h4>
-                                <p className="text-sm text-muted-foreground mb-2">
-                                    Title: <span className="text-foreground">Reminder: [Event Name] Tomorrow!</span>
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                    Message: <span className="text-foreground">Don't forget about [Event Name] tomorrow at [Time].</span>
-                                </p>
-                            </div>
                         </div>
                     </div>
 
