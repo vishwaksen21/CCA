@@ -612,6 +612,12 @@ export default function Page() {
     setNotificationSuccess(null);
 
     try {
+      console.log('[Admin] Sending notification:', {
+        title: notificationTitle,
+        message: notificationMessage,
+        url: notificationUrl
+      });
+
       const response = await fetch('/api/send-notification', {
         method: 'POST',
         headers: {
@@ -626,14 +632,19 @@ export default function Page() {
 
       const data = await response.json();
 
+      console.log('[Admin] Response status:', response.status);
+      console.log('[Admin] Response data:', data);
+
       if (!response.ok) {
         if (data.needsConfig) {
-          throw new Error('OneSignal API key not configured. Please add ONESIGNAL_REST_API_KEY to your .env.local file.');
+          throw new Error('OneSignal API key not configured in Vercel. Go to Vercel Dashboard → Settings → Environment Variables and add ONESIGNAL_REST_API_KEY');
         }
-        throw new Error(data.error || 'Failed to send notification');
+        const errorMsg = data.error || 'Failed to send notification';
+        const detailsMsg = data.details ? `\n\nDetails: ${JSON.stringify(data.details, null, 2)}` : '';
+        throw new Error(errorMsg + detailsMsg);
       }
 
-      setNotificationSuccess(`Notification sent successfully to ${data.recipients || 'all subscribers'}!`);
+      setNotificationSuccess(`✅ Notification sent successfully to ${data.recipients || 'all subscribers'}!`);
       
       // Clear form
       setNotificationTitle('');
@@ -643,7 +654,7 @@ export default function Page() {
       // Clear success message after 5 seconds
       setTimeout(() => setNotificationSuccess(null), 5000);
     } catch (error) {
-      console.error('Send notification error:', error);
+      console.error('[Admin] Send notification error:', error);
       setNotificationError(error instanceof Error ? error.message : 'Failed to send notification');
     } finally {
       setIsSendingNotification(false);
