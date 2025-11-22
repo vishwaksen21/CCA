@@ -45,13 +45,13 @@ export async function POST(request: NextRequest) {
     };
 
     console.log('[Send Notification] Sending to OneSignal:', notificationPayload);
-    console.log('[Send Notification] Authorization header:', `Bearer ${ONESIGNAL_REST_API_KEY.substring(0, 20)}...`);
+    console.log('[Send Notification] Using REST API Key (Bearer auth)');
 
-    const response = await fetch('https://api.onesignal.com/notifications', {
+    const response = await fetch('https://onesignal.com/api/v1/notifications', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${ONESIGNAL_REST_API_KEY}`,
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': `Basic ${ONESIGNAL_REST_API_KEY}`,
       },
       body: JSON.stringify(notificationPayload),
     });
