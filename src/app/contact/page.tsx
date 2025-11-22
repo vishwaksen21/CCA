@@ -20,6 +20,7 @@ import { motion } from 'framer-motion';
 import { Linkedin, Mail } from 'lucide-react';
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import Link from 'next/link';
+import { dataStore } from '@/lib/data-store';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -46,6 +47,18 @@ export default function ContactPage() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    // Save submission to data store
+    const currentSubmissions = dataStore.getSubmissions();
+    const newSubmission = {
+      id: `sub${Date.now()}`,
+      name: values.name,
+      email: values.email,
+      message: values.message,
+      date: new Date().toISOString(),
+    };
+    dataStore.setSubmissions([newSubmission, ...currentSubmissions]);
+
+    // Also open email client
     window.location.href = `mailto:cmritcca@gmail.com?subject=Contact Form Submission&body=Name: ${values.name}%0D%0AEmail: ${values.email}%0D%0AMessage: ${values.message}`;
 
     toast({

@@ -32,7 +32,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info, UserCheck, Loader2, LogOut, User as UserIcon } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info, UserCheck, Loader2, LogOut, User as UserIcon, Upload, Image as ImageIcon, CheckCircle, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
   availableBadges,
@@ -63,6 +63,12 @@ export default function Page() {
   const [leaderboard, setLeaderboardState] = useState<LeaderboardMember[]>([]);
   const [events, setEventsState] = useState<Event[]>([]);
   const [submissions, setSubmissionsState] = useState<ContactSubmission[]>([]);
+
+  // Image upload state
+  const [uploadedImages, setUploadedImages] = useState<Array<{url: string, filename: string, timestamp: number}>>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
 
   // Load data from store on mount
   useEffect(() => {
@@ -277,12 +283,42 @@ export default function Page() {
             <DialogHeader>
               <DialogTitle className="font-headline">{dialogMode === 'create' ? 'Create' : 'Edit'} Team Member</DialogTitle>
             </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" value={currentItem.name} onChange={(e) => setCurrentItem({ ...currentItem, name: e.target.value })} />
-              <Label htmlFor="role">Role</Label>
-              <Input id="role" value={currentItem.role} onChange={(e) => setCurrentItem({ ...currentItem, role: e.target.value })} />
-            </div>
+            <ScrollArea className="max-h-[60vh] pr-4">
+              <div className="grid gap-4 py-4">
+                <Label htmlFor="name">Name</Label>
+                <Input id="name" value={currentItem.name} onChange={(e) => setCurrentItem({ ...currentItem, name: e.target.value })} />
+                
+                <Label htmlFor="role">Role</Label>
+                <Input id="role" value={currentItem.role} onChange={(e) => setCurrentItem({ ...currentItem, role: e.target.value })} />
+                
+                <div className="space-y-2">
+                  <Label htmlFor="imageUrl">Profile Image</Label>
+                  <Input 
+                    id="imageUrl" 
+                    type="text"
+                    placeholder="Enter image URL (e.g., /vishwak1.png)" 
+                    value={currentItem.imageUrl || ''} 
+                    onChange={(e) => setCurrentItem({ ...currentItem, imageUrl: e.target.value })} 
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Enter the path to the profile image (upload images in the Images tab first)
+                  </p>
+                  {currentItem.imageUrl && (
+                    <div className="mt-2 border rounded-md p-2">
+                      <p className="text-sm text-muted-foreground mb-2">Preview:</p>
+                      <img 
+                        src={currentItem.imageUrl} 
+                        alt="Profile preview" 
+                        className="w-32 h-32 object-cover rounded-full mx-auto"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'https://placehold.co/400x400/png?text=Profile';
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </ScrollArea>
           </>
         );
       case 'milestone':
@@ -363,18 +399,60 @@ export default function Page() {
               <DialogHeader>
                 <DialogTitle className="font-headline">{dialogMode === 'create' ? 'Create' : 'Edit'} Event</DialogTitle>
               </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <Label htmlFor="title">Title</Label>
-                <Input id="title" value={currentItem.title} onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })} />
-                <Label htmlFor="date">Date (YYYY-MM-DD)</Label>
-                <Input id="date" value={currentItem.date} onChange={(e) => setCurrentItem({ ...currentItem, date: e.target.value })} />
-                <Label htmlFor="time">Time</Label>
-                <Input id="time" value={currentItem.time} onChange={(e) => setCurrentItem({ ...currentItem, time: e.target.value })} />
-                <Label htmlFor="location">Location</Label>
-                <Input id="location" value={currentItem.location} onChange={(e) => setCurrentItem({ ...currentItem, location: e.target.value })} />
-                <Label htmlFor="description">Description</Label>
-                <Textarea id="description" value={currentItem.description} onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })} rows={3} />
-              </div>
+              <ScrollArea className="max-h-[60vh] pr-4">
+                <div className="grid gap-4 py-4">
+                  <Label htmlFor="title">Title</Label>
+                  <Input id="title" value={currentItem.title} onChange={(e) => setCurrentItem({ ...currentItem, title: e.target.value })} />
+                  
+                  <Label htmlFor="date">Date (YYYY-MM-DD)</Label>
+                  <Input id="date" value={currentItem.date} onChange={(e) => setCurrentItem({ ...currentItem, date: e.target.value })} />
+                  
+                  <Label htmlFor="time">Time</Label>
+                  <Input id="time" value={currentItem.time} onChange={(e) => setCurrentItem({ ...currentItem, time: e.target.value })} />
+                  
+                  <Label htmlFor="location">Location</Label>
+                  <Input id="location" value={currentItem.location} onChange={(e) => setCurrentItem({ ...currentItem, location: e.target.value })} />
+                  
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea id="description" value={currentItem.description} onChange={(e) => setCurrentItem({ ...currentItem, description: e.target.value })} rows={3} />
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="imageUrl">Event Image</Label>
+                    <Input 
+                      id="imageUrl" 
+                      type="text"
+                      placeholder="Enter image URL (e.g., /event1.png)" 
+                      value={currentItem.imageUrl || ''} 
+                      onChange={(e) => setCurrentItem({ ...currentItem, imageUrl: e.target.value })} 
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Enter the path to the event image (e.g., /event1.png, /eventx.png)
+                    </p>
+                    {currentItem.imageUrl && (
+                      <div className="mt-2 border rounded-md p-2">
+                        <p className="text-sm text-muted-foreground mb-2">Preview:</p>
+                        <img 
+                          src={currentItem.imageUrl} 
+                          alt="Event preview" 
+                          className="w-full h-48 object-cover rounded-md"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/png?text=Image+Not+Found';
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  <Label htmlFor="registrationUrl">Registration URL (Optional)</Label>
+                  <Input 
+                    id="registrationUrl" 
+                    type="url"
+                    placeholder="https://forms.gle/..." 
+                    value={currentItem.registrationUrl || ''} 
+                    onChange={(e) => setCurrentItem({ ...currentItem, registrationUrl: e.target.value })} 
+                  />
+                </div>
+              </ScrollArea>
             </>
           );
       case 'submission':
@@ -463,6 +541,57 @@ export default function Page() {
     }
   };
 
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    setUploadError(null);
+    setUploadSuccess(null);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed');
+      }
+
+      // Add to uploaded images list
+      const newImage = {
+        url: data.url,
+        filename: data.filename,
+        timestamp: Date.now()
+      };
+      setUploadedImages([newImage, ...uploadedImages]);
+      setUploadSuccess(`Image uploaded successfully: ${data.filename}`);
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setUploadSuccess(null), 3000);
+
+      // Reset file input
+      event.target.value = '';
+    } catch (error) {
+      console.error('Upload error:', error);
+      setUploadError(error instanceof Error ? error.message : 'Failed to upload image');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setUploadSuccess(`Copied to clipboard: ${text}`);
+    setTimeout(() => setUploadSuccess(null), 2000);
+  };
+
   // Show loading state
   if (authLoading) {
     return (
@@ -509,13 +638,13 @@ export default function Page() {
       <Tabs defaultValue="overview">
         <TabsList className="mb-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="announcements">Announcements</TabsTrigger>
           <TabsTrigger value="team">Team Members</TabsTrigger>
           <TabsTrigger value="milestones">Milestones</TabsTrigger>
           <TabsTrigger value="faqs">FAQs</TabsTrigger>
           <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
           <TabsTrigger value="events">Events</TabsTrigger>
           <TabsTrigger value="submissions">Submissions</TabsTrigger>
+          <TabsTrigger value="images">Images</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
@@ -550,18 +679,6 @@ export default function Page() {
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Announcements</CardTitle>
-                  <Megaphone className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{announcements.length}</div>
-                   <p className="text-xs text-muted-foreground">
-                    Total announcements published
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Submissions</CardTitle>
                   <Inbox className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
@@ -572,48 +689,19 @@ export default function Page() {
                   </p>
                 </CardContent>
               </Card>
-            </div>
-        </TabsContent>
-        
-        <TabsContent value="announcements">
-            <Card className="shadow-lg">
-                <CardHeader className="flex flex-row justify-between items-center">
-                    <div>
-                        <CardTitle>Announcements</CardTitle>
-                        <CardDescription>Create, edit, or delete site announcements.</CardDescription>
-                    </div>
-                    <Button onClick={() => handleCreate('announcement')}>
-                        <PlusCircle className="mr-2 h-4 w-4" /> Create New
-                    </Button>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Images</CardTitle>
+                  <ImageIcon className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Title</TableHead>
-                                <TableHead className="hidden md:table-cell">Date</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {announcements.length > 0 ? (
-                                announcements.map((announcement) => (
-                                    <TableRow key={announcement.title}>
-                                        <TableCell className="font-medium">{announcement.title}</TableCell>
-                                        <TableCell className="hidden md:table-cell">{new Date(announcement.date).toLocaleDateString('en-CA')}</TableCell>
-                                        <TableCell className="text-right space-x-2">
-                                            <Button variant="outline" size="icon" onClick={() => handleEdit(announcement, 'announcement')}><Edit className="h-4 w-4" /></Button>
-                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(announcement.title, 'announcement')}><Trash2 className="h-4 w-4" /></Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                               <EmptyState message="No announcements found. Click 'Create New' to add one." colSpan={3} />
-                            )}
-                        </TableBody>
-                    </Table>
+                  <div className="text-2xl font-bold">{uploadedImages.length}</div>
+                   <p className="text-xs text-muted-foreground">
+                    Total images uploaded
+                  </p>
                 </CardContent>
-            </Card>
+              </Card>
+            </div>
         </TabsContent>
 
         <TabsContent value="team">
@@ -820,6 +908,107 @@ export default function Page() {
                            )}
                         </TableBody>
                     </Table>
+                </CardContent>
+            </Card>
+        </TabsContent>
+
+        <TabsContent value="images">
+            <Card className="shadow-lg">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <ImageIcon className="h-5 w-5" />
+                        Image Upload
+                    </CardTitle>
+                    <CardDescription>Upload images to the public folder for use in events and other content.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    {/* Upload Section */}
+                    <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center">
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="rounded-full bg-primary/10 p-4">
+                                {isUploading ? (
+                                    <Loader2 className="h-8 w-8 text-primary animate-spin" />
+                                ) : (
+                                    <Upload className="h-8 w-8 text-primary" />
+                                )}
+                            </div>
+                            <div>
+                                <h3 className="font-semibold mb-1">Upload an image</h3>
+                                <p className="text-sm text-muted-foreground mb-4">
+                                    PNG, JPG, GIF or WebP (max 5MB)
+                                </p>
+                            </div>
+                            <Input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                disabled={isUploading}
+                                className="max-w-xs cursor-pointer"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Success Message */}
+                    {uploadSuccess && (
+                        <div className="flex items-center gap-2 p-4 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200">
+                            <CheckCircle className="h-5 w-5" />
+                            <p className="text-sm font-medium">{uploadSuccess}</p>
+                        </div>
+                    )}
+
+                    {/* Error Message */}
+                    {uploadError && (
+                        <div className="flex items-center gap-2 p-4 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200">
+                            <X className="h-5 w-5" />
+                            <p className="text-sm font-medium">{uploadError}</p>
+                        </div>
+                    )}
+
+                    {/* Uploaded Images Gallery */}
+                    {uploadedImages.length > 0 && (
+                        <div>
+                            <h3 className="font-semibold mb-4">Recently Uploaded Images</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                {uploadedImages.map((image, index) => (
+                                    <div key={index} className="group relative border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                                        <img
+                                            src={image.url}
+                                            alt={image.filename}
+                                            className="w-full h-32 object-cover"
+                                        />
+                                        <div className="p-2 bg-background/95 backdrop-blur">
+                                            <p className="text-xs font-mono truncate" title={image.filename}>
+                                                {image.filename}
+                                            </p>
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="w-full mt-2 text-xs"
+                                                onClick={() => copyToClipboard(image.url)}
+                                            >
+                                                Copy Path
+                                            </Button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Instructions */}
+                    <div className="bg-muted/50 rounded-lg p-4">
+                        <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <Info className="h-4 w-4" />
+                            How to use uploaded images
+                        </h4>
+                        <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                            <li>After uploading, click "Copy Path" to copy the image URL</li>
+                            <li>Paste the copied path into the "Event Image" field when creating/editing events</li>
+                            <li>The path will look like: <code className="bg-background px-1 rounded">/image.png</code></li>
+                            <li>Images are saved to the public folder with their original filename</li>
+                            <li>Uploading a file with the same name will overwrite the previous file</li>
+                        </ul>
+                    </div>
                 </CardContent>
             </Card>
         </TabsContent>
