@@ -32,6 +32,8 @@ export async function POST(request: NextRequest) {
     }
 
     console.log('[Send Notification] API key found, length:', ONESIGNAL_REST_API_KEY.length);
+    console.log('[Send Notification] API key first 20 chars:', ONESIGNAL_REST_API_KEY.substring(0, 20));
+    console.log('[Send Notification] API key last 10 chars:', ONESIGNAL_REST_API_KEY.substring(ONESIGNAL_REST_API_KEY.length - 10));
 
     // Send notification via OneSignal API
     const notificationPayload = {
@@ -43,8 +45,9 @@ export async function POST(request: NextRequest) {
     };
 
     console.log('[Send Notification] Sending to OneSignal:', notificationPayload);
+    console.log('[Send Notification] Authorization header:', `Bearer ${ONESIGNAL_REST_API_KEY.substring(0, 20)}...`);
 
-    const response = await fetch('https://onesignal.com/api/v1/notifications', {
+    const response = await fetch('https://api.onesignal.com/notifications', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
