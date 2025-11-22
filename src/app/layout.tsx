@@ -78,11 +78,19 @@ export default function RootLayout({
               // Listen for subscription changes
               OneSignal.on('subscriptionChange', function(isSubscribed) {
                 console.log("[OneSignal] Subscription changed:", isSubscribed);
+                if (isSubscribed) {
+                  console.log("[OneSignal] User just subscribed! Sending welcome notification...");
+                  // Note: Welcome notification should be configured in OneSignal dashboard
+                  // Go to Messages → Automated Messages → Enable Welcome Notification
+                }
               });
 
               // Listen for permission changes
               OneSignal.on('notificationPermissionChange', function(permissionChange) {
                 console.log("[OneSignal] Permission changed from", permissionChange.from, "to", permissionChange.to);
+                if (permissionChange.to === 'granted') {
+                  console.log("[OneSignal] Notifications allowed! User should receive welcome notification.");
+                }
               });
             });
           `}
