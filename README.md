@@ -42,8 +42,9 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 ### Current Features
 - ✅ **Dynamic Homepage** - Hero slideshow, feature cards, and cognitive boosters
 - ✅ **Events Management** - Upcoming and past events with registration functionality
-- ✅ **Admin Dashboard** - Secure login with Firebase authentication
-- ✅ **Admin Authentication** - Email/Password and Google Sign-In
+- ✅ **Admin Dashboard** - Secure login with mock authentication
+- ✅ **Admin Authentication** - Email/Password login with session management
+- ✅ **Real-Time Data Sync** - Admin changes reflect instantly on public pages
 - ✅ **Responsive Design** - Mobile-first approach with smooth animations
 - ✅ **Dark/Light Theme** - User preference-based theming
 - ✅ **About Section** - Mission, team members, and achievements timeline
@@ -51,9 +52,7 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 - ✅ **FAQ Section** - Common questions and answers
 
 ### Upcoming Features
-- 🔄 **Firestore Integration** - Persistent data storage for all content
-- 🔄 **CAP Points System** - Track student participation and achievements
-- 🔄 **Live Leaderboard** - Weekly, monthly, and all-time rankings
+- 🔄 **Firestore Integration** - Persistent data storage with Firebase
 - 🔄 **Updates Feed** - Announcements and news section
 - 🔄 **AI-Powered Features** - Genkit AI integration for personalized guidance
 
@@ -114,6 +113,7 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
    NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+<<<<<<< HEAD
    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
    NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
@@ -121,6 +121,10 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
    ```
    
    **📘 See [ADMIN_SETUP.md](./ADMIN_SETUP.md) for detailed Firebase setup instructions**
+=======
+   # ... other Firebase config
+   ```
+>>>>>>> a51094d3527a0db9ba1ec855a6e0e14c5086b322
 
 4. **Run the development server**
    ```bash
@@ -130,11 +134,14 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
+<<<<<<< HEAD
 6. **Access Admin Dashboard** (Optional)
    - Navigate to [http://localhost:3000/admin](http://localhost:3000/admin)
    - Sign in with authorized admin credentials
    - See [ADMIN_LOGIN_REFERENCE.md](./ADMIN_LOGIN_REFERENCE.md) for quick reference
 
+=======
+>>>>>>> a51094d3527a0db9ba1ec855a6e0e14c5086b322
 ---
 
 ## 📁 Project Structure
@@ -198,11 +205,18 @@ CCA-1/
 - [x] Basic routing and navigation
 
 ### Phase 2: Core Features 🔄
+<<<<<<< HEAD
 - [x] Firebase integration
 - [x] Admin authentication ✨ NEW!
 - [ ] CAP Points system  
 - [ ] Live leaderboard
 - [ ] Firestore data persistence
+=======
+- [ ] Firebase integration
+- [ ] CAP Points system
+- [ ] Live leaderboard
+- [ ] Admin authentication
+>>>>>>> a51094d3527a0db9ba1ec855a6e0e14c5086b322
 - [ ] Updates/Announcements feed
 
 ### Phase 3: Advanced Features 📅
@@ -221,6 +235,7 @@ CCA-1/
 
 ---
 
+<<<<<<< HEAD
 ## 🔐 Admin Access
 
 The CCA Hub includes a secure admin dashboard for managing content.
@@ -247,6 +262,8 @@ The CCA Hub includes a secure admin dashboard for managing content.
 
 ---
 
+=======
+>>>>>>> a51094d3527a0db9ba1ec855a6e0e14c5086b322
 ## 🤝 Contributing
 
 We welcome contributions from the community! If you'd like to contribute:
