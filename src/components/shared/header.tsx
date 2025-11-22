@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import Image from 'next/image';
 import { ThemeToggle } from './theme-toggle';
+import { NotificationStatus } from './notification-prompt';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -64,6 +65,7 @@ export function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
+          <NotificationStatus />
           <Link href="/admin">
             <Button 
               variant="default" 

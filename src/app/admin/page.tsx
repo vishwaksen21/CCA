@@ -644,6 +644,7 @@ export default function Page() {
           <TabsTrigger value="leaderboard" className="whitespace-nowrap">Leaderboard</TabsTrigger>
           <TabsTrigger value="events" className="whitespace-nowrap">Events</TabsTrigger>
           <TabsTrigger value="submissions" className="whitespace-nowrap">Submissions</TabsTrigger>
+          <TabsTrigger value="notifications" className="whitespace-nowrap">Push Notifications</TabsTrigger>
           <TabsTrigger value="images" className="whitespace-nowrap">Images</TabsTrigger>
         </TabsList>
 
@@ -939,6 +940,143 @@ export default function Page() {
             </Card>
         </TabsContent>
 
+        {/* Push Notifications Tab */}
+        <TabsContent value="notifications">
+            <Card>
+                <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <CardTitle>Send Push Notifications</CardTitle>
+                        <CardDescription>
+                            Send push notifications to all subscribed users
+                        </CardDescription>
+                    </div>
+                    <Megaphone className="h-8 w-8 text-primary" />
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    {/* OneSignal Info */}
+                    <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div className="flex items-start gap-3">
+                            <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+                            <div className="text-sm">
+                                <p className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+                                    OneSignal Integration Active
+                                </p>
+                                <p className="text-blue-800 dark:text-blue-200 mb-2">
+                                    App ID: <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">4757bad8-5f4b-4b59-b2ef-fdd3de694379</code>
+                                </p>
+                                <p className="text-blue-700 dark:text-blue-300">
+                                    To send push notifications, you have two options:
+                                </p>
+                                <ol className="list-decimal list-inside mt-2 space-y-1 text-blue-700 dark:text-blue-300 ml-2">
+                                    <li>Use the <strong>OneSignal Dashboard</strong> at{' '}
+                                        <a 
+                                            href="https://app.onesignal.com" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="underline hover:text-blue-900 dark:hover:text-blue-100"
+                                        >
+                                            app.onesignal.com
+                                        </a>
+                                    </li>
+                                    <li>Use the <strong>OneSignal REST API</strong> from your backend server</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Quick Actions */}
+                    <div className="space-y-4">
+                        <h3 className="font-semibold">Quick Actions</h3>
+                        
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <Button 
+                                variant="outline" 
+                                className="h-auto flex-col items-start p-4 text-left"
+                                onClick={() => window.open('https://app.onesignal.com', '_blank')}
+                            >
+                                <Megaphone className="h-6 w-6 mb-2 text-primary" />
+                                <h4 className="font-semibold mb-1">Open OneSignal Dashboard</h4>
+                                <p className="text-xs text-muted-foreground">
+                                    Send notifications directly from OneSignal
+                                </p>
+                            </Button>
+
+                            <Button 
+                                variant="outline" 
+                                className="h-auto flex-col items-start p-4 text-left"
+                                onClick={() => window.open('https://documentation.onesignal.com/docs/onesignal-api', '_blank')}
+                            >
+                                <Info className="h-6 w-6 mb-2 text-primary" />
+                                <h4 className="font-semibold mb-1">View API Documentation</h4>
+                                <p className="text-xs text-muted-foreground">
+                                    Learn how to send notifications via API
+                                </p>
+                            </Button>
+                        </div>
+                    </div>
+
+                    {/* Notification Templates */}
+                    <div className="space-y-4">
+                        <h3 className="font-semibold">Notification Templates</h3>
+                        <p className="text-sm text-muted-foreground">
+                            Here are some suggested notification templates you can use:
+                        </p>
+                        
+                        <div className="space-y-3">
+                            <div className="border rounded-lg p-3 bg-muted/30">
+                                <h4 className="font-semibold text-sm mb-1">New Event Announcement</h4>
+                                <p className="text-sm text-muted-foreground mb-2">
+                                    Title: <span className="text-foreground">New Event: [Event Name]</span>
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                    Message: <span className="text-foreground">Join us for [Event Name] on [Date]. Register now!</span>
+                                </p>
+                            </div>
+
+                            <div className="border rounded-lg p-3 bg-muted/30">
+                                <h4 className="font-semibold text-sm mb-1">Important Update</h4>
+                                <p className="text-sm text-muted-foreground mb-2">
+                                    Title: <span className="text-foreground">Important CCA Update</span>
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                    Message: <span className="text-foreground">[Your update message here]</span>
+                                </p>
+                            </div>
+
+                            <div className="border rounded-lg p-3 bg-muted/30">
+                                <h4 className="font-semibold text-sm mb-1">Event Reminder</h4>
+                                <p className="text-sm text-muted-foreground mb-2">
+                                    Title: <span className="text-foreground">Reminder: [Event Name] Tomorrow!</span>
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                    Message: <span className="text-foreground">Don't forget about [Event Name] tomorrow at [Time].</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Statistics */}
+                    <div className="bg-muted/50 rounded-lg p-4">
+                        <h4 className="font-semibold mb-2 flex items-center gap-2">
+                            <UserCheck className="h-4 w-4" />
+                            Notification Statistics
+                        </h4>
+                        <p className="text-sm text-muted-foreground mb-3">
+                            View detailed statistics and subscriber count in your OneSignal dashboard.
+                        </p>
+                        <Button 
+                            variant="default" 
+                            size="sm"
+                            onClick={() => window.open('https://app.onesignal.com', '_blank')}
+                        >
+                            View Dashboard →
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+        </TabsContent>
+
+        {/* Images Tab */}
         <TabsContent value="images">
             <Card className="shadow-lg">
                 <CardHeader>
