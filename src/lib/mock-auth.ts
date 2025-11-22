@@ -11,9 +11,9 @@ interface MockUser {
 
 // Mock admin user credentials
 const MOCK_ADMIN: MockUser = {
-  email: 'chilukurvishwak21@gmail.com',
-  password: 'Vishwak@151370',
-  name: 'Vishwak',
+  email: 'cca.club@cmrit.ac.in',
+  password: 'CCACMRIT@27',
+  name: 'CCA Admin',
   id: 'mock-admin-001',
 };
 
