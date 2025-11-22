@@ -636,19 +636,19 @@ export default function Page() {
       </motion.div>
 
       <Tabs defaultValue="overview">
-        <TabsList className="mb-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="team">Team Members</TabsTrigger>
-          <TabsTrigger value="milestones">Milestones</TabsTrigger>
-          <TabsTrigger value="faqs">FAQs</TabsTrigger>
-          <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
-          <TabsTrigger value="events">Events</TabsTrigger>
-          <TabsTrigger value="submissions">Submissions</TabsTrigger>
-          <TabsTrigger value="images">Images</TabsTrigger>
+        <TabsList className="mb-4 w-full overflow-x-auto flex-nowrap justify-start">
+          <TabsTrigger value="overview" className="whitespace-nowrap">Overview</TabsTrigger>
+          <TabsTrigger value="team" className="whitespace-nowrap">Team</TabsTrigger>
+          <TabsTrigger value="milestones" className="whitespace-nowrap">Milestones</TabsTrigger>
+          <TabsTrigger value="faqs" className="whitespace-nowrap">FAQs</TabsTrigger>
+          <TabsTrigger value="leaderboard" className="whitespace-nowrap">Leaderboard</TabsTrigger>
+          <TabsTrigger value="events" className="whitespace-nowrap">Events</TabsTrigger>
+          <TabsTrigger value="submissions" className="whitespace-nowrap">Submissions</TabsTrigger>
+          <TabsTrigger value="images" className="whitespace-nowrap">Images</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
@@ -706,27 +706,32 @@ export default function Page() {
 
         <TabsContent value="team">
            <Card className="shadow-lg">
-                <CardHeader className="flex flex-row justify-between items-center">
+                <CardHeader className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center space-y-2 sm:space-y-0">
                     <div>
                         <CardTitle>Team Members</CardTitle>
-                        <CardDescription>Manage team member profiles.</CardDescription>
+                        <CardDescription className="text-xs sm:text-sm">Manage team member profiles.</CardDescription>
                     </div>
-                    <Button onClick={() => handleCreate('member')}>
+                    <Button onClick={() => handleCreate('member')} className="w-full sm:w-auto">
                         <PlusCircle className="mr-2 h-4 w-4" /> Add Member
                     </Button>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="overflow-x-auto">
                     <Table>
-                        <TableHeader><TableRow><TableHead>Name</TableHead><TableHead>Role</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableHeader><TableRow><TableHead>Name</TableHead><TableHead className="hidden sm:table-cell">Role</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
                             {teamMembers.length > 0 ? (
                                 teamMembers.map((member) => (
                                     <TableRow key={member.name}>
-                                        <TableCell className="font-medium">{member.name}</TableCell>
-                                        <TableCell>{member.role}</TableCell>
-                                        <TableCell className="text-right space-x-2">
+                                        <TableCell className="font-medium">
+                                          <div>{member.name}</div>
+                                          <div className="text-xs text-muted-foreground sm:hidden">{member.role}</div>
+                                        </TableCell>
+                                        <TableCell className="hidden sm:table-cell">{member.role}</TableCell>
+                                        <TableCell className="text-right">
+                                          <div className="flex justify-end gap-2">
                                             <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'member')}><Edit className="h-4 w-4" /></Button>
                                             <Button variant="destructive" size="icon" onClick={() => handleDelete(member.name, 'member')}><Trash2 className="h-4 w-4" /></Button>
+                                          </div>
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -741,27 +746,32 @@ export default function Page() {
 
         <TabsContent value="milestones">
             <Card className="shadow-lg">
-                <CardHeader className="flex flex-row justify-between items-center">
+                <CardHeader className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center space-y-2 sm:space-y-0">
                     <div>
                         <CardTitle>Timeline Milestones</CardTitle>
-                        <CardDescription>Manage the "Our Journey" timeline.</CardDescription>
+                        <CardDescription className="text-xs sm:text-sm">Manage the "Our Journey" timeline.</CardDescription>
                     </div>
-                    <Button onClick={() => handleCreate('milestone')}>
+                    <Button onClick={() => handleCreate('milestone')} className="w-full sm:w-auto">
                         <PlusCircle className="mr-2 h-4 w-4" /> Add Milestone
                     </Button>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="overflow-x-auto">
                     <Table>
-                        <TableHeader><TableRow><TableHead>Year</TableHead><TableHead>Event</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableHeader><TableRow><TableHead>Year</TableHead><TableHead className="hidden sm:table-cell">Event</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
                             {milestones.length > 0 ? (
                                 milestones.map((milestone) => (
                                     <TableRow key={milestone.event}>
-                                        <TableCell className="font-medium">{milestone.year}</TableCell>
-                                        <TableCell>{milestone.event}</TableCell>
-                                        <TableCell className="text-right space-x-2">
+                                        <TableCell className="font-medium">
+                                          <div>{milestone.year}</div>
+                                          <div className="text-xs text-muted-foreground sm:hidden truncate max-w-[150px]">{milestone.event}</div>
+                                        </TableCell>
+                                        <TableCell className="hidden sm:table-cell">{milestone.event}</TableCell>
+                                        <TableCell className="text-right">
+                                          <div className="flex justify-end gap-2">
                                             <Button variant="outline" size="icon" onClick={() => handleEdit(milestone, 'milestone')}><Edit className="h-4 w-4" /></Button>
                                             <Button variant="destructive" size="icon" onClick={() => handleDelete(milestone.event, 'milestone')}><Trash2 className="h-4 w-4" /></Button>
+                                          </div>
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -776,26 +786,28 @@ export default function Page() {
 
         <TabsContent value="faqs">
             <Card className="shadow-lg">
-                <CardHeader className="flex flex-row justify-between items-center">
+                <CardHeader className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center space-y-2 sm:space-y-0">
                     <div>
                         <CardTitle>FAQs</CardTitle>
-                        <CardDescription>Manage the Frequently Asked Questions.</CardDescription>
+                        <CardDescription className="text-xs sm:text-sm">Manage the Frequently Asked Questions.</CardDescription>
                     </div>
-                    <Button onClick={() => handleCreate('faq')}>
+                    <Button onClick={() => handleCreate('faq')} className="w-full sm:w-auto">
                         <PlusCircle className="mr-2 h-4 w-4" /> Add FAQ
                     </Button>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="overflow-x-auto">
                     <Table>
                         <TableHeader><TableRow><TableHead>Question</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
                            {faqs.length > 0 ? (
                                 faqs.map((faq) => (
                                     <TableRow key={faq.question}>
-                                        <TableCell className="font-medium">{faq.question}</TableCell>
-                                        <TableCell className="text-right space-x-2">
+                                        <TableCell className="font-medium max-w-[200px] sm:max-w-none truncate">{faq.question}</TableCell>
+                                        <TableCell className="text-right">
+                                          <div className="flex justify-end gap-2">
                                             <Button variant="outline" size="icon" onClick={() => handleEdit(faq, 'faq')}><Edit className="h-4 w-4" /></Button>
                                             <Button variant="destructive" size="icon" onClick={() => handleDelete(faq.question, 'faq')}><Trash2 className="h-4 w-4" /></Button>
+                                          </div>
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -810,28 +822,33 @@ export default function Page() {
         
         <TabsContent value="leaderboard">
             <Card className="shadow-lg">
-                <CardHeader className="flex flex-row justify-between items-center">
+                <CardHeader className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center space-y-2 sm:space-y-0">
                      <div>
                         <CardTitle>Leaderboard Management</CardTitle>
-                        <CardDescription>Add members, assign points, and manage badges.</CardDescription>
+                        <CardDescription className="text-xs sm:text-sm">Add members, assign points, and manage badges.</CardDescription>
                     </div>
-                     <Button onClick={() => handleCreate('leaderboard')}>
+                     <Button onClick={() => handleCreate('leaderboard')} className="w-full sm:w-auto">
                         <PlusCircle className="mr-2 h-4 w-4" /> Add Member
                     </Button>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="overflow-x-auto">
                     <Table>
-                        <TableHeader><TableRow><TableHead>Rank</TableHead><TableHead>Name</TableHead><TableHead>Points</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableHeader><TableRow><TableHead>Rank</TableHead><TableHead>Name</TableHead><TableHead className="hidden sm:table-cell">Points</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
                             {leaderboard.length > 0 ? (
                                 leaderboard.map((member) => (
                                     <TableRow key={member.rank}>
                                         <TableCell className="font-medium">{member.rank}</TableCell>
-                                        <TableCell>{member.name}</TableCell>
-                                        <TableCell>{member.points.toLocaleString()}</TableCell>
-                                        <TableCell className="text-right space-x-2">
+                                        <TableCell>
+                                          <div>{member.name}</div>
+                                          <div className="text-xs text-muted-foreground sm:hidden">{member.points.toLocaleString()} pts</div>
+                                        </TableCell>
+                                        <TableCell className="hidden sm:table-cell">{member.points.toLocaleString()}</TableCell>
+                                        <TableCell className="text-right">
+                                          <div className="flex justify-end gap-2">
                                             <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'leaderboard')}><Edit className="h-4 w-4" /></Button>
                                             <Button variant="destructive" size="icon" onClick={() => handleDelete(member.rank, 'leaderboard')}><Trash2 className="h-4 w-4" /></Button>
+                                          </div>
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -846,29 +863,34 @@ export default function Page() {
 
          <TabsContent value="events">
             <Card className="shadow-lg">
-                <CardHeader className="flex flex-row justify-between items-center">
+                <CardHeader className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center space-y-2 sm:space-y-0">
                     <div>
                         <CardTitle>Events</CardTitle>
-                        <CardDescription>Manage upcoming events and view registrations.</CardDescription>
+                        <CardDescription className="text-xs sm:text-sm">Manage upcoming events and view registrations.</CardDescription>
                     </div>
-                    <Button onClick={() => handleCreate('event')}>
+                    <Button onClick={() => handleCreate('event')} className="w-full sm:w-auto">
                         <PlusCircle className="mr-2 h-4 w-4" /> Create Event
                     </Button>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="overflow-x-auto">
                     <Table>
-                        <TableHeader><TableRow><TableHead>Title</TableHead><TableHead>Date</TableHead><TableHead>Registrations</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableHeader><TableRow><TableHead>Title</TableHead><TableHead className="hidden md:table-cell">Date</TableHead><TableHead className="hidden sm:table-cell">Registrations</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
                             {events.length > 0 ? (
                                 events.map((event) => (
                                     <TableRow key={event.id}>
-                                        <TableCell className="font-medium">{event.title}</TableCell>
-                                        <TableCell>{new Date(event.date).toLocaleDateString('en-CA')}</TableCell>
-                                        <TableCell>{event.registrations.length}</TableCell>
-                                        <TableCell className="text-right space-x-2">
-                                            <Button variant="outline" size="icon" onClick={() => handleView(event, 'registrations')}><Users className="h-4 w-4" /></Button>
-                                            <Button variant="outline" size="icon" onClick={() => handleEdit(event, 'event')}><Edit className="h-4 w-4" /></Button>
-                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(event.id, 'event')}><Trash2 className="h-4 w-4" /></Button>
+                                        <TableCell className="font-medium">
+                                          <div className="max-w-[120px] sm:max-w-none truncate">{event.title}</div>
+                                          <div className="text-xs text-muted-foreground md:hidden">{new Date(event.date).toLocaleDateString('en-CA')}</div>
+                                        </TableCell>
+                                        <TableCell className="hidden md:table-cell">{new Date(event.date).toLocaleDateString('en-CA')}</TableCell>
+                                        <TableCell className="hidden sm:table-cell">{event.registrations.length}</TableCell>
+                                        <TableCell className="text-right">
+                                          <div className="flex justify-end gap-1 sm:gap-2">
+                                            <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => handleView(event, 'registrations')}><Users className="h-3 w-3 sm:h-4 sm:w-4" /></Button>
+                                            <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => handleEdit(event, 'event')}><Edit className="h-3 w-3 sm:h-4 sm:w-4" /></Button>
+                                            <Button variant="destructive" size="icon" className="h-8 w-8" onClick={() => handleDelete(event.id, 'event')}><Trash2 className="h-3 w-3 sm:h-4 sm:w-4" /></Button>
+                                          </div>
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -885,21 +907,26 @@ export default function Page() {
             <Card className="shadow-lg">
                 <CardHeader>
                     <CardTitle>Contact Form Submissions</CardTitle>
-                    <CardDescription>View messages sent through the contact form.</CardDescription>
+                    <CardDescription className="text-xs sm:text-sm">View messages sent through the contact form.</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="overflow-x-auto">
                     <Table>
-                        <TableHeader><TableRow><TableHead>From</TableHead><TableHead>Email</TableHead><TableHead className="hidden md:table-cell">Date</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
+                        <TableHeader><TableRow><TableHead>From</TableHead><TableHead className="hidden sm:table-cell">Email</TableHead><TableHead className="hidden md:table-cell">Date</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
                            {submissions.length > 0 ? (
                                 submissions.map((submission) => (
                                     <TableRow key={submission.id}>
-                                        <TableCell className="font-medium">{submission.name}</TableCell>
-                                        <TableCell>{submission.email}</TableCell>
+                                        <TableCell className="font-medium">
+                                          <div className="max-w-[100px] sm:max-w-none truncate">{submission.name}</div>
+                                          <div className="text-xs text-muted-foreground sm:hidden truncate max-w-[100px]">{submission.email}</div>
+                                        </TableCell>
+                                        <TableCell className="hidden sm:table-cell">{submission.email}</TableCell>
                                         <TableCell className="hidden md:table-cell">{new Date(submission.date).toLocaleDateString('en-CA')}</TableCell>
-                                        <TableCell className="text-right space-x-2">
+                                        <TableCell className="text-right">
+                                          <div className="flex justify-end gap-2">
                                             <Button variant="outline" size="icon" onClick={() => handleView(submission, 'submission')}><Eye className="h-4 w-4" /></Button>
                                             <Button variant="destructive" size="icon" onClick={() => handleDelete(submission.id, 'submission')}><Trash2 className="h-4 w-4" /></Button>
+                                          </div>
                                         </TableCell>
                                     </TableRow>
                                 ))
@@ -1017,7 +1044,7 @@ export default function Page() {
 
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]" onEscapeKeyDown={handleCloseDialog}>
+        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto" onEscapeKeyDown={handleCloseDialog}>
             {renderDialogContent()}
             {renderDialogFooter()}
         </DialogContent>
