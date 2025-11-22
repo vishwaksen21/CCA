@@ -78,7 +78,7 @@ export function NotificationPrompt() {
           <Button 
             onClick={handleDismiss} 
             variant="outline" 
-            className="w-full sm:w-auto h-12 sm:h-9 text-base sm:text-sm"
+            className="flex-1 w-full sm:w-auto h-12 sm:h-9 text-base sm:text-sm font-semibold"
             size="lg"
           >
             <BellOff className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />
