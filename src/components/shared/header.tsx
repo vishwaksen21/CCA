@@ -81,6 +81,7 @@ export function Header() {
 
         {/* Mobile Navigation */}
         <div className="flex flex-1 items-center justify-end gap-2 md:hidden">
+          <NotificationStatus />
           <ThemeToggle />
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>

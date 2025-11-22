@@ -91,19 +91,19 @@ export function NotificationStatus() {
   return (
     <Button
       variant={isSubscribed ? 'outline' : 'default'}
-      size="sm"
+      size="default"
       onClick={promptForPushNotifications}
-      className="gap-2 min-w-0"
+      className="gap-2 h-10 px-3 md:h-9 md:px-3"
       title={isSubscribed ? 'Notifications Enabled' : 'Enable Notifications'}
     >
       {isSubscribed ? (
         <>
-          <Check className="h-4 w-4 flex-shrink-0" />
+          <Check className="h-5 w-5 md:h-4 md:w-4 flex-shrink-0" />
           <span className="hidden lg:inline">Notifications Enabled</span>
         </>
       ) : (
         <>
-          <Bell className="h-4 w-4 flex-shrink-0" />
+          <Bell className="h-5 w-5 md:h-4 md:w-4 flex-shrink-0" />
           <span className="hidden lg:inline">Enable Notifications</span>
         </>
       )}
