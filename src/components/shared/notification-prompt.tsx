@@ -66,13 +66,22 @@ export function NotificationPrompt() {
             Enable push notifications to receive updates about new events, announcements, and important information from CCA.
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col sm:flex-row gap-2 p-4 sm:p-6 pt-0">
-          <Button onClick={handleEnable} className="flex-1 w-full sm:w-auto" size="sm">
-            <Bell className="mr-2 h-4 w-4" />
+        <CardContent className="flex flex-col sm:flex-row gap-3 p-4 sm:p-6 pt-0">
+          <Button 
+            onClick={handleEnable} 
+            className="flex-1 w-full sm:w-auto h-12 sm:h-9 text-base sm:text-sm font-semibold" 
+            size="lg"
+          >
+            <Bell className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />
             <span className="whitespace-nowrap">Enable Notifications</span>
           </Button>
-          <Button onClick={handleDismiss} variant="outline" size="sm" className="w-full sm:w-auto">
-            <BellOff className="mr-2 h-4 w-4" />
+          <Button 
+            onClick={handleDismiss} 
+            variant="outline" 
+            className="w-full sm:w-auto h-12 sm:h-9 text-base sm:text-sm"
+            size="lg"
+          >
+            <BellOff className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />
             <span className="whitespace-nowrap">Maybe Later</span>
           </Button>
         </CardContent>
