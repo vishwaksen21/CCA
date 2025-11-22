@@ -59,7 +59,7 @@ export default function ContactPage() {
     dataStore.setSubmissions([newSubmission, ...currentSubmissions]);
 
     // Also open email client
-    window.location.href = `mailto:cmritcca@gmail.com?subject=Contact Form Submission&body=Name: ${values.name}%0D%0AEmail: ${values.email}%0D%0AMessage: ${values.message}`;
+    window.location.href = `mailto:cca.club@cmrit.ac.in?subject=Contact Form Submission&body=Name: ${values.name}%0D%0AEmail: ${values.email}%0D%0AMessage: ${values.message}`;
 
     toast({
       title: 'Message Sent!',

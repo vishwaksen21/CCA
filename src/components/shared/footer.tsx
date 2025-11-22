@@ -145,10 +145,10 @@ export function Footer() {
             <div className="flex items-center space-x-3">
               <Mail className="h-5 w-5" />
               <a
-                href="mailto:cmritcca@gmail.com"
+                href="mailto:cca.club@cmrit.ac.in"
                 className="hover:text-yellow-400 transition-colors"
               >
-                cmritcca@gmail.com
+                cca.club@cmrit.ac.in
               </a>
             </div>
           </div>
