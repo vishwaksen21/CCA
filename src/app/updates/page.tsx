@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -8,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { announcements } from '@/lib/mock-data';
+import { dataStore, useDataSync } from '@/lib/data-store';
 import { Bell } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -24,6 +25,16 @@ const cardVariants = {
 };
 
 export default function UpdatesPage() {
+  const [announcements, setAnnouncements] = useState(dataStore.getAnnouncements());
+
+  // Subscribe to data changes
+  useEffect(() => {
+    const cleanup = useDataSync(() => {
+      setAnnouncements(dataStore.getAnnouncements());
+    });
+    return cleanup;
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <motion.div

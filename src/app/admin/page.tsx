@@ -1,7 +1,10 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { mockSignOut } from '@/lib/mock-auth';
+import AdminLogin from '@/components/admin/AdminLogin';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -29,75 +32,84 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info, UserCheck } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info, UserCheck, Loader2, LogOut, User as UserIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
-  announcements as initialAnnouncements, 
-  teamMembers as initialTeamMembers,
-  milestones as initialMilestones,
-  faqs as initialFaqs,
-  leaderboard as initialLeaderboard,
-  upcomingEvents as initialEvents,
-  contactSubmissions as initialSubmissions,
   availableBadges,
   type BadgeInfo,
   type ContactSubmission,
 } from '@/lib/mock-data';
+import { 
+  dataStore,
+  type Announcement,
+  type TeamMember,
+  type Milestone,
+  type Faq,
+  type LeaderboardMember,
+  type Event
+} from '@/lib/data-store';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-type Announcement = {
-  title: string;
-  date: string;
-  content: string;
-};
-
-type TeamMember = {
-  name: string;
-  role: string;
-  imageUrl: string;
-  dataAiHint: string;
-};
-
-type Milestone = {
-  year: string;
-  event: string;
-
-  description: string;
-};
-
-type Faq = {
-  question: string;
-  answer: string;
-};
-
-type LeaderboardMember = {
-  rank: number;
-  name: string;
-  points: number;
-  badges: BadgeInfo[];
-};
-
-type Event = {
-  id: string;
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  description: string;
-  registrations: string[];
-};
-
-
 export default function Page() {
-  const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(initialTeamMembers);
-  const [milestones, setMilestones] = useState<Milestone[]>(initialMilestones);
-  const [faqs, setFaqs] = useState<Faq[]>(initialFaqs);
-  const [leaderboard, setLeaderboard] = useState<LeaderboardMember[]>(initialLeaderboard);
-  const [events, setEvents] = useState<Event[]>(initialEvents);
-  const [submissions, setSubmissions] = useState<ContactSubmission[]>(initialSubmissions);
+  const { user, loading: authLoading, isAdmin } = useAuth();
+  
+  // Initialize state from data store
+  const [announcements, setAnnouncementsState] = useState<Announcement[]>([]);
+  const [teamMembers, setTeamMembersState] = useState<TeamMember[]>([]);
+  const [milestones, setMilestonesState] = useState<Milestone[]>([]);
+  const [faqs, setFaqsState] = useState<Faq[]>([]);
+  const [leaderboard, setLeaderboardState] = useState<LeaderboardMember[]>([]);
+  const [events, setEventsState] = useState<Event[]>([]);
+  const [submissions, setSubmissionsState] = useState<ContactSubmission[]>([]);
+
+  // Load data from store on mount
+  useEffect(() => {
+    setAnnouncementsState(dataStore.getAnnouncements());
+    setTeamMembersState(dataStore.getTeamMembers());
+    setMilestonesState(dataStore.getMilestones());
+    setFaqsState(dataStore.getFaqs());
+    setLeaderboardState(dataStore.getLeaderboard());
+    setEventsState(dataStore.getEvents());
+    setSubmissionsState(dataStore.getSubmissions());
+  }, []);
+
+  // Wrapper functions to update both state and store
+  const setAnnouncements = (data: Announcement[]) => {
+    setAnnouncementsState(data);
+    dataStore.setAnnouncements(data);
+  };
+
+  const setTeamMembers = (data: TeamMember[]) => {
+    setTeamMembersState(data);
+    dataStore.setTeamMembers(data);
+  };
+
+  const setMilestones = (data: Milestone[]) => {
+    setMilestonesState(data);
+    dataStore.setMilestones(data);
+  };
+
+  const setFaqs = (data: Faq[]) => {
+    setFaqsState(data);
+    dataStore.setFaqs(data);
+  };
+
+  const setLeaderboard = (data: LeaderboardMember[]) => {
+    setLeaderboardState(data);
+    dataStore.setLeaderboard(data);
+  };
+
+  const setEvents = (data: Event[]) => {
+    setEventsState(data);
+    dataStore.setEvents(data);
+  };
+
+  const setSubmissions = (data: ContactSubmission[]) => {
+    setSubmissionsState(data);
+    dataStore.setSubmissions(data);
+  };
 
 
   // Dialog state for all types
@@ -310,12 +322,13 @@ export default function Page() {
                 <DialogTitle className="font-headline">{dialogMode === 'create' ? 'Add New Member' : `Edit ${currentItem.name}`}</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
-                {dialogMode === 'create' && (
-                    <>
-                        <Label htmlFor="name">Member Name</Label>
-                        <Input id="name" value={currentItem.name} onChange={(e) => setCurrentItem({ ...currentItem, name: e.target.value })} />
-                    </>
-                )}
+                <Label htmlFor="name">Member Name</Label>
+                <Input 
+                  id="name" 
+                  value={currentItem.name} 
+                  onChange={(e) => setCurrentItem({ ...currentItem, name: e.target.value })} 
+                  placeholder="Enter student name"
+                />
                 <Label htmlFor="points">CAP Points</Label>
                 <Input 
                   id="points" 
@@ -440,6 +453,33 @@ export default function Page() {
     </TableRow>
   );
 
+  const handleLogout = async () => {
+    try {
+      await mockSignOut();
+      // Trigger a session change
+      window.dispatchEvent(new Event('session-change'));
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  // Show loading state
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login if not authenticated or not admin
+  if (!user || !isAdmin) {
+    return <AdminLogin />;
+  }
+
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <motion.div
@@ -453,6 +493,16 @@ export default function Page() {
             Admin Dashboard
           </h1>
           <p className="text-muted-foreground">Manage your site's content and view analytics.</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-2 text-sm text-muted-foreground">
+            <UserIcon className="h-4 w-4" />
+            <span>{user.email}</span>
+          </div>
+          <Button variant="outline" onClick={handleLogout} className="gap-2">
+            <LogOut className="h-4 w-4" />
+            <span className="hidden sm:inline">Logout</span>
+          </Button>
         </div>
       </motion.div>
 

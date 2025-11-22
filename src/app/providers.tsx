@@ -1,9 +1,9 @@
-
 'use client';
 
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from '@/components/shared/theme-provider';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { useEffect, useState } from 'react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -15,6 +15,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
+    <AuthProvider>
       <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -40,5 +41,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <>{children}</>
         )}
     </ThemeProvider>
+    </AuthProvider>
   );
 }

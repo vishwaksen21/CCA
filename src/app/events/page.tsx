@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { upcomingEvents as allEvents } from '@/lib/mock-data';
+import { dataStore, useDataSync } from '@/lib/data-store';
 import { useToast } from '@/hooks/use-toast';
 
 const fadeIn = {
@@ -20,11 +20,37 @@ const cardVariants = {
   animate: { opacity: 1, y: 0 },
 };
 
-type EventType = (typeof allEvents)[0] & { isRegistered: boolean };
+type EventType = {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+  imageUrl?: string;
+  registrations: string[];
+  registrationUrl?: string;
+  isRegistered: boolean;
+};
 
 export default function EventsPage() {
-  const [events, setEvents] = useState<EventType[]>(allEvents.map(e => ({ ...e, isRegistered: false })));
+  const [events, setEvents] = useState<EventType[]>([]);
   const { toast } = useToast();
+
+  // Load events from data store on mount
+  useEffect(() => {
+    const loadedEvents = dataStore.getEvents();
+    setEvents(loadedEvents.map(e => ({ ...e, isRegistered: false })));
+  }, []);
+
+  // Subscribe to data changes
+  useEffect(() => {
+    const cleanup = useDataSync(() => {
+      const loadedEvents = dataStore.getEvents();
+      setEvents(loadedEvents.map(e => ({ ...e, isRegistered: false })));
+    });
+    return cleanup;
+  }, []);
 
   // Divide events into past and upcoming
   const today = new Date();

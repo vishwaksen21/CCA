@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu } from 'lucide-react';
+import { Menu, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -64,6 +64,16 @@ export function Header() {
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
+          <Link href="/admin">
+            <Button 
+              variant="default" 
+              size="sm" 
+              className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md"
+            >
+              <ShieldCheck className="h-4 w-4" />
+              Admin
+            </Button>
+          </Link>
           <ThemeToggle />
         </nav>
 
@@ -95,6 +105,15 @@ export function Header() {
                   {navLinks.map((link) => (
                     <NavLink key={link.href} {...link} isMobile={true} />
                   ))}
+                  <Link href="/admin" onClick={() => setIsSheetOpen(false)}>
+                    <Button 
+                      variant="default" 
+                      className="w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md"
+                    >
+                      <ShieldCheck className="h-5 w-5" />
+                      Admin Login
+                    </Button>
+                  </Link>
                 </nav>
               </div>
             </SheetContent>

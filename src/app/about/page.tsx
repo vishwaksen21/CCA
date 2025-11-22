@@ -1,6 +1,7 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { teamMembers } from '@/lib/mock-data';
+import { dataStore, useDataSync } from '@/lib/data-store';
 import { Linkedin } from 'lucide-react';
 
 const fadeIn = {
@@ -10,6 +11,16 @@ const fadeIn = {
 };
 
 export default function AboutPage() {
+  const [teamMembers, setTeamMembers] = useState(dataStore.getTeamMembers());
+
+  // Subscribe to data changes
+  useEffect(() => {
+    const cleanup = useDataSync(() => {
+      setTeamMembers(dataStore.getTeamMembers());
+    });
+    return cleanup;
+  }, []);
+
   return (
     <div className="bg-gradient-to-b from-background via-background/60 to-background/20">
       <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">

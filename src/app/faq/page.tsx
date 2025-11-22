@@ -1,13 +1,14 @@
 
 'use client';
 
+import { useState, useEffect } from 'react';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { faqs } from '@/lib/mock-data';
+import { dataStore, useDataSync } from '@/lib/data-store';
 import { motion } from 'framer-motion';
 
 const fadeIn = {
@@ -17,6 +18,16 @@ const fadeIn = {
 };
 
 export default function FaqPage() {
+  const [faqs, setFaqs] = useState(dataStore.getFaqs());
+
+  // Subscribe to data changes
+  useEffect(() => {
+    const cleanup = useDataSync(() => {
+      setFaqs(dataStore.getFaqs());
+    });
+    return cleanup;
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       <motion.div
