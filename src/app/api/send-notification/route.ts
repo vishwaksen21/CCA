@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${ONESIGNAL_REST_API_KEY}`,
+        'Authorization': `Bearer ${ONESIGNAL_REST_API_KEY}`,
       },
       body: JSON.stringify(notificationPayload),
     });
