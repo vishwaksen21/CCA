@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
-import { Award, Shield, TrendingUp, BookOpen, GraduationCap, Lightbulb, Building, Users, CalendarDays, Layers } from 'lucide-react';
+import { Award, Shield, TrendingUp, BookOpen, GraduationCap, Lightbulb, Building, Users, CalendarDays, Layers, Megaphone, Trophy } from 'lucide-react';
 import SplashScreen from '@/components/shared/splash-screen';
+import { useAnnouncements, useMilestones } from '@/lib/data-store';
 
 
 
@@ -108,6 +109,10 @@ const winnersData = {
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [activeCard, setActiveCard] = useState<number | null>(null);
+  
+  // 🔥 Real-time Firestore data
+  const { announcements, loading: announcementsLoading } = useAnnouncements();
+  const { milestones, loading: milestonesLoading } = useMilestones();
 
   useEffect(() => {
     if (!loading) window.scrollTo(0, 0);
@@ -269,6 +274,129 @@ export default function Home() {
       </motion.section>
 
       <div className="container mx-auto px-4 md:px-6">
+        {/* ------------------ ANNOUNCEMENTS ------------------ */}
+        {!announcementsLoading && announcements.length > 0 && (
+          <motion.section
+            variants={fadeUp}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.2 }}
+            id="announcements"
+            className="w-full py-12"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline uppercase text-accent flex items-center justify-center gap-3">
+              <Megaphone className="w-8 h-8" />
+              Latest Announcements
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {announcements.slice(0, 6).map((announcement, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeUp}
+                  whileHover={{ y: -5 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                >
+                  <Card className="h-full shadow-lg border-l-4 border-accent hover:shadow-xl transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-3 mb-3">
+                        <Megaphone className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
+                        <div className="flex-1">
+                          <h3 className="font-bold text-lg mb-2">{announcement.title}</h3>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            {announcement.content}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {new Date(announcement.date).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            {announcements.length > 6 && (
+              <div className="text-center mt-8">
+                <Link href="/updates">
+                  <Button variant="outline" size="lg" className="font-semibold">
+                    View All Announcements
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </motion.section>
+        )}
+
+        {/* ------------------ MILESTONES ------------------ */}
+        {!milestonesLoading && milestones.length > 0 && (
+          <motion.section
+            variants={fadeUp}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.2 }}
+            id="milestones"
+            className="w-full py-12"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter text-center mb-8 font-headline uppercase text-yellow-500 flex items-center justify-center gap-3">
+              <Trophy className="w-8 h-8" />
+              Our Milestones
+            </h2>
+
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-yellow-500 to-accent hidden md:block" />
+
+              <div className="space-y-12">
+                {milestones
+                  .sort((a, b) => parseInt(b.year) - parseInt(a.year))
+                  .map((milestone, index) => (
+                    <motion.div
+                      key={index}
+                      variants={fadeUp}
+                      className={`flex items-center gap-8 ${
+                        index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                      } flex-col`}
+                    >
+                      {/* Content Card */}
+                      <div className="flex-1 md:max-w-[45%]">
+                        <Card className="shadow-lg border-t-4 border-yellow-500 hover:shadow-xl transition-shadow">
+                          <CardContent className="p-6">
+                            <div className="flex items-start gap-3">
+                              <Trophy className="w-6 h-6 text-yellow-500 mt-1 flex-shrink-0" />
+                              <div className="flex-1">
+                                <h3 className="font-bold text-xl mb-2">{milestone.event}</h3>
+                                <p className="text-sm text-muted-foreground mb-3">
+                                  {milestone.description}
+                                </p>
+                                <p className="text-xs font-semibold text-yellow-600">
+                                  {milestone.year}
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+
+                      {/* Timeline dot */}
+                      <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-yellow-500 border-4 border-background shadow-lg z-10">
+                        <div className="w-4 h-4 rounded-full bg-white" />
+                      </div>
+
+                      {/* Spacer */}
+                      <div className="flex-1 md:max-w-[45%] hidden md:block" />
+                    </motion.div>
+                  ))}
+              </div>
+            </div>
+          </motion.section>
+        )}
+
         {/* ------------------ OUR COGNITIVE BOOSTERS ------------------ */}
         <motion.section
           variants={fadeUp}
