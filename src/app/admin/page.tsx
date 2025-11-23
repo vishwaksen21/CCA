@@ -121,7 +121,7 @@ export default function Page() {
     if (type === 'member') setOriginalIdentifier(item.name);
     if (type === 'milestone') setOriginalIdentifier(item.event);
     if (type === 'faq') setOriginalIdentifier(item.question);
-    if (type === 'leaderboard') setOriginalIdentifier(item.rank);
+    if (type === 'leaderboard') setOriginalIdentifier(item.name); // Use name, not rank
     if (type === 'event') setOriginalIdentifier(item.id);
     setIsDialogOpen(true);
   };
@@ -957,7 +957,7 @@ export default function Page() {
                                         <TableCell className="text-right">
                                           <div className="flex justify-end gap-2">
                                             <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'leaderboard')}><Edit className="h-4 w-4" /></Button>
-                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(member.rank, 'leaderboard')}><Trash2 className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(member.name, 'leaderboard')}><Trash2 className="h-4 w-4" /></Button>
                                           </div>
                                         </TableCell>
                                     </TableRow>
