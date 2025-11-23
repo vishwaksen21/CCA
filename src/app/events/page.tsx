@@ -43,11 +43,13 @@ export default function EventsPage() {
     setEvents(firestoreEvents.map(e => ({ ...e, isRegistered: false })));
   }, [firestoreEvents]);
 
-  // Divide events into past and upcoming
+  // Divide events into past and upcoming, sort by date descending (newest first)
   const today = new Date();
   const { upcoming, past } = useMemo(() => {
-    const upcoming = events.filter(e => new Date(e.date) >= today);
-    const past = events.filter(e => new Date(e.date) < today);
+    const sortDesc = (arr: EventType[]) =>
+      arr.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const upcoming = sortDesc(events.filter(e => new Date(e.date) >= today));
+    const past = sortDesc(events.filter(e => new Date(e.date) < today));
     return { upcoming, past };
   }, [events]);
 
