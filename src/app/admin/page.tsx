@@ -616,6 +616,12 @@ export default function Page() {
       return;
     }
 
+    // Check if on localhost
+    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+      setNotificationError('❌ Push notifications only work on production (HTTPS required). Please test at https://cca-cmrit.vercel.app/admin');
+      return;
+    }
+
     setIsSendingNotification(true);
     setNotificationError(null);
     setNotificationSuccess(null);
@@ -1056,6 +1062,31 @@ export default function Page() {
                     <Megaphone className="h-8 w-8 text-primary" />
                 </CardHeader>
                 <CardContent className="space-y-6">
+                    {/* Localhost Warning */}
+                    {typeof window !== 'undefined' && window.location.hostname === 'localhost' && (
+                        <div className="bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                            <div className="flex gap-2">
+                                <span className="text-yellow-600 dark:text-yellow-400">⚠️</span>
+                                <div className="flex-1">
+                                    <p className="text-sm font-semibold text-yellow-800 dark:text-yellow-200">
+                                        Push Notifications Only Work on Production
+                                    </p>
+                                    <p className="text-xs text-yellow-700 dark:text-yellow-300 mt-1">
+                                        OneSignal requires HTTPS. Test push notifications at:{' '}
+                                        <a 
+                                            href="https://cca-cmrit.vercel.app/admin" 
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="underline font-semibold"
+                                        >
+                                            https://cca-cmrit.vercel.app/admin
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
                     {/* Send Notification Form */}
                     <div className="space-y-4 border rounded-lg p-4 bg-muted/30">
                         <h3 className="font-semibold flex items-center gap-2">
