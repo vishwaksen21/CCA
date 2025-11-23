@@ -17,7 +17,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Crown, Gem, Star } from 'lucide-react';
-import { dataStore, useDataSync } from '@/lib/data-store';
+import { useLeaderboard } from '@/lib/data-store';
 import { motion } from 'framer-motion';
 
 const fadeIn = {
@@ -42,15 +42,7 @@ const getRankIcon = (rank: number) => {
 };
 
 export default function LeaderboardPage() {
-  const [leaderboard, setLeaderboard] = useState(dataStore.getLeaderboard());
-
-  // Subscribe to data changes
-  useEffect(() => {
-    const cleanup = useDataSync(() => {
-      setLeaderboard(dataStore.getLeaderboard());
-    });
-    return cleanup;
-  }, []);
+  const { leaderboard, loading } = useLeaderboard();
 
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">

@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { dataStore, useDataSync } from '@/lib/data-store';
+import { useAnnouncements } from '@/lib/data-store';
 import { Bell } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -25,15 +25,15 @@ const cardVariants = {
 };
 
 export default function UpdatesPage() {
-  const [announcements, setAnnouncements] = useState(dataStore.getAnnouncements());
+  const { announcements, loading } = useAnnouncements();
 
-  // Subscribe to data changes
-  useEffect(() => {
-    const cleanup = useDataSync(() => {
-      setAnnouncements(dataStore.getAnnouncements());
-    });
-    return cleanup;
-  }, []);
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-12 flex items-center justify-center min-h-[60vh]">
+        <p className="text-lg text-muted-foreground">Loading announcements...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">

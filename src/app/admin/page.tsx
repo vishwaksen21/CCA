@@ -41,6 +41,13 @@ import {
 } from '@/lib/mock-data';
 import { 
   dataStore,
+  useAnnouncements,
+  useEvents,
+  useTeamMembers,
+  useMilestones,
+  useFaqs,
+  useLeaderboard,
+  useContactSubmissions,
   type Announcement,
   type TeamMember,
   type Milestone,
@@ -55,14 +62,14 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 export default function Page() {
   const { user, loading: authLoading, isAdmin } = useAuth();
   
-  // Initialize state from data store
-  const [announcements, setAnnouncementsState] = useState<Announcement[]>([]);
-  const [teamMembers, setTeamMembersState] = useState<TeamMember[]>([]);
-  const [milestones, setMilestonesState] = useState<Milestone[]>([]);
-  const [faqs, setFaqsState] = useState<Faq[]>([]);
-  const [leaderboard, setLeaderboardState] = useState<LeaderboardMember[]>([]);
-  const [events, setEventsState] = useState<Event[]>([]);
-  const [submissions, setSubmissionsState] = useState<ContactSubmission[]>([]);
+  // Use real-time Firestore hooks
+  const { announcements, loading: announcementsLoading } = useAnnouncements();
+  const { events, loading: eventsLoading } = useEvents();
+  const { teamMembers, loading: teamLoading } = useTeamMembers();
+  const { milestones, loading: milestonesLoading } = useMilestones();
+  const { faqs, loading: faqsLoading } = useFaqs();
+  const { leaderboard, loading: leaderboardLoading } = useLeaderboard();
+  const { submissions, loading: submissionsLoading } = useContactSubmissions();
 
   // Image upload state
   const [uploadedImages, setUploadedImages] = useState<Array<{url: string, filename: string, timestamp: number}>>([]);
@@ -77,54 +84,6 @@ export default function Page() {
   const [isSendingNotification, setIsSendingNotification] = useState(false);
   const [notificationError, setNotificationError] = useState<string | null>(null);
   const [notificationSuccess, setNotificationSuccess] = useState<string | null>(null);
-
-  // Load data from store on mount
-  useEffect(() => {
-    setAnnouncementsState(dataStore.getAnnouncements());
-    setTeamMembersState(dataStore.getTeamMembers());
-    setMilestonesState(dataStore.getMilestones());
-    setFaqsState(dataStore.getFaqs());
-    setLeaderboardState(dataStore.getLeaderboard());
-    setEventsState(dataStore.getEvents());
-    setSubmissionsState(dataStore.getSubmissions());
-  }, []);
-
-  // Wrapper functions to update both state and store
-  const setAnnouncements = (data: Announcement[]) => {
-    setAnnouncementsState(data);
-    dataStore.setAnnouncements(data);
-  };
-
-  const setTeamMembers = (data: TeamMember[]) => {
-    setTeamMembersState(data);
-    dataStore.setTeamMembers(data);
-  };
-
-  const setMilestones = (data: Milestone[]) => {
-    setMilestonesState(data);
-    dataStore.setMilestones(data);
-  };
-
-  const setFaqs = (data: Faq[]) => {
-    setFaqsState(data);
-    dataStore.setFaqs(data);
-  };
-
-  const setLeaderboard = (data: LeaderboardMember[]) => {
-    setLeaderboardState(data);
-    dataStore.setLeaderboard(data);
-  };
-
-  const setEvents = (data: Event[]) => {
-    setEventsState(data);
-    dataStore.setEvents(data);
-  };
-
-  const setSubmissions = (data: ContactSubmission[]) => {
-    setSubmissionsState(data);
-    dataStore.setSubmissions(data);
-  };
-
 
   // Dialog state for all types
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -167,76 +126,77 @@ export default function Page() {
     setIsDialogOpen(true);
   }
 
-  const handleDelete = (identifier: string | number, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event' | 'submission' | 'leaderboard') => {
-    if (type === 'announcement') setAnnouncements(announcements.filter(a => a.title !== identifier));
-    if (type === 'member') setTeamMembers(teamMembers.filter(m => m.name !== identifier));
-    if (type === 'milestone') setMilestones(milestones.filter(m => m.event !== identifier));
-    if (type === 'faq') setFaqs(faqs.filter(f => f.question !== identifier));
-    if (type === 'event') setEvents(events.filter(e => e.id !== identifier));
-    if (type === 'submission') setSubmissions(submissions.filter(s => s.id !== identifier));
-    if (type === 'leaderboard') {
-        const updated = leaderboard.filter(m => m.rank !== identifier)
-            .sort((a, b) => b.points - a.points)
-            .map((member, index) => ({ ...member, rank: index + 1 }));
-        setLeaderboard(updated);
+  const handleDelete = async (identifier: string | number, type: 'announcement' | 'member' | 'milestone' | 'faq' | 'event' | 'submission' | 'leaderboard') => {
+    try {
+      if (type === 'announcement') await dataStore.deleteAnnouncement(identifier as string);
+      if (type === 'member') await dataStore.deleteTeamMember(identifier as string);
+      if (type === 'milestone') await dataStore.deleteMilestone(identifier as string);
+      if (type === 'faq') await dataStore.deleteFaq(identifier as string);
+      if (type === 'event') await dataStore.deleteEvent(identifier as string);
+      if (type === 'submission') await dataStore.deleteContactSubmission(identifier as string, ''); // TODO: pass date
+      if (type === 'leaderboard') await dataStore.deleteLeaderboardMember(identifier as string);
+      // Real-time hooks will automatically update the UI!
+    } catch (error) {
+      console.error('Error deleting:', error);
+      alert('Failed to delete item. Please try again.');
     }
   };
   
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!currentItem || !dialogType) return;
 
-    if (dialogMode === 'create') {
+    try {
+      if (dialogMode === 'create') {
         switch(dialogType) {
-            case 'announcement':
-                setAnnouncements([{ ...currentItem, date: new Date().toISOString().split('T')[0] }, ...announcements]);
-                break;
-            case 'member':
-                setTeamMembers([...teamMembers, currentItem]);
-                break;
-            case 'milestone':
-                setMilestones([...milestones, currentItem]);
-                break;
-            case 'faq':
-                setFaqs([...faqs, currentItem]);
-                break;
-            case 'event':
-                setEvents([...events, currentItem]);
-                break;
-            case 'leaderboard':
-                 const newMember = { ...currentItem, points: Number(currentItem.points) };
-                 const updatedLeaderboard = [...leaderboard, newMember]
-                    .sort((a, b) => b.points - a.points)
-                    .map((member, index) => ({ ...member, rank: index + 1 }));
-                 setLeaderboard(updatedLeaderboard);
-                break;
+          case 'announcement':
+            await dataStore.addAnnouncement({ ...currentItem, date: new Date().toISOString().split('T')[0] });
+            break;
+          case 'member':
+            await dataStore.addTeamMember(currentItem);
+            break;
+          case 'milestone':
+            await dataStore.addMilestone(currentItem);
+            break;
+          case 'faq':
+            await dataStore.addFaq(currentItem);
+            break;
+          case 'event':
+            await dataStore.addEvent(currentItem);
+            break;
+          case 'leaderboard':
+            const newMember = { ...currentItem, points: Number(currentItem.points), rank: 1 };
+            await dataStore.addLeaderboardMember(newMember);
+            break;
         }
-    } else { // edit mode
+      } else { // edit mode
         switch(dialogType) {
-            case 'announcement':
-                setAnnouncements(announcements.map(a => a.title === originalIdentifier ? currentItem : a));
-                break;
-            case 'member':
-                setTeamMembers(teamMembers.map(m => m.name === originalIdentifier ? currentItem : m));
-                break;
-            case 'milestone':
-                setMilestones(milestones.map(m => m.event === originalIdentifier ? currentItem : m));
-                break;
-            case 'faq':
-                setFaqs(faqs.map(f => f.question === originalIdentifier ? currentItem : f));
-                break;
-            case 'leaderboard':
-                const updatedLeaderboard = leaderboard.map(m => m.rank === originalIdentifier ? { ...m, ...currentItem, points: Number(currentItem.points) } : m);
-                const sortedLeaderboard = updatedLeaderboard
-                    .sort((a, b) => b.points - a.points)
-                    .map((member, index) => ({ ...member, rank: index + 1 }));
-                setLeaderboard(sortedLeaderboard);
-                break;
-            case 'event':
-                setEvents(events.map(e => e.id === originalIdentifier ? currentItem : e));
-                break;
+          case 'announcement':
+            await dataStore.updateAnnouncement(originalIdentifier as string, currentItem);
+            break;
+          case 'member':
+            await dataStore.updateTeamMember(originalIdentifier as string, currentItem);
+            break;
+          case 'milestone':
+            await dataStore.updateMilestone(originalIdentifier as string, currentItem);
+            break;
+          case 'faq':
+            await dataStore.updateFaq(originalIdentifier as string, currentItem);
+            break;
+          case 'leaderboard':
+            const updatedMember = { ...currentItem, points: Number(currentItem.points) };
+            await dataStore.updateLeaderboardMember(originalIdentifier as string, updatedMember);
+            break;
+          case 'event':
+            await dataStore.updateEvent(originalIdentifier as string, currentItem);
+            break;
         }
+      }
+      // Real-time hooks will automatically update the UI!
+      handleCloseDialog();
+    } catch (error) {
+      console.error('Error saving:', error);
+      alert('Failed to save item. Please try again.');
     }
-    handleCloseDialog();
   };
 
   const handleBadgeChange = (badge: BadgeInfo, isChecked: boolean) => {

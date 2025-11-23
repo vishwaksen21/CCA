@@ -247,12 +247,5 @@ export const dataStore = {
   migrateFromLocalStorage: firestoreService.migrateLocalStorageToFirestore,
 };
 
-// Backwards compatibility hook for pages using useDataSync
-export const useDataSync = () => {
-  // This hook now does nothing - real-time sync is automatic!
-  // Pages using individual hooks (useEvents, useAnnouncements, etc.) get auto-updates
-  return null;
-};
-
 // For backwards compatibility - export default
 export default dataStore;

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import Image from 'next/image';
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { dataStore, useDataSync } from '@/lib/data-store';
+import { useEvents } from '@/lib/data-store';
 import { useToast } from '@/hooks/use-toast';
 
 const fadeIn = {
@@ -34,23 +34,14 @@ type EventType = {
 };
 
 export default function EventsPage() {
+  const { events: firestoreEvents, loading } = useEvents();
   const [events, setEvents] = useState<EventType[]>([]);
   const { toast } = useToast();
 
-  // Load events from data store on mount
+  // Convert Firestore events to local EventType format
   useEffect(() => {
-    const loadedEvents = dataStore.getEvents();
-    setEvents(loadedEvents.map(e => ({ ...e, isRegistered: false })));
-  }, []);
-
-  // Subscribe to data changes
-  useEffect(() => {
-    const cleanup = useDataSync(() => {
-      const loadedEvents = dataStore.getEvents();
-      setEvents(loadedEvents.map(e => ({ ...e, isRegistered: false })));
-    });
-    return cleanup;
-  }, []);
+    setEvents(firestoreEvents.map(e => ({ ...e, isRegistered: false })));
+  }, [firestoreEvents]);
 
   // Divide events into past and upcoming
   const today = new Date();
