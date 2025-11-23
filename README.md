@@ -6,7 +6,7 @@
 
 > **Empowering CMRIT students through placement preparation, defense awareness, higher studies guidance, and personality development.**
 
-**Live Website:** [https://cca-cmrit.netlify.app/](https://cca-cmrit.netlify.app/)
+**Live Website:** [https://cca-cmrit.vercel.app/](https://cca-cmrit.vercel.app/)
 
 ---
 
@@ -50,11 +50,14 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 - ✅ **About Section** - Mission, team members, and achievements timeline
 - ✅ **Partners Page** - Showcase of collaboration partners
 - ✅ **FAQ Section** - Common questions and answers
+- 🔥 **Announcements & Milestones** - Real-time sync to home page
+- 🔥 **Team Ordering** - Drag-and-drop arrows in admin
+- 🔥 **Leaderboard** - Auto-calculated ranks, real-time updates
+- 🔥 **Push Notifications** - OneSignal REST API integration
 
 ### Upcoming Features
-- 🔄 **Firestore Integration** - Persistent data storage with Firebase
-- 🔄 **Updates Feed** - Announcements and news section
 - 🔄 **AI-Powered Features** - Genkit AI integration for personalized guidance
+- 🔄 **Advanced Analytics** - Event registrations, site visits, etc.
 
 ---
 
@@ -70,10 +73,11 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 - **Forms:** React Hook Form + Zod validation
 
 ### Backend & Services
-- **Database:** [Firebase 11](https://firebase.google.com/) (Firestore)
+- **Database:** [Firebase Firestore] - Real-time sync
 - **Authentication:** Firebase Auth
+- **Push Notifications:** OneSignal REST API
 - **AI Integration:** [Genkit AI](https://github.com/firebase/genkit) with Google AI
-- **Hosting:** Netlify
+- **Hosting:** Vercel
 
 ### Development Tools
 - **Package Manager:** npm
@@ -113,18 +117,14 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
    NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-<<<<<<< HEAD
    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
    NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
    NEXT_PUBLIC_ADMIN_EMAILS=admin@cmrit.ac.in,cca@cmrit.ac.in
+   ONESIGNAL_REST_API_KEY=your_onesignal_key
    ```
    
    **📘 See [ADMIN_SETUP.md](./ADMIN_SETUP.md) for detailed Firebase setup instructions**
-=======
-   # ... other Firebase config
-   ```
->>>>>>> a51094d3527a0db9ba1ec855a6e0e14c5086b322
 
 4. **Run the development server**
    ```bash
@@ -133,15 +133,14 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 
 5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
+   
+   **Production:** [https://cca-cmrit.vercel.app](https://cca-cmrit.vercel.app)
 
-<<<<<<< HEAD
 6. **Access Admin Dashboard** (Optional)
    - Navigate to [http://localhost:3000/admin](http://localhost:3000/admin)
    - Sign in with authorized admin credentials
    - See [ADMIN_LOGIN_REFERENCE.md](./ADMIN_LOGIN_REFERENCE.md) for quick reference
 
-=======
->>>>>>> a51094d3527a0db9ba1ec855a6e0e14c5086b322
 ---
 
 ## 📁 Project Structure
@@ -204,20 +203,15 @@ CCA-1/
 - [x] Events page
 - [x] Basic routing and navigation
 
-### Phase 2: Core Features 🔄
-<<<<<<< HEAD
+### Phase 2: Core Features ✅
 - [x] Firebase integration
-- [x] Admin authentication ✨ NEW!
-- [ ] CAP Points system  
-- [ ] Live leaderboard
-- [ ] Firestore data persistence
-=======
-- [ ] Firebase integration
-- [ ] CAP Points system
-- [ ] Live leaderboard
-- [ ] Admin authentication
->>>>>>> a51094d3527a0db9ba1ec855a6e0e14c5086b322
-- [ ] Updates/Announcements feed
+- [x] Admin authentication
+- [x] CAP Points system
+- [x] Live leaderboard
+- [x] Firestore data persistence
+- [x] Announcements & milestones on home page
+- [x] Team ordering with arrows
+- [x] Push notifications (OneSignal)
 
 ### Phase 3: Advanced Features 📅
 - [ ] AI-powered career guidance
@@ -235,14 +229,13 @@ CCA-1/
 
 ---
 
-<<<<<<< HEAD
 ## 🔐 Admin Access
 
 The CCA Hub includes a secure admin dashboard for managing content.
 
 ### Access Admin Panel
 - **Local Development**: http://localhost:3000/admin
-- **Production**: https://cca-cmrit.netlify.app/admin
+- **Production**: https://cca-cmrit.vercel.app/admin
 
 ### Authentication Methods
 - ✅ Email/Password authentication
@@ -262,8 +255,21 @@ The CCA Hub includes a secure admin dashboard for managing content.
 
 ---
 
-=======
->>>>>>> a51094d3527a0db9ba1ec855a6e0e14c5086b322
+## 🚦 Next Steps & Recommendations
+
+- Security: Update Firestore rules to restrict access
+- Admin Panel: Add search/filter, analytics, bulk actions
+- User Experience: Improve mobile UI, add loading/error states
+- Performance: Optimize images, add SEO tags, lazy loading
+- Accessibility: Keyboard navigation, ARIA labels
+- Code Quality: Add tests, linting, refactor large files
+- Monitoring: Add error logging (Sentry/LogRocket)
+- Documentation: Expand admin and contributor guides
+
+See [ADMIN_SETUP.md](./ADMIN_SETUP.md) and [FIREBASE_CHECKLIST.md](./FIREBASE_CHECKLIST.md) for setup and migration details.
+
+---
+
 ## 🤝 Contributing
 
 We welcome contributions from the community! If you'd like to contribute:
