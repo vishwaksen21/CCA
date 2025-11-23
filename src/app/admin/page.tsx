@@ -32,7 +32,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info, UserCheck, Loader2, LogOut, User as UserIcon, Upload, Image as ImageIcon, CheckCircle, X } from 'lucide-react';
+import { PlusCircle, Edit, Trash2, Eye, Users, Calendar, Megaphone, Inbox, Info, UserCheck, Loader2, LogOut, User as UserIcon, Upload, Image as ImageIcon, CheckCircle, X, ArrowUp, ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { 
   availableBadges,
@@ -65,11 +65,18 @@ export default function Page() {
   // Use real-time Firestore hooks
   const { announcements, loading: announcementsLoading } = useAnnouncements();
   const { events, loading: eventsLoading } = useEvents();
-  const { teamMembers, loading: teamLoading } = useTeamMembers();
+  const { teamMembers: teamMembersRaw, loading: teamLoading } = useTeamMembers();
   const { milestones, loading: milestonesLoading } = useMilestones();
   const { faqs, loading: faqsLoading } = useFaqs();
   const { leaderboard, loading: leaderboardLoading } = useLeaderboard();
   const { submissions, loading: submissionsLoading } = useContactSubmissions();
+
+  // Sort team members by order field for admin display
+  const teamMembers = [...teamMembersRaw].sort((a, b) => {
+    const orderA = a.order ?? 999;
+    const orderB = b.order ?? 999;
+    return orderA - orderB;
+  });
 
   // Image upload state
   const [uploadedImages, setUploadedImages] = useState<Array<{url: string, filename: string, timestamp: number}>>([]);
@@ -139,6 +146,48 @@ export default function Page() {
     } catch (error) {
       console.error('Error deleting:', error);
       alert('Failed to delete item. Please try again.');
+    }
+  };
+
+  const handleMoveUp = async (index: number) => {
+    console.log('🔼 Move up clicked! Index:', index);
+    if (index === 0) {
+      console.log('Already at top!');
+      return; // Already at top
+    }
+    
+    const reorderedMembers = [...teamMembers];
+    [reorderedMembers[index - 1], reorderedMembers[index]] = [reorderedMembers[index], reorderedMembers[index - 1]];
+    
+    console.log('Reordered members:', reorderedMembers.map((m, i) => `${i}: ${m.name}`));
+    
+    try {
+      await dataStore.reorderTeamMembers(reorderedMembers);
+      console.log('✅ Reorder successful!');
+    } catch (error) {
+      console.error('❌ Error reordering:', error);
+      alert('Failed to reorder team members. Please try again.');
+    }
+  };
+
+  const handleMoveDown = async (index: number) => {
+    console.log('🔽 Move down clicked! Index:', index);
+    if (index === teamMembers.length - 1) {
+      console.log('Already at bottom!');
+      return; // Already at bottom
+    }
+    
+    const reorderedMembers = [...teamMembers];
+    [reorderedMembers[index], reorderedMembers[index + 1]] = [reorderedMembers[index + 1], reorderedMembers[index]];
+    
+    console.log('Reordered members:', reorderedMembers.map((m, i) => `${i}: ${m.name}`));
+    
+    try {
+      await dataStore.reorderTeamMembers(reorderedMembers);
+      console.log('✅ Reorder successful!');
+    } catch (error) {
+      console.error('❌ Error reordering:', error);
+      alert('Failed to reorder team members. Please try again.');
     }
   };
   
@@ -755,7 +804,7 @@ export default function Page() {
                         <TableHeader><TableRow><TableHead>Name</TableHead><TableHead className="hidden sm:table-cell">Role</TableHead><TableHead className="text-right">Actions</TableHead></TableRow></TableHeader>
                         <TableBody>
                             {teamMembers.length > 0 ? (
-                                teamMembers.map((member) => (
+                                teamMembers.map((member, index) => (
                                     <TableRow key={member.name}>
                                         <TableCell className="font-medium">
                                           <div>{member.name}</div>
@@ -763,9 +812,29 @@ export default function Page() {
                                         </TableCell>
                                         <TableCell className="hidden sm:table-cell">{member.role}</TableCell>
                                         <TableCell className="text-right">
-                                          <div className="flex justify-end gap-2">
-                                            <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'member')}><Edit className="h-4 w-4" /></Button>
-                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(member.name, 'member')}><Trash2 className="h-4 w-4" /></Button>
+                                          <div className="flex justify-end gap-1 sm:gap-2">
+                                            <Button 
+                                              variant="outline" 
+                                              size="icon" 
+                                              onClick={() => handleMoveUp(index)}
+                                              disabled={index === 0}
+                                              title="Move up"
+                                              className="h-8 w-8"
+                                            >
+                                              <ArrowUp className="h-4 w-4" />
+                                            </Button>
+                                            <Button 
+                                              variant="outline" 
+                                              size="icon" 
+                                              onClick={() => handleMoveDown(index)}
+                                              disabled={index === teamMembers.length - 1}
+                                              title="Move down"
+                                              className="h-8 w-8"
+                                            >
+                                              <ArrowDown className="h-4 w-4" />
+                                            </Button>
+                                            <Button variant="outline" size="icon" onClick={() => handleEdit(member, 'member')} className="h-8 w-8"><Edit className="h-4 w-4" /></Button>
+                                            <Button variant="destructive" size="icon" onClick={() => handleDelete(member.name, 'member')} className="h-8 w-8"><Trash2 className="h-4 w-4" /></Button>
                                           </div>
                                         </TableCell>
                                     </TableRow>

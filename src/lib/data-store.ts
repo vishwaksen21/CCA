@@ -31,6 +31,7 @@ export type TeamMember = {
   imageUrl: string;
   dataAiHint?: string;
   linkedin?: string;
+  order?: number; // For custom ordering in admin dashboard
 };
 
 export type Milestone = {
@@ -219,6 +220,7 @@ export const dataStore = {
   addTeamMember: firestoreService.addTeamMember,
   updateTeamMember: firestoreService.updateTeamMember,
   deleteTeamMember: firestoreService.deleteTeamMember,
+  reorderTeamMembers: firestoreService.reorderTeamMembers,
 
   // MILESTONES
   getMilestones: firestoreService.getMilestones,

@@ -149,7 +149,10 @@ export const subscribeToTeamMembers = (
   const unsubscribe = onSnapshot(
     collection(db, COLLECTIONS.TEAM_MEMBERS),
     (snapshot) => {
-      const members = snapshot.docs.map(doc => doc.data() as TeamMember);
+      const members = snapshot.docs.map(doc => ({ 
+        ...doc.data(), 
+        order: doc.data().order ?? 999 
+      } as TeamMember));
       callback(members);
     }
   );
@@ -179,6 +182,24 @@ export const deleteTeamMember = async (name: string): Promise<void> => {
   if (docToDelete) {
     await deleteDoc(doc(db, COLLECTIONS.TEAM_MEMBERS, docToDelete.id));
   }
+};
+
+export const reorderTeamMembers = async (members: TeamMember[]): Promise<void> => {
+  const snapshot = await getDocs(collection(db, COLLECTIONS.TEAM_MEMBERS));
+  const batch = [];
+  
+  for (let i = 0; i < members.length; i++) {
+    const member = members[i];
+    const docToUpdate = snapshot.docs.find(doc => doc.data().name === member.name);
+    
+    if (docToUpdate) {
+      batch.push(
+        updateDoc(doc(db, COLLECTIONS.TEAM_MEMBERS, docToUpdate.id), { order: i } as DocumentData)
+      );
+    }
+  }
+  
+  await Promise.all(batch);
 };
 
 // ==================== MILESTONES ====================

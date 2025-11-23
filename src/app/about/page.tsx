@@ -13,6 +13,45 @@ const fadeIn = {
 export default function AboutPage() {
   const { teamMembers, loading } = useTeamMembers();
 
+  // Sort team members by order field (if exists), then by role, then by name
+  const sortedTeamMembers = [...teamMembers].sort((a, b) => {
+    // First, sort by order field if both have it
+    if (a.order !== undefined && b.order !== undefined) {
+      return a.order - b.order;
+    }
+    // If only one has order, prioritize it
+    if (a.order !== undefined) return -1;
+    if (b.order !== undefined) return 1;
+    
+    // Fallback to role-based sorting
+    const roleOrder: { [key: string]: number } = {
+      'President': 1,
+      'Vice-President': 2,
+      'Creative Head': 3,
+      'Cash Capzz': 4,
+      'Co-ordinator': 5,
+    };
+    
+    const orderA = roleOrder[a.role] || 999;
+    const orderB = roleOrder[b.role] || 999;
+    
+    // If roles are different, sort by role
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+    
+    // If both are Co-ordinators, put Vishwak first, then Barath, then alphabetical
+    if (a.role === 'Co-ordinator' && b.role === 'Co-ordinator') {
+      if (a.name === 'Vishwak') return -1;
+      if (b.name === 'Vishwak') return 1;
+      if (a.name === 'Barath') return -1;
+      if (b.name === 'Barath') return 1;
+      return a.name.localeCompare(b.name);
+    }
+    
+    return 0;
+  });
+
   return (
     <div className="bg-gradient-to-b from-background via-background/60 to-background/20">
       <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
@@ -151,7 +190,7 @@ export default function AboutPage() {
           </h2>
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-2 justify-items-center gap-x-4 gap-y-20 md:grid-cols-3 md:gap-x-8">
-              {teamMembers.map((member, index) => (
+              {sortedTeamMembers.map((member, index) => (
                 <motion.div
                   key={member.name}
                   initial={{ opacity: 0, y: 50, scale: 0.9 }}
