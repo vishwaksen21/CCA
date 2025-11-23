@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const ONESIGNAL_APP_ID = '4757bad8-5f4b-4b59-b2ef-fdd3de694379';
-const ONESIGNAL_REST_API_KEY = process.env.ONESIGNAL_REST_API_KEY || '';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,9 +18,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Read environment variable at runtime, not build time
+    const ONESIGNAL_REST_API_KEY = process.env.ONESIGNAL_REST_API_KEY || '';
+
     // Check if API key is configured
     if (!ONESIGNAL_REST_API_KEY) {
       console.error('[Send Notification] API key not found in environment variables');
+      console.error('[Send Notification] Available env vars:', Object.keys(process.env).filter(k => k.includes('ONESIGNAL')));
       return NextResponse.json(
         { 
           error: 'OneSignal REST API key not configured. Please add ONESIGNAL_REST_API_KEY to your environment variables.',
