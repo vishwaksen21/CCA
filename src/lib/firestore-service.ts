@@ -298,7 +298,10 @@ export const getLeaderboard = async (): Promise<LeaderboardMember[]> => {
   const snapshot = await getDocs(
     query(collection(db, COLLECTIONS.LEADERBOARD), orderBy('points', 'desc'))
   );
-  return snapshot.docs.map(doc => doc.data() as LeaderboardMember);
+  return snapshot.docs.map((doc, index) => ({
+    ...doc.data(),
+    rank: index + 1, // Add rank based on sorted position
+  } as LeaderboardMember));
 };
 
 export const subscribeToLeaderboard = (
@@ -307,7 +310,10 @@ export const subscribeToLeaderboard = (
   const unsubscribe = onSnapshot(
     query(collection(db, COLLECTIONS.LEADERBOARD), orderBy('points', 'desc')),
     (snapshot) => {
-      const leaderboard = snapshot.docs.map(doc => doc.data() as LeaderboardMember);
+      const leaderboard = snapshot.docs.map((doc, index) => ({
+        ...doc.data(),
+        rank: index + 1, // Add rank based on sorted position
+      } as LeaderboardMember));
       callback(leaderboard);
     }
   );
