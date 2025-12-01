@@ -12,6 +12,7 @@ const fadeIn = {
 
 export default function AboutPage() {
   const { teamMembers, loading } = useTeamMembers();
+  const [selectedBatch, setSelectedBatch] = useState<'current' | '2024' | '2023'>('current');
 
   // Sort team members by order field (if exists), then by role, then by name
   const sortedTeamMembers = [...teamMembers].sort((a, b) => {
@@ -51,6 +52,111 @@ export default function AboutPage() {
     
     return 0;
   });
+
+  // Alumni data for 2024 batch
+  const alumni2024 = [
+    {
+      name: 'Nikitha',
+      role: 'President',
+      imageUrl: '/nikitha.png',
+      linkedin: 'https://www.linkedin.com/in/nikita-prabhudesai-38415a2b9/',
+    },
+    {
+      name: 'Sameer',
+      role: 'Vice-President',
+      imageUrl: '/sameer.png',
+      linkedin: 'https://www.linkedin.com/in/sameerkhancmrit/',
+    },
+    {
+      name: 'Lakshman',
+      role: 'Creative Head',
+      imageUrl: '/lakshman.png',
+      linkedin: 'https://www.linkedin.com/in/lakshman-pillai-b31212290/',
+    },
+    {
+      name: 'Pallavi',
+      role: 'Cash Capzz',
+      imageUrl: '/pallavi.png',
+      linkedin: 'https://www.linkedin.com/in/pallavi-a-kumbar-010241380/',
+    },
+  ];
+
+  // Alumni data for 2023 batch
+  const alumni2023 = [
+    {
+      name: 'Jayajevaa N',
+      role: 'President',
+      imageUrl: '/jj.png',
+      linkedin: 'https://www.linkedin.com/in/jayajevaa?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+    },
+    {
+      name: 'Deekshitha M',
+      role: 'Vice-President',
+      imageUrl: '/2023_vp.png',
+      linkedin: 'https://www.linkedin.com/in/deekshitha-m-reddy/',
+    },
+    {
+      name: 'Deeksha SR',
+      role: 'Creative Head',
+      imageUrl: '/2023_ch.png',
+      linkedin: 'https://www.linkedin.com/in/deeksha-sr-542a00263?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+    },
+    {
+      name: 'Muralidhar V',
+      role: 'Cash Capzz',
+      imageUrl: '/2023_cc.png',
+      linkedin: 'www.linkedin.com/in/muralidhar-v-2ab40424a',
+    },
+  ];
+
+  const TeamMemberCard = ({ member, index }: { member: any; index: number }) => (
+    <motion.div
+      key={member.name}
+      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      className="w-full group relative"
+    >
+      {/* Base Card */}
+      <div className="relative transition-all duration-300 group-hover:opacity-0 group-hover:scale-95">
+        <div className="bg-slate-800 rounded-xl shadow-lg pt-14 md:pt-16 pb-6 px-4">
+          <h3 className="text-base md:text-lg font-bold text-center text-amber-400">{member.name}</h3>
+          <p className="text-center text-white/80 mt-1 text-sm md:text-base">{member.role}</p>
+        </div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <img
+            src={member.imageUrl || '/placeholder.png'}
+            alt={member.name}
+            className="w-24 h-24 md:w-28 md:h-28 object-cover rounded-full border-4 border-slate-700 shadow-xl"
+          />
+        </div>
+      </div>
+
+      {/* Hover Overlay */}
+      <div className="absolute inset-0 rounded-xl opacity-0 scale-105 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 flex flex-col items-center justify-center p-4">
+        <div 
+          className="absolute inset-0 bg-cover bg-center rounded-xl blur-sm scale-110"
+          style={{ backgroundImage: `url(${member.imageUrl || '/placeholder.png'})` }}
+        />
+        <div className="absolute inset-0 bg-black/70 rounded-xl"/>
+        <div className="relative flex flex-col items-center justify-center">
+          <h3 className="text-lg font-bold text-amber-400 text-center">{member.name}</h3>
+          <p className="text-white/90 text-sm text-center">{member.role}</p>
+          {member.linkedin && (
+            <a 
+              href={member.linkedin} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="mt-4 flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-400 text-amber-400 transition-colors hover:bg-amber-400 hover:text-slate-800" 
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Linkedin className="h-6 w-6" />
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
 
   return (
     <div className="bg-gradient-to-b from-background via-background/60 to-background/20">
@@ -185,50 +291,55 @@ export default function AboutPage() {
           viewport={{ once: true, amount: 0.2 }}
           className="w-full py-12 md:py-20"
         >
-          <h2 className="text-3xl font-bold tracking-wider text-center font-headline mb-20 uppercase text-amber-500">
+          <h2 className="text-3xl font-bold tracking-wider text-center font-headline mb-12 uppercase text-amber-500">
             Meet Our Team
           </h2>
+          
+          {/* Batch Toggle Buttons */}
+          <div className="flex justify-center gap-4 mb-20">
+            <button
+              onClick={() => setSelectedBatch('current')}
+              className={`px-6 py-2.5 rounded-lg font-semibold transition-all ${
+                selectedBatch === 'current'
+                  ? 'bg-amber-500 text-slate-900 shadow-lg'
+                  : 'bg-slate-800 text-amber-400 hover:bg-slate-700'
+              }`}
+            >
+              Our Team
+            </button>
+            <button
+              onClick={() => setSelectedBatch('2024')}
+              className={`px-6 py-2.5 rounded-lg font-semibold transition-all ${
+                selectedBatch === '2024'
+                  ? 'bg-amber-500 text-slate-900 shadow-lg'
+                  : 'bg-slate-800 text-amber-400 hover:bg-slate-700'
+              }`}
+            >
+              2024 Batch
+            </button>
+            <button
+              onClick={() => setSelectedBatch('2023')}
+              className={`px-6 py-2.5 rounded-lg font-semibold transition-all ${
+                selectedBatch === '2023'
+                  ? 'bg-amber-500 text-slate-900 shadow-lg'
+                  : 'bg-slate-800 text-amber-400 hover:bg-slate-700'
+              }`}
+            >
+              2023 Batch
+            </button>
+          </div>
+          
+          {/* Team Members Display */}
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-2 justify-items-center gap-x-4 gap-y-20 md:grid-cols-3 md:gap-x-8">
-              {sortedTeamMembers.map((member, index) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="w-full group relative"
-                >
-                  {/* Base Card */}
-                  <div className="relative transition-all duration-300 group-hover:opacity-0 group-hover:scale-95">
-                    <div className="bg-slate-800 rounded-xl shadow-lg pt-14 md:pt-16 pb-6 px-4">
-                      <h3 className="text-base md:text-lg font-bold text-center text-amber-400">{member.name}</h3>
-                      <p className="text-center text-white/80 mt-1 text-sm md:text-base">{member.role}</p>
-                    </div>
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                      <img
-                        src={member.imageUrl || '/placeholder.png'}
-                        alt={member.name}
-                        className="w-24 h-24 md:w-28 md:h-28 object-cover rounded-full border-4 border-slate-700 shadow-xl"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 rounded-xl opacity-0 scale-105 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 flex flex-col items-center justify-center p-4">
-                      <div 
-                          className="absolute inset-0 bg-cover bg-center rounded-xl blur-sm scale-110"
-                          style={{ backgroundImage: `url(${member.imageUrl || '/placeholder.png'})` }}
-                      />
-                      <div className="absolute inset-0 bg-black/70 rounded-xl"/>
-                      <div className="relative flex flex-col items-center justify-center">
-                          <h3 className="text-lg font-bold text-amber-400 text-center">{member.name}</h3>
-                          <p className="text-white/90 text-sm text-center">{member.role}</p>
-                          {member.linkedin && (<a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="mt-4 flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-400 text-amber-400 transition-colors hover:bg-amber-400 hover:text-slate-800" onClick={(e) => e.stopPropagation()}>
-                              <Linkedin className="h-6 w-6" />
-                          </a>)}
-                      </div>
-                  </div>
-                </motion.div>
+              {selectedBatch === 'current' && sortedTeamMembers.map((member, index) => (
+                <TeamMemberCard key={member.name} member={member} index={index} />
+              ))}
+              {selectedBatch === '2024' && alumni2024.map((member, index) => (
+                <TeamMemberCard key={member.name} member={member} index={index} />
+              ))}
+              {selectedBatch === '2023' && alumni2023.map((member, index) => (
+                <TeamMemberCard key={member.name} member={member} index={index} />
               ))}
             </div>
           </div>

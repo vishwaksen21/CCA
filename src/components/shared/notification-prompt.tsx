@@ -73,7 +73,7 @@ export function NotificationPrompt() {
             size="lg"
           >
             <Bell className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />
-            <span className="whitespace-nowrap">Enable Notifications</span>
+            <span className="whitespace-nowrap">Enable</span>
           </Button>
           <Button 
             onClick={handleDismiss} 
@@ -82,7 +82,7 @@ export function NotificationPrompt() {
             size="lg"
           >
             <BellOff className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />
-            <span className="whitespace-nowrap">Maybe Later</span>
+            <span className="whitespace-nowrap">Later</span>
           </Button>
         </CardContent>
       </Card>
