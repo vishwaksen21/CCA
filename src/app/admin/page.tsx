@@ -608,6 +608,33 @@ export default function Page() {
         },
         async () => {
           // Upload completed successfully
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          setUploadSuccess(`Image uploaded successfully: ${cleanName}`);
+          
+          // Reload images list
+          await loadImages();
+          
+          // Clear success message after 3 seconds
+          setTimeout(() => setUploadSuccess(null), 3000);
+          
+          // Reset file input
+          event.target.value = '';
+          setIsUploading(false);
+        }
+      );
+    } catch (error) {
+      console.error('Upload error:', error);
+      setUploadError(error instanceof Error ? error.message : 'Failed to upload image');
+      setIsUploading(false);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setUploadSuccess(`Copied to clipboard: ${text}`);
+    setTimeout(() => setUploadSuccess(null), 2000);
+  };
+
   // Load existing images from Firebase Storage
   const loadImages = async () => {
     setIsLoadingImages(true);
@@ -644,33 +671,6 @@ export default function Page() {
       console.error('Error loading images:', error);
       // If no images exist yet, that's okay
       setUploadedImages([]);
-    } finally {
-      setIsLoadingImages(false);
-    }
-  };
-
-  // Load images when component mounts
-  useEffect(() => {
-    loadImages();
-  }, []);ator.clipboard.writeText(text);
-    setUploadSuccess(`Copied to clipboard: ${text}`);
-    setTimeout(() => setUploadSuccess(null), 2000);
-  };
-
-  // Load existing images from public folder
-  const loadImages = async () => {
-    setIsLoadingImages(true);
-    try {
-      const response = await fetch('/api/list-images');
-      const data = await response.json();
-      
-      if (response.ok && data.success) {
-        setUploadedImages(data.images);
-      } else {
-        console.error('Failed to load images:', data.error);
-      }
-    } catch (error) {
-      console.error('Error loading images:', error);
     } finally {
       setIsLoadingImages(false);
     }
