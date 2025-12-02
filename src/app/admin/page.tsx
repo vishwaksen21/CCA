@@ -83,6 +83,7 @@ export default function Page() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
+  const [isLoadingImages, setIsLoadingImages] = useState(false);
 
   // Push notification state
   const [notificationTitle, setNotificationTitle] = useState('');
@@ -581,14 +582,10 @@ export default function Page() {
         throw new Error(data.error || 'Upload failed');
       }
 
-      // Add to uploaded images list
-      const newImage = {
-        url: data.url,
-        filename: data.filename,
-        timestamp: Date.now()
-      };
-      setUploadedImages([newImage, ...uploadedImages]);
       setUploadSuccess(`Image uploaded successfully: ${data.filename}`);
+      
+      // Reload images list to show the newly uploaded image
+      await loadImages();
       
       // Clear success message after 3 seconds
       setTimeout(() => setUploadSuccess(null), 3000);
@@ -608,6 +605,30 @@ export default function Page() {
     setUploadSuccess(`Copied to clipboard: ${text}`);
     setTimeout(() => setUploadSuccess(null), 2000);
   };
+
+  // Load existing images from public folder
+  const loadImages = async () => {
+    setIsLoadingImages(true);
+    try {
+      const response = await fetch('/api/list-images');
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setUploadedImages(data.images);
+      } else {
+        console.error('Failed to load images:', data.error);
+      }
+    } catch (error) {
+      console.error('Error loading images:', error);
+    } finally {
+      setIsLoadingImages(false);
+    }
+  };
+
+  // Load images when component mounts
+  useEffect(() => {
+    loadImages();
+  }, []);
 
   // Handle sending push notification
   const handleSendNotification = async () => {
@@ -1354,9 +1375,38 @@ export default function Page() {
                     )}
 
                     {/* Uploaded Images Gallery */}
-                    {uploadedImages.length > 0 && (
-                        <div>
-                            <h3 className="font-semibold mb-4">Recently Uploaded Images</h3>
+                    <div>
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-semibold">
+                                {uploadedImages.length > 0 ? `All Images (${uploadedImages.length})` : 'All Images'}
+                            </h3>
+                            {uploadedImages.length > 0 && (
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={loadImages}
+                                    disabled={isLoadingImages}
+                                >
+                                    {isLoadingImages ? (
+                                        <>
+                                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                            Refreshing...
+                                        </>
+                                    ) : (
+                                        'Refresh'
+                                    )}
+                                </Button>
+                            )}
+                        </div>
+                        
+                        {isLoadingImages && uploadedImages.length === 0 ? (
+                            <div className="flex items-center justify-center py-12 border rounded-lg">
+                                <div className="text-center">
+                                    <Loader2 className="h-8 w-8 animate-spin mx-auto mb-2 text-primary" />
+                                    <p className="text-sm text-muted-foreground">Loading images...</p>
+                                </div>
+                            </div>
+                        ) : uploadedImages.length > 0 ? (
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 {uploadedImages.map((image, index) => (
                                     <div key={index} className="group relative border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
@@ -1381,8 +1431,16 @@ export default function Page() {
                                     </div>
                                 ))}
                             </div>
-                        </div>
-                    )}
+                        ) : (
+                            <div className="flex items-center justify-center py-12 border rounded-lg">
+                                <div className="text-center">
+                                    <ImageIcon className="h-12 w-12 text-muted-foreground mx-auto mb-2" />
+                                    <p className="text-sm text-muted-foreground">No images found</p>
+                                    <p className="text-xs text-muted-foreground mt-1">Upload your first image above</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
 
                     {/* Instructions */}
                     <div className="bg-muted/50 rounded-lg p-4">
