@@ -582,30 +582,45 @@ export default function Page() {
     setUploadSuccess(null);
 
     try {
-      // Upload to ImgBB (free image hosting)
-      const formData = new FormData();
-      formData.append('image', file);
-      
-      const response = await fetch(`https://api.imgbb.com/1/upload?key=588779c93c7187148b4fa26a582a77c1`, {
+      // Convert image to base64 and upload to Imgur (anonymous upload - no API key needed)
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          // Remove data:image/xxx;base64, prefix
+          const base64String = result.split(',')[1];
+          resolve(base64String);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+      // Upload to Imgur anonymously
+      const response = await fetch('https://api.imgur.com/3/image', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Authorization': 'Client-ID 546c25a59c58ad7',
+        },
+        body: JSON.stringify({
+          image: base64,
+          type: 'base64',
+        }),
       });
 
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error?.message || 'Upload failed');
+        throw new Error(data.data?.error || 'Upload failed');
       }
 
-      const imageUrl = data.data.url;
-      const displayUrl = data.data.display_url;
+      const imageUrl = data.data.link;
       
       setUploadSuccess(`Image uploaded successfully!`);
       
       // Add to uploaded images list
       const newImage = {
         filename: file.name,
-        url: displayUrl,
+        url: imageUrl,
         size: file.size,
         timestamp: Date.now()
       };
@@ -618,7 +633,7 @@ export default function Page() {
       event.target.value = '';
     } catch (error) {
       console.error('Upload error:', error);
-      setUploadError(error instanceof Error ? error.message : 'Failed to upload image. Try using a direct image URL instead.');
+      setUploadError(error instanceof Error ? error.message : 'Failed to upload image. Please try again or use a direct image URL.');
     } finally {
       setIsUploading(false);
     }
@@ -1468,10 +1483,10 @@ export default function Page() {
                             How to use uploaded images
                         </h4>
                         <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                            <li>Images are uploaded to ImgBB (free image hosting service)</li>
+                            <li>Images are uploaded to Imgur (free image hosting service)</li>
                             <li>After uploading, click "Copy Path" to copy the image URL</li>
                             <li>Paste the URL into "Event Image" or "Team Member Image" fields</li>
-                            <li>URLs look like: <code className="bg-background px-1 rounded">https://i.ibb.co/...</code></li>
+                            <li>URLs look like: <code className="bg-background px-1 rounded">https://i.imgur.com/...</code></li>
                             <li>Images are publicly accessible and work globally</li>
                             <li>Maximum file size: 5MB</li>
                         </ul>
