@@ -58,6 +58,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { storage } from '@/lib/firebase';
+import { ref, uploadBytesResumable, getDownloadURL, listAll, getMetadata } from 'firebase/storage';
 
 export default function Page() {
   const { user, loading: authLoading, isAdmin } = useAuth();
@@ -563,45 +565,94 @@ export default function Page() {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setUploadError('Invalid file type. Only images (JPEG, PNG, GIF, WebP) are allowed.');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      setUploadError('File too large. Maximum size is 5MB.');
+      return;
+    }
+
     setIsUploading(true);
     setUploadError(null);
     setUploadSuccess(null);
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Upload failed');
-      }
-
-      setUploadSuccess(`Image uploaded successfully: ${data.filename}`);
+      // Clean filename
+      const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+      const filename = `uploads/${Date.now()}_${cleanName}`;
       
-      // Reload images list to show the newly uploaded image
-      await loadImages();
+      // Create storage reference
+      const storageRef = ref(storage, filename);
       
-      // Clear success message after 3 seconds
-      setTimeout(() => setUploadSuccess(null), 3000);
-
-      // Reset file input
-      event.target.value = '';
+      // Upload file
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Progress monitoring (optional)
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        },
+        (error) => {
+          console.error('Upload error:', error);
+          setUploadError('Failed to upload image: ' + error.message);
+          setIsUploading(false);
+        },
+        async () => {
+          // Upload completed successfully
+  // Load existing images from Firebase Storage
+  const loadImages = async () => {
+    setIsLoadingImages(true);
+    try {
+      const uploadsRef = ref(storage, 'uploads/');
+      const result = await listAll(uploadsRef);
+      
+      const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+      const imagePromises = result.items
+        .filter(item => {
+          const ext = item.name.substring(item.name.lastIndexOf('.')).toLowerCase();
+          return imageExtensions.includes(ext);
+        })
+        .map(async (item) => {
+          const url = await getDownloadURL(item);
+          const metadata = await getMetadata(item);
+          const filename = item.name.replace(/^\d+_/, ''); // Remove timestamp prefix
+          
+          return {
+            filename,
+            url,
+            size: metadata.size,
+            timestamp: new Date(metadata.timeCreated).getTime()
+          };
+        });
+      
+      const images = await Promise.all(imagePromises);
+      
+      // Sort by most recent first
+      images.sort((a, b) => b.timestamp - a.timestamp);
+      
+      setUploadedImages(images);
     } catch (error) {
-      console.error('Upload error:', error);
-      setUploadError(error instanceof Error ? error.message : 'Failed to upload image');
+      console.error('Error loading images:', error);
+      // If no images exist yet, that's okay
+      setUploadedImages([]);
     } finally {
-      setIsUploading(false);
+      setIsLoadingImages(false);
     }
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  // Load images when component mounts
+  useEffect(() => {
+    loadImages();
+  }, []);ator.clipboard.writeText(text);
     setUploadSuccess(`Copied to clipboard: ${text}`);
     setTimeout(() => setUploadSuccess(null), 2000);
   };
