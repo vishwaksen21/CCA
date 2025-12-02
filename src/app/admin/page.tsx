@@ -58,8 +58,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { storage } from '@/lib/firebase';
-import { ref, uploadBytesResumable, getDownloadURL, listAll, getMetadata } from 'firebase/storage';
 
 export default function Page() {
   const { user, loading: authLoading, isAdmin } = useAuth();
@@ -584,47 +582,44 @@ export default function Page() {
     setUploadSuccess(null);
 
     try {
-      // Clean filename
-      const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-      const filename = `uploads/${Date.now()}_${cleanName}`;
+      // Upload to ImgBB (free image hosting)
+      const formData = new FormData();
+      formData.append('image', file);
       
-      // Create storage reference
-      const storageRef = ref(storage, filename);
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=588779c93c7187148b4fa26a582a77c1`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error?.message || 'Upload failed');
+      }
+
+      const imageUrl = data.data.url;
+      const displayUrl = data.data.display_url;
       
-      // Upload file
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      setUploadSuccess(`Image uploaded successfully!`);
       
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          // Progress monitoring (optional)
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-        },
-        (error) => {
-          console.error('Upload error:', error);
-          setUploadError('Failed to upload image: ' + error.message);
-          setIsUploading(false);
-        },
-        async () => {
-          // Upload completed successfully
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          setUploadSuccess(`Image uploaded successfully: ${cleanName}`);
-          
-          // Reload images list
-          await loadImages();
-          
-          // Clear success message after 3 seconds
-          setTimeout(() => setUploadSuccess(null), 3000);
-          
-          // Reset file input
-          event.target.value = '';
-          setIsUploading(false);
-        }
-      );
+      // Add to uploaded images list
+      const newImage = {
+        filename: file.name,
+        url: displayUrl,
+        size: file.size,
+        timestamp: Date.now()
+      };
+      setUploadedImages([newImage, ...uploadedImages]);
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setUploadSuccess(null), 3000);
+      
+      // Reset file input
+      event.target.value = '';
     } catch (error) {
       console.error('Upload error:', error);
-      setUploadError(error instanceof Error ? error.message : 'Failed to upload image');
+      setUploadError(error instanceof Error ? error.message : 'Failed to upload image. Try using a direct image URL instead.');
+    } finally {
       setIsUploading(false);
     }
   };
@@ -635,43 +630,16 @@ export default function Page() {
     setTimeout(() => setUploadSuccess(null), 2000);
   };
 
-  // Load existing images from Firebase Storage
+  // Load images - now just maintaining local state
   const loadImages = async () => {
     setIsLoadingImages(true);
     try {
-      const uploadsRef = ref(storage, 'uploads/');
-      const result = await listAll(uploadsRef);
-      
-      const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
-      const imagePromises = result.items
-        .filter(item => {
-          const ext = item.name.substring(item.name.lastIndexOf('.')).toLowerCase();
-          return imageExtensions.includes(ext);
-        })
-        .map(async (item) => {
-          const url = await getDownloadURL(item);
-          const metadata = await getMetadata(item);
-          const filename = item.name.replace(/^\d+_/, ''); // Remove timestamp prefix
-          
-          return {
-            filename,
-            url,
-            size: metadata.size,
-            timestamp: new Date(metadata.timeCreated).getTime()
-          };
-        });
-      
-      const images = await Promise.all(imagePromises);
-      
-      // Sort by most recent first
-      images.sort((a, b) => b.timestamp - a.timestamp);
-      
-      setUploadedImages(images);
+      // Images are stored in component state only
+      // In production, you could store image URLs in Firestore
+      setIsLoadingImages(false);
     } catch (error) {
       console.error('Error loading images:', error);
-      // If no images exist yet, that's okay
       setUploadedImages([]);
-    } finally {
       setIsLoadingImages(false);
     }
   };
@@ -1500,11 +1468,12 @@ export default function Page() {
                             How to use uploaded images
                         </h4>
                         <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                            <li>Images are uploaded to ImgBB (free image hosting service)</li>
                             <li>After uploading, click "Copy Path" to copy the image URL</li>
-                            <li>Paste the copied path into the "Event Image" field when creating/editing events</li>
-                            <li>The path will look like: <code className="bg-background px-1 rounded">/image.png</code></li>
-                            <li>Images are saved to the public folder with their original filename</li>
-                            <li>Uploading a file with the same name will overwrite the previous file</li>
+                            <li>Paste the URL into "Event Image" or "Team Member Image" fields</li>
+                            <li>URLs look like: <code className="bg-background px-1 rounded">https://i.ibb.co/...</code></li>
+                            <li>Images are publicly accessible and work globally</li>
+                            <li>Maximum file size: 5MB</li>
                         </ul>
                     </div>
                 </CardContent>
