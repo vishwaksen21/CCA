@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { writeFile } from 'fs/promises';
 import path from 'path';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
 
 export async function POST(request: NextRequest) {
   try {
@@ -44,6 +48,24 @@ export async function POST(request: NextRequest) {
     const publicPath = path.join(process.cwd(), 'public', filename);
     await writeFile(publicPath, buffer);
 
+    // Auto-push to GitHub (development/local only)
+    let gitPushed = false;
+    try {
+      const cwd = process.cwd();
+      
+      // Only auto-push in development (not production)
+      if (process.env.NODE_ENV !== 'production') {
+        await execAsync(`git add public/${filename}`, { cwd });
+        await execAsync(`git commit -m "Auto-upload: ${filename}"`, { cwd });
+        await execAsync('git push', { cwd });
+        gitPushed = true;
+        console.log(`✅ Image ${filename} automatically pushed to GitHub`);
+      }
+    } catch (gitError) {
+      console.log('Git auto-push skipped or failed:', gitError);
+      // Continue without failing the upload
+    }
+
     // Return the public URL
     const url = `/${filename}`;
 
@@ -51,7 +73,10 @@ export async function POST(request: NextRequest) {
       success: true,
       url,
       filename,
-      message: `✅ Image uploaded successfully! Saved to /public/${filename}`
+      message: gitPushed 
+        ? `✅ Image uploaded and auto-pushed to GitHub! Vercel will deploy.` 
+        : `✅ Image uploaded to /public/${filename}`,
+      autoPushed: gitPushed
     });
 
   } catch (error) {
