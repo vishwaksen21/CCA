@@ -47,23 +47,32 @@ export async function POST(request: NextRequest) {
     // Save to public folder
     const publicPath = path.join(process.cwd(), 'public', filename);
     await writeFile(publicPath, buffer);
+    console.log(`✅ File saved to: ${publicPath}`);
 
     // Auto-push to GitHub (development/local only)
     let gitPushed = false;
-    try {
-      const cwd = process.cwd();
-      
-      // Only auto-push in development (not production)
-      if (process.env.NODE_ENV !== 'production') {
+    let gitError = null;
+    
+    if (process.env.NODE_ENV !== 'production') {
+      try {
+        const cwd = process.cwd();
+        
+        console.log('Starting git add...');
         await execAsync(`git add public/${filename}`, { cwd });
+        
+        console.log('Starting git commit...');
         await execAsync(`git commit -m "Auto-upload: ${filename}"`, { cwd });
+        
+        console.log('Starting git push...');
         await execAsync('git push', { cwd });
+        
         gitPushed = true;
         console.log(`✅ Image ${filename} automatically pushed to GitHub`);
+      } catch (error) {
+        gitError = error instanceof Error ? error.message : 'Unknown git error';
+        console.log('Git auto-push failed (continuing anyway):', gitError);
+        // Don't fail the upload if git fails
       }
-    } catch (gitError) {
-      console.log('Git auto-push skipped or failed:', gitError);
-      // Continue without failing the upload
     }
 
     // Return the public URL
