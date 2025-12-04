@@ -124,14 +124,14 @@ export default function EventsPage() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
         >
-          <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 p-4">
-            <div className="relative w-full aspect-[3/4]">
+          <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 p-2 md:p-4">
+            <div className="relative w-full aspect-[3/4] max-h-[400px] md:max-h-none">
               <Image
                 src={event.imageUrl}
                 alt={`Event ${new Date(event.date).getFullYear()}`}
                 fill
                 className="object-cover rounded-lg transition-transform duration-300 hover:scale-[1.02]"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 640px) 90vw, (max-width: 768px) 45vw, (max-width: 1200px) 33vw, 33vw"
                 priority={index < 3}
               />
             </div>
@@ -151,40 +151,40 @@ export default function EventsPage() {
         transition={{ duration: 0.5, delay: index * 0.1 }}
       >
         <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
-          <CardHeader>
+          <CardHeader className="p-3 md:p-6">
             {event.imageUrl && (
-              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl shadow-md mb-4">
+              <div className="relative w-full aspect-[4/5] max-h-[350px] md:max-h-none overflow-hidden rounded-2xl shadow-md mb-4">
                 <Image
                   src={event.imageUrl}
                   alt={`${event.title} poster`}
                   fill
                   className="object-contain p-2 transition-transform duration-300 hover:scale-[1.02]"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 90vw, (max-width: 768px) 45vw, (max-width: 1200px) 33vw, 33vw"
                   priority={index === 0}
                 />
               </div>
             )}
-            <CardTitle className="font-headline text-xl text-primary">{event.title}</CardTitle>
-            <CardDescription>{event.description}</CardDescription>
+            <CardTitle className="font-headline text-lg md:text-xl text-primary">{event.title}</CardTitle>
+            <CardDescription className="text-sm">{event.description}</CardDescription>
           </CardHeader>
-          <CardContent className="flex-grow space-y-3">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="h-4 w-4" />
+          <CardContent className="flex-grow space-y-3 p-3 md:p-6 pt-0">
+            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+              <Calendar className="h-3 w-3 md:h-4 md:w-4" />
               <span>{new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Clock className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+              <Clock className="h-3 w-3 md:h-4 md:w-4" />
               <span>{event.time}</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <MapPin className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
+              <MapPin className="h-3 w-3 md:h-4 md:w-4" />
               <span>{event.location}</span>
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="p-3 md:p-6 pt-0">
             {new Date(event.date) >= today ? (
               <Button
-                className="w-full"
+                className="w-full text-sm"
                 onClick={() => {
                   if (event.registrationUrl) {
                     window.open(event.registrationUrl, '_blank');
@@ -196,7 +196,7 @@ export default function EventsPage() {
                 {event.isRegistered ? 'Registered' : 'Register Now'}
               </Button>
             ) : (
-              <Button className="w-full bg-gray-300 text-gray-700 cursor-not-allowed" disabled>
+              <Button className="w-full bg-gray-300 text-gray-700 cursor-not-allowed text-sm" disabled>
                 Event Ended
               </Button>
             )}
