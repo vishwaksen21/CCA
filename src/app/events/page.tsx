@@ -124,14 +124,14 @@ export default function EventsPage() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
         >
-          <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 p-2 md:p-4">
-            <div className="relative w-full aspect-[3/4] max-h-[400px] md:max-h-none">
+          <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 p-4">
+            <div className="relative w-full aspect-[3/4]">
               <Image
                 src={event.imageUrl}
                 alt={`Event ${new Date(event.date).getFullYear()}`}
                 fill
                 className="object-cover rounded-lg transition-transform duration-300 hover:scale-[1.02]"
-                sizes="(max-width: 640px) 90vw, (max-width: 768px) 45vw, (max-width: 1200px) 33vw, 33vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 priority={index < 3}
               />
             </div>
@@ -151,40 +151,40 @@ export default function EventsPage() {
         transition={{ duration: 0.5, delay: index * 0.1 }}
       >
         <Card className="flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
-          <CardHeader className="p-3 md:p-6">
+          <CardHeader>
             {event.imageUrl && (
-              <div className="relative w-full aspect-[4/5] max-h-[350px] md:max-h-none overflow-hidden rounded-2xl shadow-md mb-4">
+              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl shadow-md mb-4">
                 <Image
                   src={event.imageUrl}
                   alt={`${event.title} poster`}
                   fill
                   className="object-contain p-2 transition-transform duration-300 hover:scale-[1.02]"
-                  sizes="(max-width: 640px) 90vw, (max-width: 768px) 45vw, (max-width: 1200px) 33vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority={index === 0}
                 />
               </div>
             )}
-            <CardTitle className="font-headline text-lg md:text-xl text-primary">{event.title}</CardTitle>
-            <CardDescription className="text-sm">{event.description}</CardDescription>
+            <CardTitle className="font-headline text-xl text-primary">{event.title}</CardTitle>
+            <CardDescription>{event.description}</CardDescription>
           </CardHeader>
-          <CardContent className="flex-grow space-y-3 p-3 md:p-6 pt-0">
-            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
-              <Calendar className="h-3 w-3 md:h-4 md:w-4" />
+          <CardContent className="flex-grow space-y-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Calendar className="h-4 w-4" />
               <span>{new Date(event.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
             </div>
-            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
-              <Clock className="h-3 w-3 md:h-4 md:w-4" />
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Clock className="h-4 w-4" />
               <span>{event.time}</span>
             </div>
-            <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground">
-              <MapPin className="h-3 w-3 md:h-4 md:w-4" />
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <MapPin className="h-4 w-4" />
               <span>{event.location}</span>
             </div>
           </CardContent>
-          <CardFooter className="p-3 md:p-6 pt-0">
+          <CardFooter>
             {new Date(event.date) >= today ? (
               <Button
-                className="w-full text-sm"
+                className="w-full"
                 onClick={() => {
                   if (event.registrationUrl) {
                     window.open(event.registrationUrl, '_blank');
@@ -196,7 +196,7 @@ export default function EventsPage() {
                 {event.isRegistered ? 'Registered' : 'Register Now'}
               </Button>
             ) : (
-              <Button className="w-full bg-gray-300 text-gray-700 cursor-not-allowed text-sm" disabled>
+              <Button className="w-full bg-gray-300 text-gray-700 cursor-not-allowed" disabled>
                 Event Ended
               </Button>
             )}
@@ -209,19 +209,19 @@ export default function EventsPage() {
   return (
     <div className="container mx-auto px-4 py-12 md:px-6 lg:py-16">
       {/* Year Filter Buttons */}
-      <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-12">
+      <div className="flex flex-wrap justify-center gap-2 mb-8 md:mb-12">
         <Button
           onClick={() => setSelectedYear('all')}
           variant={selectedYear === 'all' ? 'default' : 'outline'}
-          className="font-semibold text-xs md:text-sm"
+          className="font-semibold text-sm"
           size="sm"
         >
-          All Events
+          All
         </Button>
         <Button
           onClick={() => setSelectedYear('2025')}
           variant={selectedYear === '2025' ? 'default' : 'outline'}
-          className="font-semibold text-xs md:text-sm"
+          className="font-semibold text-sm"
           size="sm"
         >
           2025
@@ -229,7 +229,7 @@ export default function EventsPage() {
         <Button
           onClick={() => setSelectedYear('2024')}
           variant={selectedYear === '2024' ? 'default' : 'outline'}
-          className="font-semibold text-xs md:text-sm"
+          className="font-semibold text-sm"
           size="sm"
         >
           2024
@@ -237,7 +237,7 @@ export default function EventsPage() {
         <Button
           onClick={() => setSelectedYear('2023')}
           variant={selectedYear === '2023' ? 'default' : 'outline'}
-          className="font-semibold text-xs md:text-sm"
+          className="font-semibold text-sm"
           size="sm"
         >
           2023
@@ -245,7 +245,7 @@ export default function EventsPage() {
         <Button
           onClick={() => setSelectedYear('2022')}
           variant={selectedYear === '2022' ? 'default' : 'outline'}
-          className="font-semibold text-xs md:text-sm"
+          className="font-semibold text-sm"
           size="sm"
         >
           2022
@@ -256,15 +256,15 @@ export default function EventsPage() {
       {upcoming.length > 0 && (
         <>
           <motion.div variants={fadeIn} initial="initial" animate="animate" className="text-center mb-8 md:mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tighter sm:text-5xl font-headline text-primary mb-2">
+            <h1 className="text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl font-headline text-primary mb-2">
               Upcoming Events
             </h1>
-            <p className="mx-auto max-w-[700px] text-sm md:text-base text-foreground/80 md:text-xl px-4">
+            <p className="mx-auto max-w-[700px] text-sm md:text-base lg:text-xl text-foreground/80 px-2">
               Join our exciting upcoming sessions and activities.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
             {upcoming.map(renderEventCard)}
           </div>
         </>
@@ -274,10 +274,10 @@ export default function EventsPage() {
       {!isHistoricalView && upcoming.length === 0 && (
         <>
           <motion.div variants={fadeIn} initial="initial" animate="animate" className="text-center mb-8 md:mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tighter sm:text-5xl font-headline text-primary mb-2">
+            <h1 className="text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl font-headline text-primary mb-2">
               Upcoming Events
             </h1>
-            <p className="mx-auto max-w-[700px] text-sm md:text-base text-foreground/80 md:text-xl px-4">
+            <p className="mx-auto max-w-[700px] text-sm md:text-base lg:text-xl text-foreground/80 px-2">
               No upcoming events for now
             </p>
           </motion.div>
@@ -288,21 +288,21 @@ export default function EventsPage() {
       {past.length > 0 && (
         <>
           <motion.div variants={fadeIn} initial="initial" animate="animate" className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight sm:text-4xl font-headline text-gray-800 mb-2">
+            <h2 className="text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl font-headline text-gray-800 mb-2">
               {isHistoricalView 
                 ? `${selectedYear} Events` 
                 : selectedYear === 'all' 
                   ? 'Past Events' 
                   : `${selectedYear} Events`}
             </h2>
-            <p className="mx-auto max-w-[700px] text-sm md:text-base text-foreground/70 md:text-lg px-4">
+            <p className="mx-auto max-w-[700px] text-sm md:text-base lg:text-lg text-foreground/70 px-2">
               {isHistoricalView 
                 ? `Explore our memorable events from ${selectedYear}.`
                 : 'Take a look back at our completed events and achievements.'}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 opacity-90">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 opacity-90">
             {past.map(renderEventCard)}
           </div>
         </>
@@ -312,10 +312,10 @@ export default function EventsPage() {
       {isHistoricalView && past.length === 0 && (
         <>
           <motion.div variants={fadeIn} initial="initial" animate="animate" className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight sm:text-4xl font-headline text-gray-800 mb-2">
+            <h2 className="text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl font-headline text-gray-800 mb-2">
               {selectedYear} Events
             </h2>
-            <p className="mx-auto max-w-[700px] text-sm md:text-base text-foreground/70 md:text-lg px-4">
+            <p className="mx-auto max-w-[700px] text-sm md:text-base lg:text-lg text-foreground/70 px-2">
               No events found for {selectedYear}.
             </p>
           </motion.div>
