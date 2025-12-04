@@ -29,6 +29,14 @@ import type {
   LeaderboardMember,
 } from './data-store';
 import type { ContactSubmission } from './mock-data';
+import {
+  announcements as defaultAnnouncements,
+  upcomingEvents as defaultEvents,
+  teamMembers as defaultTeamMembers,
+  milestones as defaultMilestones,
+  faqs as defaultFaqs,
+  leaderboard as defaultLeaderboard,
+} from './mock-data';
 
 // Collection names
 const COLLECTIONS = {
@@ -466,6 +474,82 @@ export const migrateLocalStorageToFirestore = async (): Promise<void> => {
     console.log('💡 You can now clear localStorage if desired');
   } catch (error) {
     console.error('❌ Migration failed:', error);
+    throw error;
+  }
+};
+
+// ==================== SEED FROM MOCK DATA ====================
+
+/**
+ * Initialize Firestore with data from mock-data.ts
+ * Use this to populate an empty Firestore database
+ */
+export const seedFirestoreFromMockData = async (): Promise<void> => {
+  try {
+    console.log('🌱 Starting to seed Firestore from mock-data.ts...');
+
+    // Check if events already exist
+    const eventsSnapshot = await getDocs(collection(db, COLLECTIONS.EVENTS));
+    
+    if (eventsSnapshot.empty) {
+      console.log('📅 Seeding events...');
+      for (const event of defaultEvents) {
+        await addEvent(event);
+      }
+      console.log(`✅ Seeded ${defaultEvents.length} events`);
+    } else {
+      console.log(`ℹ️  Events collection already has ${eventsSnapshot.size} documents. Skipping event seeding.`);
+    }
+
+    // Seed other collections only if empty
+    const announcementsSnapshot = await getDocs(collection(db, COLLECTIONS.ANNOUNCEMENTS));
+    if (announcementsSnapshot.empty) {
+      console.log('📢 Seeding announcements...');
+      for (const announcement of defaultAnnouncements) {
+        await addAnnouncement(announcement);
+      }
+      console.log(`✅ Seeded ${defaultAnnouncements.length} announcements`);
+    }
+
+    const teamSnapshot = await getDocs(collection(db, COLLECTIONS.TEAM_MEMBERS));
+    if (teamSnapshot.empty) {
+      console.log('👥 Seeding team members...');
+      for (const member of defaultTeamMembers) {
+        await addTeamMember(member);
+      }
+      console.log(`✅ Seeded ${defaultTeamMembers.length} team members`);
+    }
+
+    const milestonesSnapshot = await getDocs(collection(db, COLLECTIONS.MILESTONES));
+    if (milestonesSnapshot.empty) {
+      console.log('🎯 Seeding milestones...');
+      for (const milestone of defaultMilestones) {
+        await addMilestone(milestone);
+      }
+      console.log(`✅ Seeded ${defaultMilestones.length} milestones`);
+    }
+
+    const faqsSnapshot = await getDocs(collection(db, COLLECTIONS.FAQS));
+    if (faqsSnapshot.empty) {
+      console.log('❓ Seeding FAQs...');
+      for (const faq of defaultFaqs) {
+        await addFaq(faq);
+      }
+      console.log(`✅ Seeded ${defaultFaqs.length} FAQs`);
+    }
+
+    const leaderboardSnapshot = await getDocs(collection(db, COLLECTIONS.LEADERBOARD));
+    if (leaderboardSnapshot.empty) {
+      console.log('🏆 Seeding leaderboard...');
+      for (const member of defaultLeaderboard) {
+        await addLeaderboardMember(member);
+      }
+      console.log(`✅ Seeded ${defaultLeaderboard.length} leaderboard members`);
+    }
+
+    console.log('🎉 Seeding completed successfully!');
+  } catch (error) {
+    console.error('❌ Seeding failed:', error);
     throw error;
   }
 };
