@@ -130,7 +130,7 @@ export default function EventsPage() {
                 src={event.imageUrl}
                 alt={`Event ${new Date(event.date).getFullYear()}`}
                 fill
-                className="object-cover rounded-lg transition-transform duration-300 hover:scale-[1.02]"
+                className="object-contain rounded-lg transition-transform duration-300 hover:scale-[1.02]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 priority={index < 3}
               />
