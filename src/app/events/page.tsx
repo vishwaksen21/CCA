@@ -264,7 +264,7 @@ export default function EventsPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 max-w-md mx-auto sm:max-w-none">
             {upcoming.map(renderEventCard)}
           </div>
         </>
@@ -302,7 +302,7 @@ export default function EventsPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 opacity-90">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 opacity-90 max-w-md mx-auto sm:max-w-none">
             {past.map(renderEventCard)}
           </div>
         </>
