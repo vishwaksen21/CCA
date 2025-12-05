@@ -15,7 +15,7 @@ import { useAnnouncements, useMilestones } from '@/lib/data-store';
 //  Fade-up animation variants
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
-  animate: { opacity: 1, y: 0, transition: { duration: 1.0, ease: 'easeOut' } },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.80, ease: 'easeOut' } },
 };
 
 //  Hero images for slideshow
