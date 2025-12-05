@@ -58,7 +58,7 @@ export default function LeaderboardPage() {
           className="text-center mb-8 md:mb-10"
         >
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter font-headline text-primary">
-            🏆 Leaderboard
+            Leaderboard
           </h1>
           <p className="mx-auto max-w-[700px] text-foreground/70 text-sm md:text-base mt-3">
             Top performers based on CAP points earned
