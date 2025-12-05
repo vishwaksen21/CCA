@@ -84,8 +84,8 @@ export default function LeaderboardPage() {
                 >
                   <div className="relative mb-3 md:mb-4">
                     <div className="absolute -inset-1 bg-gradient-to-r from-slate-300 to-slate-400 rounded-full blur-sm opacity-60 animate-pulse"></div>
-                    <div className="relative h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20 lg:h-24 lg:w-24 border-[3px] border-slate-400 dark:border-slate-300 shadow-xl rounded-full bg-gradient-to-br from-slate-300 via-slate-400 to-slate-500 dark:from-slate-400 dark:via-slate-300 dark:to-slate-500 flex items-center justify-center">
-                      <User className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 lg:h-13 lg:w-13 text-white drop-shadow-md" strokeWidth={1.5} />
+                    <div className="relative h-14 w-14 sm:h-18 sm:w-18 md:h-20 md:w-20 lg:h-24 lg:w-24 border-[3px] border-slate-400 dark:border-slate-300 shadow-xl rounded-full bg-gradient-to-br from-slate-300 via-slate-400 to-slate-500 dark:from-slate-400 dark:via-slate-300 dark:to-slate-500 flex items-center justify-center">
+                      <User className="h-8 w-8 sm:h-10 sm:w-10 md:h-11 md:w-11 lg:h-13 lg:w-13 text-white drop-shadow-md" strokeWidth={1.5} />
                     </div>
                     <div className="absolute -bottom-1 -right-1 bg-slate-500 dark:bg-slate-400 rounded-full p-1.5 shadow-lg border-2 border-white dark:border-slate-800">
                       <Medal className="h-3.5 w-3.5 md:h-4 md:w-4 text-white" fill="white" />
@@ -109,7 +109,7 @@ export default function LeaderboardPage() {
                       </div>
                     )}
                   </div>
-                  <div className="h-18 sm:h-20 md:h-22 lg:h-24 w-full bg-gradient-to-b from-slate-300/80 to-slate-400/80 dark:from-slate-500/80 dark:to-slate-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[3px] border-slate-400 dark:border-slate-300 shadow-inner"></div>
+                  <div className="h-16 sm:h-20 md:h-22 lg:h-24 w-full bg-gradient-to-b from-slate-300/80 to-slate-400/80 dark:from-slate-500/80 dark:to-slate-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[3px] border-slate-400 dark:border-slate-300 shadow-inner"></div>
                 </motion.div>
               )}
 
@@ -128,8 +128,8 @@ export default function LeaderboardPage() {
                   </div>
                   <div className="relative mb-3 md:mb-4">
                     <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-400 rounded-full blur-lg opacity-75 animate-pulse"></div>
-                    <div className="relative h-20 w-20 sm:h-22 sm:w-22 md:h-24 md:w-24 lg:h-28 lg:w-28 border-[4px] border-yellow-500 dark:border-yellow-400 shadow-2xl rounded-full bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 dark:from-yellow-500 dark:via-amber-400 dark:to-yellow-600 flex items-center justify-center">
-                      <User className="h-11 w-11 sm:h-12 sm:w-12 md:h-13 md:w-13 lg:h-15 lg:w-15 text-white drop-shadow-lg" strokeWidth={1.5} />
+                    <div className="relative h-16 w-16 sm:h-22 sm:w-22 md:h-24 md:w-24 lg:h-28 lg:w-28 border-[4px] border-yellow-500 dark:border-yellow-400 shadow-2xl rounded-full bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 dark:from-yellow-500 dark:via-amber-400 dark:to-yellow-600 flex items-center justify-center">
+                      <User className="h-9 w-9 sm:h-12 sm:w-12 md:h-13 md:w-13 lg:h-15 lg:w-15 text-white drop-shadow-lg" strokeWidth={1.5} />
                     </div>
                     <div className="absolute -bottom-1 -right-1 bg-gradient-to-br from-yellow-500 to-amber-600 dark:from-yellow-400 dark:to-amber-500 rounded-full p-2 shadow-xl border-2 border-white dark:border-slate-800">
                       <Trophy className="h-4 w-4 md:h-5 md:w-5 text-white" fill="white" />
@@ -153,7 +153,7 @@ export default function LeaderboardPage() {
                       </div>
                     )}
                   </div>
-                  <div className="h-22 sm:h-24 md:h-26 lg:h-28 w-full bg-gradient-to-b from-yellow-400/80 via-amber-500/80 to-yellow-600/80 dark:from-yellow-500/80 dark:via-amber-400/80 dark:to-yellow-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[4px] border-yellow-500 dark:border-yellow-400 shadow-inner"></div>
+                  <div className="h-20 sm:h-24 md:h-26 lg:h-28 w-full bg-gradient-to-b from-yellow-400/80 via-amber-500/80 to-yellow-600/80 dark:from-yellow-500/80 dark:via-amber-400/80 dark:to-yellow-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[4px] border-yellow-500 dark:border-yellow-400 shadow-inner"></div>
                 </motion.div>
               )}
 
@@ -167,8 +167,8 @@ export default function LeaderboardPage() {
                 >
                   <div className="relative mb-3 md:mb-4">
                     <div className="absolute -inset-1 bg-gradient-to-r from-amber-600 to-orange-700 rounded-full blur-sm opacity-60 animate-pulse"></div>
-                    <div className="relative h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20 lg:h-24 lg:w-24 border-[3px] border-amber-700 dark:border-amber-500 shadow-xl rounded-full bg-gradient-to-br from-amber-600 via-orange-600 to-amber-800 dark:from-amber-500 dark:via-orange-500 dark:to-amber-700 flex items-center justify-center">
-                      <User className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 lg:h-13 lg:w-13 text-white drop-shadow-md" strokeWidth={1.5} />
+                    <div className="relative h-14 w-14 sm:h-18 sm:w-18 md:h-20 md:w-20 lg:h-24 lg:w-24 border-[3px] border-amber-700 dark:border-amber-500 shadow-xl rounded-full bg-gradient-to-br from-amber-600 via-orange-600 to-amber-800 dark:from-amber-500 dark:via-orange-500 dark:to-amber-700 flex items-center justify-center">
+                      <User className="h-8 w-8 sm:h-10 sm:w-10 md:h-11 md:w-11 lg:h-13 lg:w-13 text-white drop-shadow-md" strokeWidth={1.5} />
                     </div>
                     <div className="absolute -bottom-1 -right-1 bg-amber-800 dark:bg-amber-600 rounded-full p-1.5 shadow-lg border-2 border-white dark:border-slate-800">
                       <Medal className="h-3.5 w-3.5 md:h-4 md:w-4 text-white" fill="white" />
@@ -192,7 +192,7 @@ export default function LeaderboardPage() {
                       </div>
                     )}
                   </div>
-                  <div className="h-14 sm:h-16 md:h-18 lg:h-20 w-full bg-gradient-to-b from-amber-600/80 to-orange-700/80 dark:from-amber-500/80 dark:to-orange-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[3px] border-amber-700 dark:border-amber-500 shadow-inner"></div>
+                  <div className="h-12 sm:h-16 md:h-18 lg:h-20 w-full bg-gradient-to-b from-amber-600/80 to-orange-700/80 dark:from-amber-500/80 dark:to-orange-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[3px] border-amber-700 dark:border-amber-500 shadow-inner"></div>
                 </motion.div>
               )}
             </div>
