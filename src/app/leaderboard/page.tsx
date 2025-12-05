@@ -91,9 +91,9 @@ export default function LeaderboardPage() {
                       <Medal className="h-3.5 w-3.5 md:h-4 md:w-4 text-white" fill="white" />
                     </div>
                   </div>
-                  <div className="bg-white dark:bg-slate-800 rounded-xl px-3 py-2.5 md:px-4 md:py-3 text-center w-full border-2 border-slate-300 dark:border-slate-600 shadow-md">
+                  <div className="bg-white dark:bg-slate-800 rounded-xl px-2.5 py-2 md:px-4 md:py-3 text-center w-full border-2 border-slate-300 dark:border-slate-600 shadow-md">
                     <div className="text-2xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-300 dark:to-slate-400 bg-clip-text text-transparent mb-1">#2</div>
-                    <div className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-bold line-clamp-2 mb-2">
+                    <div className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-bold line-clamp-2 mb-1.5">
                       {topThree[1].name}
                     </div>
                     {topThree[1].badges.length > 0 && (
@@ -109,7 +109,7 @@ export default function LeaderboardPage() {
                       </div>
                     )}
                   </div>
-                  <div className="h-16 sm:h-20 md:h-22 lg:h-24 w-full bg-gradient-to-b from-slate-300/80 to-slate-400/80 dark:from-slate-500/80 dark:to-slate-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[3px] border-slate-400 dark:border-slate-300 shadow-inner"></div>
+                  <div className="h-14 sm:h-16 md:h-22 lg:h-24 w-full bg-gradient-to-b from-slate-300/80 to-slate-400/80 dark:from-slate-500/80 dark:to-slate-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[3px] border-slate-400 dark:border-slate-300 shadow-inner"></div>
                 </motion.div>
               )}
 
@@ -135,9 +135,9 @@ export default function LeaderboardPage() {
                       <Trophy className="h-4 w-4 md:h-5 md:w-5 text-white" fill="white" />
                     </div>
                   </div>
-                  <div className="bg-white dark:bg-slate-800 rounded-xl px-4 py-3 md:px-5 md:py-4 text-center w-full border-2 border-yellow-400 dark:border-yellow-500 shadow-xl">
+                  <div className="bg-white dark:bg-slate-800 rounded-xl px-3 py-2.5 md:px-5 md:py-4 text-center w-full border-2 border-yellow-400 dark:border-yellow-500 shadow-xl">
                     <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-600 via-amber-500 to-yellow-600 dark:from-yellow-400 dark:via-amber-400 dark:to-yellow-500 bg-clip-text text-transparent mb-1">👑 #1</div>
-                    <div className="text-sm md:text-base text-yellow-900 dark:text-yellow-200 font-bold line-clamp-2 mb-2">
+                    <div className="text-sm md:text-base text-yellow-900 dark:text-yellow-200 font-bold line-clamp-2 mb-1.5">
                       {topThree[0].name}
                     </div>
                     {topThree[0].badges.length > 0 && (
@@ -153,7 +153,7 @@ export default function LeaderboardPage() {
                       </div>
                     )}
                   </div>
-                  <div className="h-20 sm:h-24 md:h-26 lg:h-28 w-full bg-gradient-to-b from-yellow-400/80 via-amber-500/80 to-yellow-600/80 dark:from-yellow-500/80 dark:via-amber-400/80 dark:to-yellow-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[4px] border-yellow-500 dark:border-yellow-400 shadow-inner"></div>
+                  <div className="h-16 sm:h-20 md:h-26 lg:h-28 w-full bg-gradient-to-b from-yellow-400/80 via-amber-500/80 to-yellow-600/80 dark:from-yellow-500/80 dark:via-amber-400/80 dark:to-yellow-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[4px] border-yellow-500 dark:border-yellow-400 shadow-inner"></div>
                 </motion.div>
               )}
 
@@ -174,9 +174,9 @@ export default function LeaderboardPage() {
                       <Medal className="h-3.5 w-3.5 md:h-4 md:w-4 text-white" fill="white" />
                     </div>
                   </div>
-                  <div className="bg-white dark:bg-slate-800 rounded-xl px-3 py-2.5 md:px-4 md:py-3 text-center w-full border-2 border-amber-600 dark:border-amber-500 shadow-md">
+                  <div className="bg-white dark:bg-slate-800 rounded-xl px-2.5 py-2 md:px-4 md:py-3 text-center w-full border-2 border-amber-600 dark:border-amber-500 shadow-md">
                     <div className="text-2xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 dark:from-amber-500 dark:to-orange-500 bg-clip-text text-transparent mb-1">#3</div>
-                    <div className="text-xs md:text-sm text-amber-900 dark:text-amber-300 font-bold line-clamp-2 mb-2">
+                    <div className="text-xs md:text-sm text-amber-900 dark:text-amber-300 font-bold line-clamp-2 mb-1.5">
                       {topThree[2].name}
                     </div>
                     {topThree[2].badges.length > 0 && (
@@ -192,7 +192,7 @@ export default function LeaderboardPage() {
                       </div>
                     )}
                   </div>
-                  <div className="h-12 sm:h-16 md:h-18 lg:h-20 w-full bg-gradient-to-b from-amber-600/80 to-orange-700/80 dark:from-amber-500/80 dark:to-orange-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[3px] border-amber-700 dark:border-amber-500 shadow-inner"></div>
+                  <div className="h-10 sm:h-12 md:h-18 lg:h-20 w-full bg-gradient-to-b from-amber-600/80 to-orange-700/80 dark:from-amber-500/80 dark:to-orange-600/80 mt-3 md:mt-4 rounded-t-xl border-t-[3px] border-amber-700 dark:border-amber-500 shadow-inner"></div>
                 </motion.div>
               )}
             </div>
