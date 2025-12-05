@@ -63,6 +63,12 @@ export default function LeaderboardPage() {
           <p className="mx-auto max-w-[700px] text-foreground/70 text-sm md:text-base mt-3">
             Top performers based on CAP points earned
           </p>
+          <h2 className="text-xl md:text-2xl font-semibold text-foreground mt-6 mb-2">
+            What are CAP Points?
+          </h2>
+          <p className="mx-auto max-w-[800px] text-foreground/70 text-sm md:text-base">
+            Students attend events and earn CAP points throughout the year. At the end of the year, the top 3 students will receive exciting prizes!
+          </p>
         </motion.div>
 
         {/* Top 3 Podium */}
