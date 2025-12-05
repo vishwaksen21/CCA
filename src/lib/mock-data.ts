@@ -813,19 +813,14 @@ export const faqs = [
       'CCA is a student club at CMRIT dedicated to enhancing students’ aptitude, mental ability, personality, and critical thinking, ultimately supporting placement and career preparation.',
   },
   {
-    question: 'Who can join the CCA?',
+    question: 'How can I join CCA?',
     answer:
-      'Any student from any branch or year at CMRIT is welcome to join and participate in CCA activities.',
+      'Regardless of branch or year, you can join CCA and take part in our activities through our recruitment process.',
   },
   {
     question: 'What activities does CCA organize?',
     answer:
       'CCA conducts workshops, aptitude competitions, personality development sessions, and placement training events to help students prepare for placements and exams.',
-  },
-  {
-    question: 'How do I join?',
-    answer:
-      'Watch for CCA membership drives at the start of the academic year. Apply through announcements posted on the club website and social media.',
   },
   {
     question: 'Is there a rewards system in CCA?',
