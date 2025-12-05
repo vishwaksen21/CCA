@@ -563,42 +563,77 @@ export default function Page() {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setUploadError('Invalid file type. Only images (JPEG, PNG, GIF, WebP) are allowed.');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      setUploadError('File too large. Maximum size is 5MB.');
+      return;
+    }
+
     setIsUploading(true);
     setUploadError(null);
     setUploadSuccess(null);
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
+      // Convert image to base64 and upload to Imgur (anonymous upload - no API key needed)
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          // Remove data:image/xxx;base64, prefix
+          const base64String = result.split(',')[1];
+          resolve(base64String);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
 
-      const response = await fetch('/api/upload', {
+      // Upload to Imgur anonymously
+      const response = await fetch('https://api.imgur.com/3/image', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Authorization': 'Client-ID 546c25a59c58ad7',
+        },
+        body: JSON.stringify({
+          image: base64,
+          type: 'base64',
+        }),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Upload failed');
+      if (!response.ok || !data.success) {
+        throw new Error(data.data?.error || 'Upload failed');
       }
 
+      const imageUrl = data.data.link;
+      
+      setUploadSuccess(`Image uploaded successfully!`);
+      
       // Add to uploaded images list
       const newImage = {
-        url: data.url,
-        filename: data.filename,
+        filename: file.name,
+        url: imageUrl,
+        size: file.size,
         timestamp: Date.now()
       };
       setUploadedImages([newImage, ...uploadedImages]);
-      setUploadSuccess(data.message || `✅ Image uploaded: ${data.filename}`);
       
       // Clear success message after 3 seconds
       setTimeout(() => setUploadSuccess(null), 3000);
-
+      
       // Reset file input
       event.target.value = '';
     } catch (error) {
       console.error('Upload error:', error);
-      setUploadError(error instanceof Error ? error.message : 'Failed to upload image');
+      setUploadError(error instanceof Error ? error.message : 'Failed to upload image. Please try again or use a direct image URL.');
     } finally {
       setIsUploading(false);
     }

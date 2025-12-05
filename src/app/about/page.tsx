@@ -257,6 +257,18 @@ export default function AboutPage() {
                 description:
                   'Evolved into a leading initiative guiding hundreds toward confident, informed career choices.',
               },
+              {
+                year: '2024',
+                event: 'Bigger Goals, Stronger Impact',
+                description:
+                  'Took a leap into placements, higher studies, and defence guidance, while making soft-skill learning smarter and more fun!',
+              },
+              {
+                year: '2025',
+                event: 'Reaching New Heights',
+                description:
+                  'Growing stronger as the career launchpad for students, connecting talent to opportunities through events, mentoring, and real-world readiness.',
+              },
             ].map((milestone, index) => (
               <motion.div
                 key={index}

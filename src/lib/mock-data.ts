@@ -778,6 +778,7 @@ export const milestones = [
     event: 'Faculty Guidance',
     description: 'Faculty provided direction and support in professional and personal development.'
   }
+  
 ];
 
 export type BadgeInfo = {

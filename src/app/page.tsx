@@ -83,17 +83,17 @@ const cognitiveBoosters = [
   {
     title: 'Orientation',
     image: '/orie.png',
-    description: "Fuel your imagination and step into a world where creativity knows no bounds!",
+    description: "Where CCA Meets the Freshers! This is where we meet all the new faces, introduce ourselves, and give freshers a glimpse of what CCA is all about!",
   },
   {
     title: 'Student Club Expo',
     image: '/ori.png',
-    description: 'Join forces with peers and mentors to bring ambitious projects to life through teamwork.',
+    description: 'Explore More with CCA! A place where freshers can discover, connect, and explore more about opportunities, clubs, skills, and student life.',
   },
   {
     title: 'Recuitment',
     image: '/recu.png',
-    description: 'Join forces with peers and mentors to bring ambitious projects to life through teamwork.',
+    description: 'The Only Way to Get into CCA! Want to be a part of CCA? This is the door! Apply, impress, step in and stand out.',
   },
 ];
 
@@ -238,7 +238,9 @@ export default function Home() {
             WHAT IS CCA?
           </h2>
           <p className="max-w-3xl mx-auto text-lg text-foreground/80 mb-12">
-            The Center for Cognitive Activities (CCA) drives student growth through dynamic workshops, speaker sessions, and innovative initiatives. We empower students by helping them develop crucial skills, boost their career prospects, and connect with a strong professional network.
+            CCA is a hub that shapes futures—placements, higher studies, defence careers, and soft skills.
+We conduct events and workshops that include great learning with fun because we believe knowledge cannot be boring.
+                      This is where you learn, grow, and enjoy the journey.
           </p>
         </div>
         <div className="relative mt-12">
