@@ -56,7 +56,7 @@ export default function AboutPage() {
   // Alumni data for 2024 batch
   const alumni2024 = [
     {
-      name: 'Nikitha',
+      name: 'Nikita',
       role: 'President',
       imageUrl: '/nikitha.png',
       linkedin: 'https://www.linkedin.com/in/nikita-prabhudesai-38415a2b9/',
