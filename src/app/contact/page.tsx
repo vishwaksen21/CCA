@@ -87,7 +87,7 @@ export default function ContactPage() {
     {
       name: 'LinkedIn',
       icon: <Linkedin className="h-12 w-12 sm:h-16 sm:w-16" />,
-      href: 'https://www.linkedin.com/company/cca-cmrit',
+      href: 'https://www.linkedin.com/company/cca-cmrit/',
     },
   ];
 

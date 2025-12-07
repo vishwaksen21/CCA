@@ -1,6 +1,6 @@
 # CCA Hub - Center for Cognitive Activities
 
-[![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.1-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
 
@@ -73,11 +73,12 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 - **Forms:** React Hook Form + Zod validation
 
 ### Backend & Services
-- **Database:** [Firebase Firestore] - Real-time sync
-- **Authentication:** Firebase Auth
-- **Push Notifications:** OneSignal REST API
+- **Database:** [Firebase Firestore](https://firebase.google.com/docs/firestore) - Real-time NoSQL database
+- **Storage:** Firebase Storage - Image and file uploads
+- **Authentication:** Firebase Authentication - Email/Password & Google OAuth
+- **Push Notifications:** [OneSignal](https://onesignal.com/) - Web push notifications
 - **AI Integration:** [Genkit AI](https://github.com/firebase/genkit) with Google AI
-- **Hosting:** Vercel
+- **Hosting:** [Vercel](https://vercel.com/) - Edge deployment
 
 ### Development Tools
 - **Package Manager:** npm
@@ -99,7 +100,7 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 1. **Clone the repository**
    ```bash
    git clone https://github.com/vishwaksen21/CCA.git
-   cd CCA-1
+   cd CCA
    ```
 
 2. **Install dependencies**
@@ -108,11 +109,7 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
    ```
 
 3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Add your Firebase and API keys to `.env.local`:
+   Create a `.env.local` file in the root directory and add your Firebase and API keys:
    ```env
    NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
@@ -121,7 +118,8 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
    NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
    NEXT_PUBLIC_ADMIN_EMAILS=admin@cmrit.ac.in,cca@cmrit.ac.in
-   ONESIGNAL_REST_API_KEY=your_onesignal_key
+   NEXT_PUBLIC_ONESIGNAL_APP_ID=your_onesignal_app_id
+   ONESIGNAL_REST_API_KEY=your_onesignal_rest_api_key
    ```
    
    **📘 See [ADMIN_SETUP.md](./ADMIN_SETUP.md) for detailed Firebase setup instructions**
@@ -146,32 +144,44 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 ## 📁 Project Structure
 
 ```
-CCA-1/
-├── public/                 # Static assets (images, icons, etc.)
+CCA/
+├── public/                 # Static assets (images, icons, OneSignal workers)
+│   ├── 2022/              # Event images from 2022
+│   ├── 2023/              # Event images from 2023
+│   ├── 2024/              # Event images from 2024
+│   └── partners/          # Partner logos
 ├── src/
 │   ├── app/               # Next.js App Router pages
-│   │   ├── about/
-│   │   ├── admin/
-│   │   ├── contact/
-│   │   ├── events/
-│   │   ├── faq/
-│   │   ├── leaderboard/
-│   │   ├── partners/
-│   │   ├── updates/
+│   │   ├── about/         # About page
+│   │   ├── add-faqs/      # FAQ management page
+│   │   ├── admin/         # Admin dashboard
+│   │   ├── api/           # API routes (upload, notifications, etc.)
+│   │   ├── contact/       # Contact page
+│   │   ├── events/        # Events page
+│   │   ├── faq/           # FAQ page
+│   │   ├── leaderboard/   # Leaderboard page
+│   │   ├── partners/      # Partners page
+│   │   ├── test-notifications/  # Notification testing page
+│   │   ├── updates/       # Updates page
 │   │   ├── layout.tsx     # Root layout
-│   │   └── page.tsx       # Homepage
+│   │   ├── page.tsx       # Homepage
+│   │   └── providers.tsx  # Context providers
 │   ├── components/
+│   │   ├── admin/         # Admin-specific components
 │   │   ├── shared/        # Shared components (header, footer, etc.)
 │   │   └── ui/            # Shadcn UI components
+│   ├── contexts/          # React contexts (AuthContext)
 │   ├── hooks/             # Custom React hooks
 │   ├── lib/               # Utilities and configurations
 │   │   ├── firebase.ts    # Firebase setup
+│   │   ├── firestore-service.ts  # Firestore operations
 │   │   ├── mock-data.ts   # Mock data for development
 │   │   └── utils.ts       # Utility functions
 │   └── ai/                # Genkit AI integration
 ├── docs/
 │   └── blueprint.md       # Design system and feature specs
-├── .env.local             # Environment variables (not committed)
+├── firestore.rules         # Firestore security rules
+├── storage.rules           # Firebase Storage security rules
 ├── next.config.ts         # Next.js configuration
 ├── tailwind.config.ts     # Tailwind CSS configuration
 ├── tsconfig.json          # TypeScript configuration
@@ -292,7 +302,13 @@ This project is maintained by the CCA team at CMRIT. All rights reserved.
 
 **CCA Core Team 2024-2025**
 
-For queries, contact us at [cca@cmrit.ac.in](mailto:cca@cmrit.ac.in)
+For queries, contact us at [ccacmrit@gmail.com](mailto:ccacmrit@gmail.com)
+
+### Connect With Us
+- 🌐 Website: [cca-cmrit.vercel.app](https://cca-cmrit.vercel.app/)
+- 💼 LinkedIn: [linkedin.com/company/cca-cmrit](https://www.linkedin.com/company/cca-cmrit/)
+- 📸 Instagram: [@cca_cmrit](https://www.instagram.com/cca_cmrit)
+- 💬 WhatsApp: [Join our community](https://chat.whatsapp.com/FUYiGlm7jFG9iNJrFOnKNE)
 
 ---
 
@@ -306,7 +322,7 @@ For queries, contact us at [cca@cmrit.ac.in](mailto:cca@cmrit.ac.in)
 ---
 
 <div align="center">
-  <strong>Built with ❤️ by the CCA Team at CMRIT</strong>
+  <strong>Built by C Vishwak Sen, Technical Lead</strong>
   <br>
   <sub>Empowering students, one skill at a time.</sub>
 </div>

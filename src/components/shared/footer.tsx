@@ -13,7 +13,7 @@ import {
 import { FaWhatsapp } from 'react-icons/fa'; // ✅ WhatsApp icon
 
 const socialLinks = [
-  { href: 'https://www.linkedin.com', icon: Linkedin },
+  { href: 'https://www.linkedin.com/company/cca-cmrit/', icon: Linkedin },
   { href: 'https://www.instagram.com/cca_cmrit', icon: Instagram },
   {
     href: 'https://chat.whatsapp.com/FUYiGlm7jFG9iNJrFOnKNE?embedded=0',
