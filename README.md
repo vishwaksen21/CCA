@@ -3,6 +3,8 @@
 [![Next.js](https://img.shields.io/badge/Next.js-15.1-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
+[![Firebase](https://img.shields.io/badge/Firebase-11.9-orange?style=flat&logo=firebase)](https://firebase.google.com/)
+[![React](https://img.shields.io/badge/React-18.3-61dafb?style=flat&logo=react)](https://react.dev/)
 
 > **Empowering CMRIT students through placement preparation, defense awareness, higher studies guidance, and personality development.**
 
@@ -39,25 +41,32 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
 
 ## ✨ Features
 
-### Current Features
-- ✅ **Dynamic Homepage** - Hero slideshow, feature cards, and cognitive boosters
-- ✅ **Events Management** - Upcoming and past events with registration functionality
-- ✅ **Admin Dashboard** - Secure login with mock authentication
-- ✅ **Admin Authentication** - Email/Password login with session management
-- ✅ **Real-Time Data Sync** - Admin changes reflect instantly on public pages
-- ✅ **Responsive Design** - Mobile-first approach with smooth animations
-- ✅ **Dark/Light Theme** - User preference-based theming
-- ✅ **About Section** - Mission, team members, and achievements timeline
-- ✅ **Partners Page** - Showcase of collaboration partners
-- ✅ **FAQ Section** - Common questions and answers
-- 🔥 **Announcements & Milestones** - Real-time sync to home page
-- 🔥 **Team Ordering** - Drag-and-drop arrows in admin
-- 🔥 **Leaderboard** - Auto-calculated ranks, real-time updates
-- 🔥 **Push Notifications** - OneSignal REST API integration
+### Core Features ✅
+- **Dynamic Homepage** - Hero slideshow with smooth transitions, feature cards, and cognitive boosters section
+- **Events Management** - Comprehensive event catalog with year-wise filtering (2022-2025+) and registration
+- **Responsive Design** - Mobile-first approach with adaptive layouts and smooth Framer Motion animations
+- **Dark/Light Theme** - System-aware theme with manual toggle and persistent preferences
+- **About Section** - Mission statement, core team profiles, and interactive achievements timeline
+- **Partners Page** - Showcase of collaboration partners with responsive grid layout
+- **Contact Page** - Social media integration with WhatsApp, Instagram, and LinkedIn
+- **FAQ Section** - Searchable, categorized frequently asked questions with accordion UI
 
-### Upcoming Features
-- 🔄 **AI-Powered Features** - Genkit AI integration for personalized guidance
-- 🔄 **Advanced Analytics** - Event registrations, site visits, etc.
+### Admin Features 🔐
+- **Secure Authentication** - Firebase Auth with Email/Password and Google OAuth
+- **Admin Dashboard** - Comprehensive content management system
+- **Real-Time Data Sync** - Instant updates using Firebase Firestore
+- **Image Upload** - Firebase Storage integration for event photos and team member images
+- **Announcements & Milestones** - Create and manage homepage announcements
+- **Team Management** - Add/edit/reorder team members with drag-and-drop
+- **Leaderboard System** - CAP points tracking with automatic rank calculation
+- **Push Notifications** - Send web push notifications via OneSignal REST API
+
+### Upcoming Features 🔄
+- **AI-Powered Guidance** - Genkit AI integration for personalized career recommendations
+- **Event Registration System** - Online registration with payment gateway integration
+- **Email Notifications** - Automated event reminders and updates
+- **Student Dashboard** - Personalized profile with event history and CAP points
+- **Advanced Analytics** - Visitor insights, event metrics, and engagement tracking
 
 ---
 
@@ -300,7 +309,7 @@ This project is maintained by the CCA team at CMRIT. All rights reserved.
 
 ## 👥 Team
 
-**CCA Core Team 2024-2025**
+**CCA Core Team 2025-2026**
 
 For queries, contact us at [ccacmrit@gmail.com](mailto:ccacmrit@gmail.com)
 
