@@ -130,8 +130,6 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
    NEXT_PUBLIC_ONESIGNAL_APP_ID=your_onesignal_app_id
    ONESIGNAL_REST_API_KEY=your_onesignal_rest_api_key
    ```
-   
-   **📘 See [ADMIN_SETUP.md](./ADMIN_SETUP.md) for detailed Firebase setup instructions**
 
 4. **Run the development server**
    ```bash
@@ -143,58 +141,32 @@ With **1000+ active members** and **50+ events** annually, CCA has become a corn
    
    **Production:** [https://cca-cmrit.vercel.app](https://cca-cmrit.vercel.app)
 
-6. **Access Admin Dashboard** (Optional)
-   - Navigate to [http://localhost:3000/admin](http://localhost:3000/admin)
-   - Sign in with authorized admin credentials
-   - See [ADMIN_LOGIN_REFERENCE.md](./ADMIN_LOGIN_REFERENCE.md) for quick reference
-
 ---
 
 ## 📁 Project Structure
 
 ```
 CCA/
-├── public/                 # Static assets (images, icons, OneSignal workers)
-│   ├── 2022/              # Event images from 2022
-│   ├── 2023/              # Event images from 2023
-│   ├── 2024/              # Event images from 2024
-│   └── partners/          # Partner logos
+├── public/                # Static assets (event images, partner logos, icons)
 ├── src/
-│   ├── app/               # Next.js App Router pages
-│   │   ├── about/         # About page
-│   │   ├── add-faqs/      # FAQ management page
-│   │   ├── admin/         # Admin dashboard
-│   │   ├── api/           # API routes (upload, notifications, etc.)
-│   │   ├── contact/       # Contact page
-│   │   ├── events/        # Events page
-│   │   ├── faq/           # FAQ page
-│   │   ├── leaderboard/   # Leaderboard page
-│   │   ├── partners/      # Partners page
-│   │   ├── test-notifications/  # Notification testing page
-│   │   ├── updates/       # Updates page
-│   │   ├── layout.tsx     # Root layout
-│   │   ├── page.tsx       # Homepage
-│   │   └── providers.tsx  # Context providers
-│   ├── components/
-│   │   ├── admin/         # Admin-specific components
-│   │   ├── shared/        # Shared components (header, footer, etc.)
-│   │   └── ui/            # Shadcn UI components
-│   ├── contexts/          # React contexts (AuthContext)
-│   ├── hooks/             # Custom React hooks
-│   ├── lib/               # Utilities and configurations
-│   │   ├── firebase.ts    # Firebase setup
-│   │   ├── firestore-service.ts  # Firestore operations
-│   │   ├── mock-data.ts   # Mock data for development
-│   │   └── utils.ts       # Utility functions
-│   └── ai/                # Genkit AI integration
-├── docs/
-│   └── blueprint.md       # Design system and feature specs
-├── firestore.rules         # Firestore security rules
-├── storage.rules           # Firebase Storage security rules
-├── next.config.ts         # Next.js configuration
-├── tailwind.config.ts     # Tailwind CSS configuration
-├── tsconfig.json          # TypeScript configuration
-└── package.json           # Dependencies and scripts
+│   ├── app/              # Next.js App Router pages
+│   │   ├── about/        # About page
+│   │   ├── admin/        # Admin dashboard
+│   │   ├── api/          # API routes
+│   │   ├── contact/      # Contact page
+│   │   ├── events/       # Events page
+│   │   ├── faq/          # FAQ page
+│   │   ├── leaderboard/  # Leaderboard page
+│   │   ├── partners/     # Partners page
+│   │   └── updates/      # Updates page
+│   ├── components/       # Reusable React components
+│   ├── contexts/         # React Context providers
+│   ├── hooks/            # Custom React hooks
+│   ├── lib/              # Utilities and Firebase config
+│   └── ai/               # Genkit AI integration
+├── firestore.rules       # Firestore security rules
+├── storage.rules         # Firebase Storage rules
+└── package.json          # Dependencies and scripts
 ```
 
 ---
@@ -250,42 +222,11 @@ CCA/
 
 ## 🔐 Admin Access
 
-The CCA Hub includes a secure admin dashboard for managing content.
+**Admin Dashboard:** [https://cca-cmrit.vercel.app/admin](https://cca-cmrit.vercel.app/admin)
 
-### Access Admin Panel
-- **Local Development**: http://localhost:3000/admin
-- **Production**: https://cca-cmrit.vercel.app/admin
-
-### Authentication Methods
-- ✅ Email/Password authentication
-- ✅ Google Sign-In (OAuth)
-
-### Admin Features
-- Manage announcements and updates
-- Create and edit events
-- Update team member information
-- Manage FAQ content
-- View contact form submissions
-- Track CAP points and leaderboard
-
-### Setup Instructions
-📘 **Complete admin setup guide**: [ADMIN_SETUP.md](./ADMIN_SETUP.md)  
-🔑 **Quick reference**: [ADMIN_LOGIN_REFERENCE.md](./ADMIN_LOGIN_REFERENCE.md)
-
----
-
-## 🚦 Next Steps & Recommendations
-
-- Security: Update Firestore rules to restrict access
-- Admin Panel: Add search/filter, analytics, bulk actions
-- User Experience: Improve mobile UI, add loading/error states
-- Performance: Optimize images, add SEO tags, lazy loading
-- Accessibility: Keyboard navigation, ARIA labels
-- Code Quality: Add tests, linting, refactor large files
-- Monitoring: Add error logging (Sentry/LogRocket)
-- Documentation: Expand admin and contributor guides
-
-See [ADMIN_SETUP.md](./ADMIN_SETUP.md) and [FIREBASE_CHECKLIST.md](./FIREBASE_CHECKLIST.md) for setup and migration details.
+- Email/Password authentication via Firebase Auth
+- Google OAuth sign-in available
+- Manage events, announcements, team members, leaderboard, and push notifications
 
 ---
 
@@ -331,7 +272,10 @@ For queries, contact us at [ccacmrit@gmail.com](mailto:ccacmrit@gmail.com)
 ---
 
 <div align="center">
-  <strong>Built by C Vishwak Sen, Technical Lead</strong>
+  <h3>🚀 Created & Developed by <a href="https://github.com/vishwaksen21">C Vishwak Sen</a></h3>
+  <p><strong>Technical Lead, CCA CMRIT</strong></p>
   <br>
-  <sub>Empowering students, one skill at a time.</sub>
+  <p><em>Empowering students through innovative technology solutions</em></p>
+  <br>
+  <p>Built with ❤️ for the CCA Community</p>
 </div>
