@@ -277,5 +277,5 @@ For queries, contact us at [ccacmrit@gmail.com](mailto:ccacmrit@gmail.com)
   <br>
   <p><em>Empowering students through innovative technology solutions</em></p>
   <br>
-  <p>Built for the CCA Community</p>
+  <p>Built for CCA Community</p>
 </div>
