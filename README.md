@@ -273,7 +273,7 @@ For queries, contact us at [ccacmrit@gmail.com](mailto:ccacmrit@gmail.com)
 
 <div align="center">
   <h3>🚀 Created & Developed by <a href="https://github.com/vishwaksen21">C Vishwak Sen</a></h3>
-  <p><strong>Technical-Lead, CCA CMRIT</strong></p>
+  <p><strong>Technical Lead, CCA CMRIT</strong></p>
   <br>
   <p><em>Empowering students through innovative technology solutions</em></p>
   <br>
