@@ -127,7 +127,7 @@ export default function AboutPage() {
           <img
             src={member.imageUrl || '/placeholder.png'}
             alt={member.name}
-            className="w-24 h-24 md:w-28 md:h-28 object-cover rounded-full border-4 border-slate-700 shadow-xl"
+            className="w-24 h-24 md:w-28 md:h-28 object-cover rounded-full aspect-square border-4 border-slate-700 shadow-xl"
           />
         </div>
       </div>
