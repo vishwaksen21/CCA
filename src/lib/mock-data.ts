@@ -45,6 +45,41 @@ export const upcomingEvents: {
   registrations: string[];
   registrationUrl?: string;
 }[] = [
+  // 2026 Events
+  {
+    id: 'evt2026_3',
+    title: 'Dial A Degree',
+    date: '2026-04-02',
+    time: '2:00 PM - 4:00 PM',
+    location: '4th Floor, AV Hall',
+    description: 'Join us for the biggest tech event of the year featuring guest speakers and workshops.',
+    imageUrl: '/2026/event3.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+  {
+    id: 'evt2026_2',
+    title: 'The Right View',
+    date: '2026-03-18',
+    time: '2:00 PM - 4:00 PM',
+    location: '4th Floor, AV Hall',
+    description: 'A day-long hackathon focused on building innovative solutions with modern web technologies.',
+    imageUrl: '/2026/event2.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+  {
+    id: 'evt2026_1',
+    title: 'Are you ready to get SHORTLISTED?',
+    date: '2026-03-11',
+    time: '2:00 PM - 4:00 PM',
+    location: '4th Floor, CV 403-D block',
+    description: 'Learn the fundamentals of UI/UX design and create stunning user interfaces.',
+    imageUrl: '/2026/event1.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+
   // 2025 Events
   {
     id: 'evt8',
