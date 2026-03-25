@@ -45,7 +45,7 @@ export default function EventsPage() {
     const historicalEvents = mockEvents
       .filter(e => {
         const year = new Date(e.date).getFullYear();
-        return year >= 2022 && year <= 2024;
+        return year >= 2022 && year <= 2026;
       })
       .map(e => ({ ...e, isRegistered: false }));
     
