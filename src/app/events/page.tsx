@@ -73,10 +73,10 @@ export default function EventsPage() {
     const sortDesc = (arr: EventType[]) =>
       arr.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     
-    // Check if viewing a historical year (2022-2024)
+    // Check if viewing a historical year (2022-2025)
     const isHistoricalView = selectedYear !== 'all' && 
       parseInt(selectedYear) >= 2022 && 
-      parseInt(selectedYear) <= 2024;
+      parseInt(selectedYear) <= 2025;
     
     // For historical years, show all events as "past" (no upcoming split)
     if (isHistoricalView) {
@@ -181,26 +181,28 @@ export default function EventsPage() {
               <span>{event.location}</span>
             </div>
           </CardContent>
-          <CardFooter>
-            {new Date(event.date) >= today ? (
-              <Button
-                className="w-full"
-                onClick={() => {
-                  if (event.registrationUrl) {
-                    window.open(event.registrationUrl, '_blank');
-                  } else {
-                    handleRegister(event.id);
-                  }
-                }}
-              >
-                {event.isRegistered ? 'Registered' : 'Register Now'}
-              </Button>
-            ) : (
-              <Button className="w-full bg-gray-300 text-gray-700 cursor-not-allowed" disabled>
-                Event Ended
-              </Button>
-            )}
-          </CardFooter>
+          {new Date(event.date).getFullYear() >= 2026 && (
+            <CardFooter>
+              {new Date(event.date) >= today ? (
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    if (event.registrationUrl) {
+                      window.open(event.registrationUrl, '_blank');
+                    } else {
+                      handleRegister(event.id);
+                    }
+                  }}
+                >
+                  {event.isRegistered ? 'Registered' : 'Register Now'}
+                </Button>
+              ) : (
+                <Button className="w-full bg-gray-300 text-gray-700 cursor-not-allowed" disabled>
+                  Event Ended
+                </Button>
+              )}
+            </CardFooter>
+          )}
         </Card>
       </motion.div>
     );
@@ -217,6 +219,14 @@ export default function EventsPage() {
           size="sm"
         >
           All
+        </Button>
+        <Button
+          onClick={() => setSelectedYear('2026')}
+          variant={selectedYear === '2026' ? 'default' : 'outline'}
+          className="font-semibold text-sm"
+          size="sm"
+        >
+          2026
         </Button>
         <Button
           onClick={() => setSelectedYear('2025')}
