@@ -52,6 +52,7 @@ const COLLECTIONS = {
 // ==================== ANNOUNCEMENTS ====================
 
 export const getAnnouncements = async (): Promise<Announcement[]> => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) return defaultAnnouncements;
   const snapshot = await getDocs(collection(db, COLLECTIONS.ANNOUNCEMENTS));
   return snapshot.docs.map(doc => doc.data() as Announcement);
 };
@@ -59,6 +60,10 @@ export const getAnnouncements = async (): Promise<Announcement[]> => {
 export const subscribeToAnnouncements = (
   callback: (announcements: Announcement[]) => void
 ): (() => void) => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+    callback(defaultAnnouncements);
+    return () => {};
+  }
   const unsubscribe = onSnapshot(
     collection(db, COLLECTIONS.ANNOUNCEMENTS),
     (snapshot) => {
@@ -97,6 +102,7 @@ export const deleteAnnouncement = async (title: string): Promise<void> => {
 // ==================== EVENTS ====================
 
 export const getEvents = async (): Promise<Event[]> => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) return defaultEvents;
   const snapshot = await getDocs(collection(db, COLLECTIONS.EVENTS));
   return snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id } as Event));
 };
@@ -104,6 +110,10 @@ export const getEvents = async (): Promise<Event[]> => {
 export const subscribeToEvents = (
   callback: (events: Event[]) => void
 ): (() => void) => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+    callback(defaultEvents);
+    return () => {};
+  }
   const unsubscribe = onSnapshot(
     collection(db, COLLECTIONS.EVENTS),
     (snapshot) => {
@@ -147,6 +157,7 @@ export const registerForEvent = async (eventId: string, userEmail: string): Prom
 // ==================== TEAM MEMBERS ====================
 
 export const getTeamMembers = async (): Promise<TeamMember[]> => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) return defaultTeamMembers;
   const snapshot = await getDocs(collection(db, COLLECTIONS.TEAM_MEMBERS));
   return snapshot.docs.map(doc => doc.data() as TeamMember);
 };
@@ -154,6 +165,10 @@ export const getTeamMembers = async (): Promise<TeamMember[]> => {
 export const subscribeToTeamMembers = (
   callback: (members: TeamMember[]) => void
 ): (() => void) => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+    callback(defaultTeamMembers);
+    return () => {};
+  }
   const unsubscribe = onSnapshot(
     collection(db, COLLECTIONS.TEAM_MEMBERS),
     (snapshot) => {
@@ -213,6 +228,7 @@ export const reorderTeamMembers = async (members: TeamMember[]): Promise<void> =
 // ==================== MILESTONES ====================
 
 export const getMilestones = async (): Promise<Milestone[]> => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) return defaultMilestones;
   const snapshot = await getDocs(collection(db, COLLECTIONS.MILESTONES));
   return snapshot.docs.map(doc => doc.data() as Milestone);
 };
@@ -220,6 +236,10 @@ export const getMilestones = async (): Promise<Milestone[]> => {
 export const subscribeToMilestones = (
   callback: (milestones: Milestone[]) => void
 ): (() => void) => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+    callback(defaultMilestones);
+    return () => {};
+  }
   const unsubscribe = onSnapshot(
     collection(db, COLLECTIONS.MILESTONES),
     (snapshot) => {
@@ -258,6 +278,7 @@ export const deleteMilestone = async (year: string): Promise<void> => {
 // ==================== FAQS ====================
 
 export const getFaqs = async (): Promise<Faq[]> => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) return defaultFaqs;
   const snapshot = await getDocs(collection(db, COLLECTIONS.FAQS));
   return snapshot.docs.map(doc => doc.data() as Faq);
 };
@@ -265,6 +286,10 @@ export const getFaqs = async (): Promise<Faq[]> => {
 export const subscribeToFaqs = (
   callback: (faqs: Faq[]) => void
 ): (() => void) => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+    callback(defaultFaqs);
+    return () => {};
+  }
   const unsubscribe = onSnapshot(
     collection(db, COLLECTIONS.FAQS),
     (snapshot) => {
@@ -303,6 +328,7 @@ export const deleteFaq = async (question: string): Promise<void> => {
 // ==================== LEADERBOARD ====================
 
 export const getLeaderboard = async (): Promise<LeaderboardMember[]> => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) return defaultLeaderboard;
   const snapshot = await getDocs(
     query(collection(db, COLLECTIONS.LEADERBOARD), orderBy('points', 'desc'))
   );
@@ -314,8 +340,10 @@ export const getLeaderboard = async (): Promise<LeaderboardMember[]> => {
 
 export const subscribeToLeaderboard = (
   callback: (leaderboard: LeaderboardMember[]) => void
-): (() => void) => {
-  const unsubscribe = onSnapshot(
+): (() => void) => {  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+    callback(defaultLeaderboard);
+    return () => {};
+  }  const unsubscribe = onSnapshot(
     query(collection(db, COLLECTIONS.LEADERBOARD), orderBy('points', 'desc')),
     (snapshot) => {
       const leaderboard = snapshot.docs.map((doc, index) => ({
@@ -356,6 +384,7 @@ export const deleteLeaderboardMember = async (name: string): Promise<void> => {
 // ==================== CONTACT SUBMISSIONS ====================
 
 export const getContactSubmissions = async (): Promise<ContactSubmission[]> => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) return [];
   const snapshot = await getDocs(collection(db, COLLECTIONS.SUBMISSIONS));
   return snapshot.docs.map(doc => doc.data() as ContactSubmission);
 };
@@ -363,6 +392,10 @@ export const getContactSubmissions = async (): Promise<ContactSubmission[]> => {
 export const subscribeToContactSubmissions = (
   callback: (submissions: ContactSubmission[]) => void
 ): (() => void) => {
+  if (!db || typeof db !== 'object' || Object.keys(db).length === 0) {
+    callback([]);
+    return () => {};
+  }
   const unsubscribe = onSnapshot(
     collection(db, COLLECTIONS.SUBMISSIONS),
     (snapshot) => {

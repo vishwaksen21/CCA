@@ -23,12 +23,24 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+let app;
+let auth: ReturnType<typeof getAuth> | any;
+let db: ReturnType<typeof getFirestore> | any;
+let storage: ReturnType<typeof getStorage> | any;
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+if (firebaseConfig.apiKey) {
+  app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+  auth = getAuth(app);
+  db = getFirestore(app);
+  storage = getStorage(app);
+} else {
+  console.warn("Firebase API key is missing. Firebase features will not work.");
+  auth = {} as any;
+  db = {} as any;
+  storage = {} as any;
+}
+
+export { auth, db, storage };
 
 // Google Auth Provider
 const googleProvider = new GoogleAuthProvider();

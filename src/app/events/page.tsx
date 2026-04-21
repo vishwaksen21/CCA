@@ -40,22 +40,29 @@ export default function EventsPage() {
   const [selectedYear, setSelectedYear] = useState<string>('all');
   const { toast } = useToast();
 
-  // Combine Firestore events (2025+) with mock data events (2022-2024)
   useEffect(() => {
-    const historicalEvents = mockEvents
-      .filter(e => {
+    const allEventsMap = new Map();
+
+    // Add mock data events first
+    mockEvents
+      .filter((e) => {
         const year = new Date(e.date).getFullYear();
         return year >= 2022 && year <= 2026;
       })
-      .map(e => ({ ...e, isRegistered: false }));
-    
-    const currentEvents = firestoreEvents.map(e => ({ ...e, isRegistered: false }));
-    
-    // Combine and sort by date (newest first)
-    const allEvents = [...historicalEvents, ...currentEvents].sort(
+      .forEach((e) => {
+        allEventsMap.set(String(e.id), { ...e, isRegistered: false });
+      });
+
+    // Add/overwrite with Firestore events
+    firestoreEvents.forEach((e) => {
+      allEventsMap.set(String(e.id), { ...e, isRegistered: false });
+    });
+
+    // Extract values and sort by date (newest first)
+    const allEvents = Array.from(allEventsMap.values()).sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    
+
     setEvents(allEvents);
   }, [firestoreEvents]);
 
