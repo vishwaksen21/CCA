@@ -46,6 +46,7 @@ export const upcomingEvents: {
   registrationUrl?: string;
 }[] = [
   // 2026 Events
+
   {
     id: 'evt2026_3',
     title: 'Dial A Degree',
