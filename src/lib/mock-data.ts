@@ -46,6 +46,76 @@ export const upcomingEvents: {
   registrationUrl?: string;
 }[] = [
   // 2026 Events
+  
+  // Additional 2026 CCA Events
+
+  {
+    id: 'cca_extra_honor_kings',
+    title: 'Honor of Kings Campus Fest',
+    date: '2026-09-07',
+    time: '2pm-4pm',
+    location: 'CMRIT',
+    description: 'Play Honor of Kings on campus, join exciting activities and win official merchandise at the Kings Campus Fest.',
+    imageUrl: '/2026/hokiic.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+  {
+    id: 'cca_extra_ai_paytm',
+    title: 'AI Paytm Workshop',
+    date: '2026-09-16',
+    time: '2:00 PM - 4:00 PM',
+    location: 'Dhwani Auditorium, B Block',
+    description: 'A hands-on session on building AI agents, exploring LLMs, Transformers and Agentic AI with speaker Suman Mandal.',
+    imageUrl: '/2026/paytmiic.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+  {
+    id: 'cca_extra_corporate_crisis',
+    title: 'Corporate Crisis',
+    date: '2026-09-24',
+    time: '2:00 PM - 4:00 PM',
+    location: 'CV 301, D Block',
+    description: 'Step into the boardroom and tackle a high-pressure corporate crisis with quick thinking and teamwork.',
+    imageUrl: '/2026/corpo.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+  {
+    id: 'cca_extra_next_frontier',
+    title: 'The Next Frontier',
+    date: '2026-10-06',
+    time: '2:00 PM - 4:00 PM',
+    location: 'D Block, 4th Floor, AV Hall',
+    description: 'Go beyond the classroom and beyond the obvious in a session built to push your curiosity further.',
+    imageUrl: '/2026/frontiic.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+  {
+    id: 'cca_extra_recruitment',
+    title: 'CCA Recruitment',
+    date: '2026-10-14',
+    time: '2:00 PM - 4:00 PM',
+    location: 'D Block, Ground Floor, AV Hall',
+    description: 'CCA recruitment on 14th and 15th October for graphic design, video editing, content and media, and event management.',
+    imageUrl: '/2026/recruitiic.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+  {
+    id: 'cca_extra_spotlight',
+    title: 'The Spotlight Effect',
+    date: '2026-11-18',
+    time: '2:00 PM - 4:00 PM',
+    location: 'D Block, 4th Floor, AV Hall',
+    description: 'Explore how it feels to stand in the spotlight and learn to own the attention with confidence.',
+    imageUrl: '/2026/spotlight.png',
+    registrations: [],
+    registrationUrl: '#',
+  },
+
 
   {
     id: 'evt2026_3',
